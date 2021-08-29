@@ -13,7 +13,7 @@ function SinglePostHeader() {
                     megapixelsmike
                 </ItemContainer>
             </UserInfoContainer>
-            <Icon>menu</Icon>
+            <Icon>morehoriz</Icon>
 		</Container>
 	)
 }
