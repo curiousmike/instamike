@@ -6,4 +6,5 @@ export const Container = styled.div`
     justify-content: space-between;
     background-color: lightgray;
     border-bottom: 1px solid;
+    height: 64px;
 `

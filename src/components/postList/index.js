@@ -4,9 +4,9 @@ import SinglePost from '../singlePost';
 function PostList() {
 	return (
 		<Container>
-            <SinglePost />
-            <SinglePost />
-            <SinglePost />
+            <SinglePost imgSrc="flower.jpg"/>
+            <SinglePost imgSrc="bee.jpg"/>
+            <SinglePost imgSrc="trees.jpg"/>
 		</Container>
 	)
 }

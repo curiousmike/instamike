@@ -1,4 +1,4 @@
-import { Container, ActionContainer, ItemContainer } from './styles'
+import { Container, ItemContainer } from './styles'
 import Icon from '@material-ui/core/Icon';
 function Footer() {
 	return (

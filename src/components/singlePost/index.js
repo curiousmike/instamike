@@ -1,9 +1,14 @@
 import { Container } from './styles'
+import SinglePostHeader from './components/singlePostHeader';
+import SinglePostImage from './components/singlePostImage';
+import SinglePostFooter from './components/singlePostFooter';
 
-function SinglePost({ title, disabled, onSubmit }) {
+function SinglePost({ imgSrc }) {
 	return (
 		<Container>
-			Single Post
+			<SinglePostHeader />
+			<SinglePostImage imgSrc={imgSrc}/>
+			<SinglePostFooter />
 		</Container>
 	)
 }
