@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    height: 10vh;
+    border-bottom: 1px solid;
 `
 export const PopularPostersContainer = styled.div`
     display: flex;
-    width: 100%;
     justify-content: space-between;
     align-items: center;
     background-color: lightblue;
-    border-bottom: 1px solid;
+    height: 100%;
     overflow-x: auto;
 `
 

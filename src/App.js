@@ -6,15 +6,16 @@ import Footer from './components/footer'
 import styled from 'styled-components'
 
 const InnerContent = styled.div`
-  height: 90vh;
+  height: 80vh;
+  margin: 2px 0px 2px 0px;
 `
 
 function App() {
   return (
     <div className="App">
       <Header />
+      <PopularPosters />
       <InnerContent>
-        <PopularPosters />
         <PostList /> 
       </InnerContent>
       <Footer />

@@ -21,7 +21,6 @@ function PopularPosters() {
 					<Avatar alt="Insta Aimee" src="aimee.jpg"/>
 				</ItemContainer>
 				<ItemContainer>
-					{/* style={{width: '48px', height: '48px'}} */}
 					<Avatar alt="Insta justin" src="justin.jpg"/>
 				</ItemContainer>
 			</PopularPostersContainer>

@@ -5,6 +5,7 @@ function PostList() {
 	return (
 		<Container>
             <SinglePost imgSrc="flower.jpg"/>
+            <SinglePost imgSrc="sunset.jpg"/>
             <SinglePost imgSrc="bee.jpg"/>
             <SinglePost imgSrc="trees.jpg"/>
 		</Container>
