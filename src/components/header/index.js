@@ -1,27 +1,28 @@
-import { Container, ActionContainer, ItemContainer, CameraContainer } from './styles'
+import { Container, HeaderContainer, ActionContainer, ItemContainer, CameraContainer } from './styles'
 import { Icon, Tooltip } from '@material-ui/core';
 function Header({ title, disabled, onSubmit }) {
 	return (
 		<Container>
-            <CameraContainer>
-                <Tooltip title="Camera">
-	    		    <Icon>camera</Icon>
-                </Tooltip>
-            </CameraContainer>
-            InstaMike
-            <ActionContainer>
-                <ItemContainer>
-                    <Tooltip title="Go Live">
-                        <Icon>tv</Icon>
+            <HeaderContainer>
+                <CameraContainer>
+                    <Tooltip title="Camera">
+                        <Icon>camera</Icon>
                     </Tooltip>
-                </ItemContainer>
-                <ItemContainer>
-                    <Tooltip title="Share">
-                        <Icon>share</Icon>
-                    </Tooltip>
-                </ItemContainer>
-            </ActionContainer>
-
+                </CameraContainer>
+                InstaMike
+                <ActionContainer>
+                    <ItemContainer>
+                        <Tooltip title="Go Live">
+                            <Icon>tv</Icon>
+                        </Tooltip>
+                    </ItemContainer>
+                    <ItemContainer>
+                        <Tooltip title="Share">
+                            <Icon>share</Icon>
+                        </Tooltip>
+                    </ItemContainer>
+                </ActionContainer>
+            </HeaderContainer>
 		</Container>
 	)
 }

@@ -6,7 +6,7 @@ import Footer from './components/footer'
 import styled from 'styled-components'
 
 const InnerContent = styled.div`
-  flex: 1;
+  height: 90vh;
 `
 
 function App() {

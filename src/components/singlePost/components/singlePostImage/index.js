@@ -3,8 +3,8 @@ import { Container, ImageContainer } from './styles'
 function SinglePostImage({imgSrc}) {
 	return (
 		<Container>
-			<ImageContainer style={{height: '384px'}}>
-				<img alt="my alt" height="384" src={imgSrc}></img>
+			<ImageContainer>
+				<img alt="my alt" width="80%" src={imgSrc}></img>
 			</ImageContainer>
 		</Container>
 	)

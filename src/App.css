@@ -1,16 +1,7 @@
 .App {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
   max-width: 720px;
   background-color: bisque;
   margin: auto;
   overflow: hidden;
-}
-
-.InnerContent {
-  display: flex;
-  flex-direction: column;
-  color: yellow;
-  align-content: space-between;
 }

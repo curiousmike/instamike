@@ -1,12 +1,18 @@
 import styled from 'styled-components'
 
+  
 export const Container = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    border-top: 1px solid;
+    height: 5vh;
 `;
 
+export const FooterContainer = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    border-top: 1px solid;
+    align-items: center;
+`;
 export const ItemContainer = styled.div`
-    margin-right: 8px;
+    margin: 16px;
 `;
