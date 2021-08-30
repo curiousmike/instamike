@@ -5,7 +5,6 @@ export const Container = styled.div`
     width: 100%;
     justify-content: space-between;
     border-bottom: 1px solid;
-
 `
 export const CameraContainer = styled.div`
     margin-left: 8px;

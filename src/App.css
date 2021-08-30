@@ -1,9 +1,16 @@
 .App {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100vh;
   max-width: 720px;
   background-color: bisque;
   margin: auto;
-  height: 100%;
+  overflow: hidden;
+}
+
+.InnerContent {
+  display: flex;
+  flex-direction: column;
+  color: yellow;
+  align-content: space-between;
 }

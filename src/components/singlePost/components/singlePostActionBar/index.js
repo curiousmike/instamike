@@ -1,21 +1,29 @@
 import { Container, FooterActionContainer, ItemContainer } from './styles'
-import Icon from '@material-ui/core/Icon';
+import { Icon, Tooltip } from '@material-ui/core';
 
 function SinglePostActionBar() {
 	return (
 		<Container>
 			<FooterActionContainer>
 				<ItemContainer>
-					<Icon>favorite</Icon>
+	                <Tooltip title="Add Favorite">
+						<Icon>favorite</Icon>
+					</Tooltip>
 				</ItemContainer>
 				<ItemContainer>
-					<Icon>chat</Icon>
+					<Tooltip title="Add Comment">
+						<Icon>chat</Icon>
+					</Tooltip>
 				</ItemContainer>
 				<ItemContainer>
-					<Icon>share</Icon>
+					<Tooltip title="Share">
+						<Icon>share</Icon>
+					</Tooltip>
 				</ItemContainer>
 				<ItemContainer>
-					<Icon>bookmark</Icon>
+					<Tooltip title="Bookmark">
+						<Icon>bookmark</Icon>
+					</Tooltip>
 				</ItemContainer>
 			</FooterActionContainer>
 		</Container>
