@@ -4,6 +4,7 @@ function Header({ title, disabled, onSubmit }) {
 	return (
 		<Container>
             <HeaderContainer>
+                <h1>Media</h1>
                 <CameraContainer>
                     <Tooltip title="Camera">
                         <Icon>camera</Icon>

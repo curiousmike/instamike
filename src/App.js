@@ -5,7 +5,7 @@ import PostList from './components/postList';
 import Footer from './components/footer'
 import styled from 'styled-components'
 
-const InnerContent = styled.div`
+const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
 `

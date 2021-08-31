@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.header`
     height: 5vh;
     background-color: yellow;
     border-bottom: 1px solid;
