@@ -11,6 +11,26 @@ const InnerContent = styled.div`
 `
 
 function App() {
+  const goHome = () => {
+    console.log ('go home');
+  }
+  
+  const doSearch = () => {
+    console.log ('do search');
+  }
+
+  const addImage = () => {
+    console.log ('add image');
+  }
+
+  const addFavorite = () => {
+    console.log ('add favorite');
+  }
+
+  const goYou = () => {
+    console.log ('go you');
+  }
+
   return (
     <div className="App">
       <Header />
@@ -18,7 +38,12 @@ function App() {
       <InnerContent>
         <PostList /> 
       </InnerContent>
-      <Footer />
+      <Footer 
+      goHome = {() => goHome()}
+      doSearch = {() => doSearch()}
+      addImage = {() => addImage()}
+      addFavorite= {() => addFavorite()}
+      goYou = {() => goYou()}/>
     </div>
   );
 }

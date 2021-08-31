@@ -1,8 +1,9 @@
 import { Container,UserInfoContainer, ItemContainer } from './styles'
 import Avatar from '@material-ui/core/Avatar';
-import Icon from '@material-ui/core/Icon';
+import { IconButton, Tooltip } from '@material-ui/core';
+import IconHoriz from '@material-ui/icons/MoreHoriz';
 
-function SinglePostHeader() {
+function SinglePostHeader({openMenu}) {
 	return (
 		<Container>
             <UserInfoContainer>
@@ -13,7 +14,11 @@ function SinglePostHeader() {
                     megapixelsmike
                 </ItemContainer>
             </UserInfoContainer>
-            <Icon>morehoriz</Icon>
+            <Tooltip title="Menu">
+                <IconButton aria-label="home" onClick = {()=>console.log('open menu')}>
+                    <IconHoriz />
+                </IconButton>
+            </Tooltip>
 		</Container>
 	)
 }

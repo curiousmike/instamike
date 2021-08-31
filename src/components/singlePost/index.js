@@ -7,11 +7,27 @@ import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
 
 function SinglePost({ imgSrc }) {
+	const addFavorite = () => {
+		console.log('add favorite');
+	}
+	const addComment = () => {
+		console.log('add Comment');
+	}
+	const doShare = () => {
+		console.log('doShare');
+	}
+	const doBookmark = () => {
+		console.log('do bookmark');
+	}
 	return (
 		<Container>
 			<SinglePostHeader />
 			<SinglePostImage imgSrc={imgSrc}/>
-			<SinglePostActionBar />
+			<SinglePostActionBar 
+				addFavorite={()=>addFavorite()}
+				addComment={()=>addComment()}
+				doShare={()=>doShare()}
+				doBookmark={()=>doBookmark()} />
 			<SinglePostDetails />
 			<SinglePostComments />
 			<SinglePostDateFooter />
