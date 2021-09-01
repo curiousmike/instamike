@@ -1,9 +1,13 @@
 import {useState} from 'react';
 import { Container} from './styles'
 import Comment from '../comment';
+import ReplyComment from '../replyComment';
+import { IconButton } from '@material-ui/core';
+import IconExpandLess from '@material-ui/icons/ExpandLess';
+import IconExpandMore from '@material-ui/icons/ExpandMore';
 
 // import Icon from '@material-ui/core/Icon';
-const commentData = [
+const mockCommentData = [
     {
         id: 1,
         userId: 1,
@@ -26,18 +30,25 @@ const commentData = [
 
 function SinglePostComments() {
     const [commentsExpanded, setCommentsExpanded] = useState(false);
-	
+	const [commentData, setCommentData] = useState(mockCommentData);
 	const expandComments = () => {
 		setCommentsExpanded(!commentsExpanded);
 	}
-
+	
+	const addNewComment = (newComment) => {
+		setCommentData(commentData=>[...commentData, {id: 4, userId: 4, timeStamp: 789, comment: newComment}]);
+	}
 	return (
-		<Container onClick={()=>expandComments()}>
+		<Container>
             View all 12 comments
+			<IconButton aria-label="home" onClick = {()=>expandComments()}>
+				{commentsExpanded ? <IconExpandMore /> : <IconExpandLess />}
+			</IconButton>
 			{commentsExpanded && 
 				commentData.map(comment=>(
 				<Comment comment={comment}/>
 			))}
+			{commentsExpanded && <ReplyComment addComment={addNewComment}/>}
 		</Container>
 	)
 }
