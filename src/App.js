@@ -13,6 +13,7 @@ const InnerContent = styled.main`
 function App() {
   const goHome = () => {
     console.log ('go home');
+    //element.scrollTo(0,0);
   }
   
   const doSearch = () => {
