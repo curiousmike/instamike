@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* box-sizing: border-box ensures margin occurs outside and padding occurs inside*/
 * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
