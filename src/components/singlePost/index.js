@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import { Container } from './styles'
 import SinglePostHeader from './components/singlePostHeader';
 import SinglePostImage from './components/singlePostImage';
@@ -5,22 +6,32 @@ import SinglePostActionBar from './components/singlePostActionBar';
 import SinglePostDetails from './components/singlePostDetails';
 import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
+import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 
 function SinglePost({ imgSrc }) {
+    const [dialogTitle, setDialogTitle] = useState(null);
 	const addFavorite = () => {
-		console.log('add favorite');
+		setDialogTitle('add favorite post');
 	}
 	const addComment = () => {
-		console.log('add Comment');
+		setDialogTitle('add Comment');
 	}
 	const doShare = () => {
-		console.log('doShare');
+		setDialogTitle('doShare');
 	}
 	const doBookmark = () => {
-		console.log('do bookmark');
+		setDialogTitle('do bookmark');
 	}
 	return (
 		<Container>
+			<Dialog open={dialogTitle !== null}>
+				<DialogTitle id="simple">{dialogTitle}</DialogTitle>
+				<DialogActions>
+					<Button onClick={()=>setDialogTitle(null)} color="primary">
+						Close
+					</Button>
+				</DialogActions>
+			</Dialog>
 			<SinglePostHeader />
 			<SinglePostImage imgSrc={imgSrc}/>
 			<SinglePostActionBar 

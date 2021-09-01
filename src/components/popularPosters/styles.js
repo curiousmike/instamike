@@ -11,6 +11,7 @@ export const PopularPostersContainer = styled.div`
     background-color: lightblue;
     height: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
 `
 
 export const ItemContainer = styled.div`

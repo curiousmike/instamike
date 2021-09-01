@@ -2,7 +2,7 @@ import { Container, NumberOfLikes, PosterName} from './styles'
 
 // import Icon from '@material-ui/core/Icon';
 
-function SinglePostComments() {
+function SinglePostDetails() {
 	return (
 		<Container>
             <NumberOfLikes>2789 likes</NumberOfLikes>
@@ -10,4 +10,4 @@ function SinglePostComments() {
 		</Container>
 	)
 }
-export default SinglePostComments;
+export default SinglePostDetails;
