@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import Header from './components/header';
 import PopularPosters from './components/popularPosters';
@@ -11,9 +12,10 @@ const InnerContent = styled.main`
 `
 
 function App() {
+  const contentContainer = React.createRef();
+  
   const goHome = () => {
-    console.log ('go home');
-    //element.scrollTo(0,0);
+    contentContainer.current.scrollTo(0,0);
   }
   
   const doSearch = () => {
@@ -37,7 +39,7 @@ function App() {
       <Header />
       <PopularPosters />
       <InnerContent>
-        <PostList /> 
+        <PostList theRef={contentContainer} /> 
       </InnerContent>
       <Footer 
       goHome = {() => goHome()}

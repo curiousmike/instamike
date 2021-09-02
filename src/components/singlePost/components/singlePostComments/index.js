@@ -45,8 +45,8 @@ function SinglePostComments() {
 				{commentsExpanded ? <IconExpandMore /> : <IconExpandLess />}
 			</IconButton>
 			{commentsExpanded && 
-				commentData.map(comment=>(
-				<Comment comment={comment}/>
+				commentData.map( (comment, index)=>(
+				<Comment comment={comment} key={index}/>
 			))}
 			{commentsExpanded && <ReplyComment addComment={addNewComment}/>}
 		</Container>

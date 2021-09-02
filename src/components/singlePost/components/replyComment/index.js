@@ -22,7 +22,7 @@ function ReplyComment({addComment}) {
 	return (
 		<Container>
             <form noValidate autoComplete="off">
-                <TextField id="standard-basic" value={textInput} label="Reply" onKeyDown={keyDown} onChange={handleChange}/>
+                <TextField id="standard-basic" value={textInput || ''} label="Reply" onKeyDown={keyDown} onChange={handleChange}/>
             </form>
 		</Container>
 	)
