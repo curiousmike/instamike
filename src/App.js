@@ -1,8 +1,10 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 import './App.css';
 import Header from './components/header';
 import PopularPosters from './components/popularPosters';
 import PostList from './components/postList';
+import UserProfileView from './components/userProfileView';
 import Footer from './components/footer'
 import styled from 'styled-components'
 
@@ -10,12 +12,17 @@ const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
 `
-
 function App() {
   const contentContainer = React.createRef();
+  const [userProfileView, setUserProfileView] = useState(false);
+
+  useEffect(() => {
+    console.log('userProfileView = ', userProfileView);
+  }, [userProfileView])
   
   const goHome = () => {
-    contentContainer.current.scrollTo(0,0);
+    setUserProfileView(false);
+    if (contentContainer?.current)    contentContainer.current.scrollTo(0,0);
   }
   
   const doSearch = () => {
@@ -31,16 +38,19 @@ function App() {
   }
 
   const goYou = () => {
-    console.log ('go you');
+    setUserProfileView(true);
   }
 
   return (
     <div className="App">
       <Header />
-      <PopularPosters />
-      <InnerContent>
-        <PostList theRef={contentContainer} /> 
-      </InnerContent>
+      {!userProfileView && <PopularPosters />}
+      {!userProfileView && (  
+          <InnerContent>
+            <PostList theRef={contentContainer} /> 
+          </InnerContent>
+      )}
+      {userProfileView && <UserProfileView />}
       <Footer 
       goHome = {() => goHome()}
       doSearch = {() => doSearch()}
