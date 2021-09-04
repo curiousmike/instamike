@@ -118,10 +118,10 @@ const userPosts = [
 	},
 ];
 
-function UserProfileView() {
+function UserProfileView({userId}) {
 	return (
 		<Container>
-            <UserProfileHeader />
+            <UserProfileHeader userId={userId}/>
 			<UserPostGrid posts={userPosts}/>
 		</Container>
 	)

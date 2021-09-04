@@ -10,7 +10,6 @@ import styled from 'styled-components'
 
 const InnerContent = styled.main`
   height: 80vh;
-  // flex: 1;
   margin: 2px 0px 2px 0px;
 `
 function App() {
@@ -51,13 +50,14 @@ function App() {
             <PostList theRef={contentContainer} /> 
           </InnerContent>
       )}
-      {userProfileView && <UserProfileView />}
+      {userProfileView && <UserProfileView userId={1} />}
       <Footer 
-      goHome = {() => goHome()}
-      doSearch = {() => doSearch()}
-      addImage = {() => addImage()}
-      addFavorite= {() => addFavorite()}
-      goYou = {() => goYou()}/>
+        goHome = {() => goHome()}
+        doSearch = {() => doSearch()}
+        addImage = {() => addImage()}
+        addFavorite= {() => addFavorite()}
+        goYou = {() => goYou()}
+      />
     </div>
   );
 }

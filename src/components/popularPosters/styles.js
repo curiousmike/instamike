@@ -6,7 +6,7 @@ export const Container = styled.div`
 `
 export const PopularPostersContainer = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     background-color: #fae1dd;
     height: 100%;

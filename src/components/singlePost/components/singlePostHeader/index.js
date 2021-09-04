@@ -4,10 +4,11 @@ import Avatar from '@material-ui/core/Avatar';
 import UserQuickActionMenu from '../userQuickActionMenu';
 import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
+import mockUserData from '../../../../mockData/mockUserData.js';
 
-function SinglePostHeader({openMenu}) {
+function SinglePostHeader({userId}) {
     const [anchorEl, setAnchorEl] = useState(null);
-    
+    const userData = mockUserData.filter(obj=>{ return obj.id === userId})[0];
     const handleMenuOpen = (event) => {
         console.log('handl menu open');
         setAnchorEl(event.currentTarget);
@@ -23,10 +24,10 @@ function SinglePostHeader({openMenu}) {
 		<Container>
             <UserInfoContainer>
                 <ItemContainer>
-                    <Avatar alt="Insta Mike" src="me.jpg" />
+                    <Avatar alt={userData.name} src={userData.avatar} />
                 </ItemContainer>
                 <ItemContainer>
-                    megapixelsmike
+                    {userData.name}
                 </ItemContainer>
             </UserInfoContainer>
             <Tooltip title="Menu">

@@ -7,7 +7,7 @@ function UserPostGrid({posts}) {
 			<MainImageContainer>
 			{
 				posts.map( (post, index)=>(
-				<ImageContainer>
+				<ImageContainer key={index}>
 					<img className = "ImgClass"
 						src={post.image}
 						alt={'the alt'}
