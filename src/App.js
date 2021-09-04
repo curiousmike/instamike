@@ -10,6 +10,7 @@ import styled from 'styled-components'
 
 const InnerContent = styled.main`
   height: 80vh;
+  // flex: 1;
   margin: 2px 0px 2px 0px;
 `
 function App() {
