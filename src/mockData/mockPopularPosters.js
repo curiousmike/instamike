@@ -5,27 +5,27 @@ const mockPopularPosters = [
 	 	avatar: 'me.jpg',
 	},
 	{ 
-		id: 1,
+		id: 2,
 		name: 'Liamazing',
 	 	avatar: 'liam.jpg',
 	},
 	{ 
-		id: 2,
+		id: 3,
 		name: 'NightowlHiker',
 	 	avatar: 'deedee.jpg',
 	},
 	{ 
-		id: 3,
+		id: 4,
 		name: 'CushionMaker',
 	 	avatar: 'zac.jpg',
 	},
 	{ 
-		id: 4,
+		id: 5,
 		name: 'FlowerPot',
 	 	avatar: 'aimee.jpg',
 	},
 	{ 
-		id: 5,
+		id: 6,
 		name: 'GoldenSun',
 	 	avatar: 'justin.jpg',
 	},

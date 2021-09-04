@@ -15,9 +15,9 @@ const InnerContent = styled.main`
 function App() {
   const contentContainer = React.createRef();
   const [userProfileView, setUserProfileView] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState(1);
 
   useEffect(() => {
-    console.log('userProfileView = ', userProfileView);
   }, [userProfileView])
   
   const goHome = () => {
@@ -41,16 +41,21 @@ function App() {
     setUserProfileView(true);
   }
 
+  const onSelectUser = (userId) => {
+    setCurrentUserId(userId);
+    setUserProfileView(true);
+  }
+
   return (
     <div className="App">
       <Header />
-      {!userProfileView && <PopularPosters />}
+      {!userProfileView && <PopularPosters onSelect={onSelectUser}/>}
       {!userProfileView && (  
           <InnerContent>
             <PostList theRef={contentContainer} /> 
           </InnerContent>
       )}
-      {userProfileView && <UserProfileView userId={1} />}
+      {userProfileView && <UserProfileView userId={currentUserId} />}
       <Footer 
         goHome = {() => goHome()}
         doSearch = {() => doSearch()}

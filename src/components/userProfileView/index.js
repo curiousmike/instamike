@@ -5,6 +5,7 @@ import UserPostGrid from './userPostGrid';
 const userPosts = [
 	{
 		id: 1,
+		userId: 1,
 		timestamp: 1,
 		description: 'an image i captured',
 		likes: [],
@@ -13,6 +14,7 @@ const userPosts = [
 	},
 	{
 		id: 2,
+		userId: 1,
 		timestamp: 2,
 		description: 'an image i captured',
 		likes: [],
@@ -21,6 +23,7 @@ const userPosts = [
 	},
 	{
 		id: 3,
+		userId: 2,
 		timestamp: 3,
 		description: 'an image i captured',
 		likes: [],
@@ -29,6 +32,7 @@ const userPosts = [
 	},
 	{
 		id: 4,
+		userId: 2,
 		timestamp: 4,
 		description: 'an image i captured',
 		likes: [],
@@ -37,6 +41,7 @@ const userPosts = [
 	},
 	{
 		id: 5,
+		userId: 3,
 		timestamp: 5,
 		description: 'an image i captured',
 		likes: [],
@@ -45,6 +50,7 @@ const userPosts = [
 	},
 	{
 		id: 6,
+		userId: 3,
 		timestamp: 6,
 		description: 'an image i captured',
 		likes: [],
@@ -54,6 +60,7 @@ const userPosts = [
 
 	{
 		id: 7,
+		userId: 4,
 		timestamp: 7,
 		description: 'an image i captured',
 		likes: [],
@@ -62,6 +69,7 @@ const userPosts = [
 	},
 	{
 		id: 8,
+		userId: 4,
 		timestamp: 8,
 		description: 'an image i captured',
 		likes: [],
@@ -70,6 +78,7 @@ const userPosts = [
 	},
 	{
 		id: 9,
+		userId: 5,
 		timestamp: 9,
 		description: 'an image i captured',
 		likes: [],
@@ -78,6 +87,7 @@ const userPosts = [
 	},
 	{
 		id: 10,
+		userId: 5,
 		timestamp: 10,
 		description: 'an image i captured',
 		likes: [],
@@ -86,6 +96,7 @@ const userPosts = [
 	},
 	{
 		id: 11,
+		userId: 6,
 		timestamp: 11,
 		description: 'an image i captured',
 		likes: [],
@@ -94,6 +105,7 @@ const userPosts = [
 	},
 	{
 		id: 12,
+		userId: 6,
 		timestamp: 12,
 		description: 'an image i captured',
 		likes: [],
@@ -102,6 +114,7 @@ const userPosts = [
 	},
 	{
 		id: 13,
+		userId: 1,
 		timestamp: 13,
 		description: 'an image i captured',
 		likes: [],
@@ -110,6 +123,7 @@ const userPosts = [
 	},
 	{
 		id: 14,
+		userId: 1,
 		timestamp: 14,
 		description: 'an image i captured',
 		likes: [],
@@ -119,10 +133,11 @@ const userPosts = [
 ];
 
 function UserProfileView({userId}) {
+    const postData = userPosts.filter(obj=>{ return obj.userId === userId});
 	return (
 		<Container>
             <UserProfileHeader userId={userId}/>
-			<UserPostGrid posts={userPosts}/>
+			<UserPostGrid posts={postData}/>
 		</Container>
 	)
 }
