@@ -3,6 +3,7 @@ import styled from 'styled-components'
   
 export const Container = styled.footer`
     height: 5vh;
+    background-color: #fae1dd;
 `;
 
 export const FooterContainer = styled.div`

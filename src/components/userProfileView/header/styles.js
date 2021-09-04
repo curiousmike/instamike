@@ -5,6 +5,7 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
+    background-color: #fec89a;
 `;
 export const ItemContainer = styled.div`
     margin: 12px;

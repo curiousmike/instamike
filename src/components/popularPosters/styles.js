@@ -8,7 +8,7 @@ export const PopularPostersContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: lightblue;
+    background-color: #fae1dd;
     height: 100%;
     overflow-x: auto;
     overflow-y: hidden;

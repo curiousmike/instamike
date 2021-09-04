@@ -4,7 +4,7 @@ function SinglePostImage({imgSrc}) {
 	return (
 		<Container>
 			<ImageContainer>
-				<img alt="my alt" width="90%" src={imgSrc}></img>
+				<img alt="my alt" width="100%" src={imgSrc}></img>
 			</ImageContainer>
 		</Container>
 	)

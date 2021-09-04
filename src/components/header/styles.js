@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.header`
     height: 5vh;
-    background-color: yellow;
+    background-color: #d8e2dc;
     border-bottom: 1px solid;
     display: flex;
 `
