@@ -5,10 +5,10 @@ import mockPopularPosters from '../../mockData/mockPopularPosters';
 function PopularPosters({onSelect}) {
 	return (
 		<Container>
-			<PopularPostersContainer>
+			<PopularPostersContainer >
 				{ mockPopularPosters.map( (poster, index)=>(
                     <ItemContainer key={index} onClick={()=>onSelect(poster)}>
-						<Avatar alt={poster.name} src={poster.avatar} />
+						<Avatar alt={poster.name} src={poster.avatar}/>
 					</ItemContainer>
                 )) }
 			</PopularPostersContainer>

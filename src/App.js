@@ -13,18 +13,19 @@ const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
 `
+const youUser = { 
+  id: 1,
+  name: 'MegapixelsMike',
+  avatar: 'me.jpg',
+  posts: 50,
+  followers: 120,
+  following: 45,
+};
+
 function App() {
   const contentContainer = React.createRef();
   const [userProfileView, setUserProfileView] = useState(false);
-  const [currentUser, setCurrentUser] = useState(
-    { 
-      id: 1,
-      name: 'MegapixelsMike',
-      avatar: 'me.jpg',
-      posts: 50,
-      followers: 120,
-      following: 45,
-    });
+  const [currentUser, setCurrentUser] = useState(youUser);
   useEffect(() => {
   }, [userProfileView])
   
@@ -46,6 +47,7 @@ function App() {
   }
 
   const goYou = () => {
+    setCurrentUser(youUser);
     setUserProfileView(true);
   }
 
@@ -70,6 +72,7 @@ function App() {
         addImage = {() => addImage()}
         addFavorite= {() => addFavorite()}
         goYou = {() => goYou()}
+        youUser = {youUser}
       />
     </div>
   );
