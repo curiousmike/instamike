@@ -13,7 +13,7 @@ function SinglePost({ post, selectUser }) {
 	const {userId, postId, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
 	const user = mockUserData.filter(object=> {return object.id === userId})[0];
-	console.log('user = ', user);
+	console.log('<SinglePost user = ', user);
 	const addFavorite = () => {
 		setDialogTitle('add favorite post');
 	}

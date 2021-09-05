@@ -4,7 +4,7 @@ import HeaderItem from '../headerItem';
 import Avatar from '@material-ui/core/Avatar';
 import mockUserData from '../../../mockData/mockUserData.js';
 
-function UserProfileHeader({user}) {
+function UserProfileHeader({user, onSelectPosts, onSelectFollowers}) {
     const userData = mockUserData.filter(obj=>{ return obj.id === user.id})[0];
 	return (
 		<Container>
@@ -23,10 +23,10 @@ function UserProfileHeader({user}) {
                     </FullNameContainer>
                 </RowContainer>
                 <RowContainer>
-                    <ItemContainer>
+                    <ItemContainer onClick={onSelectPosts}>
                         <HeaderItem number={userData.posts} label={'Posts'} />
                     </ItemContainer>
-                    <ItemContainer>
+                    <ItemContainer onClick={onSelectFollowers}>
                         <HeaderItem number={userData.followers} label={'Followers'} />
                     </ItemContainer>
                     <ItemContainer>
