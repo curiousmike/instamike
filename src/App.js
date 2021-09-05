@@ -5,6 +5,7 @@ import Header from './components/header';
 import PopularPosters from './components/popularPosters';
 import PostList from './components/postList';
 import UserProfileView from './components/userProfileView';
+import mockPostListData from './mockData/mockPostListData.js';
 import Footer from './components/footer'
 import styled from 'styled-components'
 
@@ -59,7 +60,7 @@ function App() {
       {!userProfileView && <PopularPosters onSelect={onSelectUser}/>}
       {!userProfileView && (  
           <InnerContent>
-            <PostList theRef={contentContainer} selectUser={onSelectUser} /> 
+            <PostList postData={mockPostListData} theRef={contentContainer} selectUser={onSelectUser} /> 
           </InnerContent>
       )}
       {userProfileView && <UserProfileView user={currentUser} />}
