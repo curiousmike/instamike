@@ -6,10 +6,14 @@ import SinglePostActionBar from './components/singlePostActionBar';
 import SinglePostDetails from './components/singlePostDetails';
 import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
+import mockUserData from '../../mockData/mockUserData';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 
-function SinglePost({ userId, postId, imgSrc, selectUser }) {
+function SinglePost({ post, selectUser }) {
+	const {userId, postId, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
+	const user = mockUserData.filter(object=> {return object.id === userId})[0];
+	console.log('user = ', user);
 	const addFavorite = () => {
 		setDialogTitle('add favorite post');
 	}
@@ -33,14 +37,14 @@ function SinglePost({ userId, postId, imgSrc, selectUser }) {
 				</DialogActions>
 			</Dialog>
 			<SinglePostHeader userId={userId} selectUser={(user)=>selectUser(user)} />
-			<SinglePostImage imgSrc={imgSrc}/>
+			<SinglePostImage imgSrc={image}/>
 			<SinglePostActionBar 
 				addFavorite={()=>addFavorite()}
 				addComment={()=>addComment()}
 				doShare={()=>doShare()}
 				doBookmark={()=>doBookmark()} />
-			<SinglePostDetails />
-			<SinglePostComments />
+			<SinglePostDetails user={user} post={post} onSelectUser={selectUser}/>
+			<SinglePostComments user={user}/>
 			<SinglePostDateFooter />
 		</Container>
 	)

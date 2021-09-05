@@ -12,3 +12,7 @@ export const PosterName = styled.span`
     font-weight: 700;
     margin-top: 8px;
 `
+
+export const DescriptionContainer = styled.span`
+margin-left: 8px;
+`;

@@ -7,9 +7,7 @@ function PostList({theRef, postData, selectUser}) {
 				{ postData.map( (post, index)=>(
                     <SinglePost
                         key={index}
-                        userId={post.userId}
-                        postId={post.postId}
-                        imgSrc={post.image}
+                        post={post}
                         selectUser={selectUser}
                     />
                 )) }
