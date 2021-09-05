@@ -25,3 +25,8 @@ export const ActionContainer = styled.div`
     justify-content: space-between;
     align-content: space-between;
 `;
+
+export const AppNameContainer = styled.div`
+    font-family: 'Pacifico', cursive;
+    font-size: 24px;
+`;

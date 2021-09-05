@@ -1,4 +1,5 @@
-import { Container, HeaderContainer, ActionContainer, ItemContainer, CameraContainer } from './styles'
+import { Container, HeaderContainer, ActionContainer, 
+    ItemContainer, CameraContainer, AppNameContainer } from './styles'
 import { Icon, Tooltip } from '@material-ui/core';
 function Header({ title, disabled, onSubmit }) {
 	return (
@@ -10,7 +11,7 @@ function Header({ title, disabled, onSubmit }) {
                         <Icon>camera</Icon>
                     </Tooltip>
                 </CameraContainer>
-                InstaMike
+                <AppNameContainer>InstaMike</AppNameContainer>
                 <ActionContainer>
                     <ItemContainer>
                         <Tooltip title="Go Live">
