@@ -13,17 +13,19 @@ export const AvatarContainer = styled.div`
     margin-left: 12px;
 `;
 export const ItemContainer = styled.div`
-    margin: 12px 12px 12px 0px;
+    margin: 4px 4px 4px 0px;
 `;
 
 export const RightContainer = styled.div`
     display: flex;
     flex-direction: column;
+    height: 100%;
+    justify-content: center;
 `;
 
 export const NameContainer = styled.div`
-    font-size: 14px;
-    padding: 8px 8px 8px 0px;
+    font-size: 12px;
+    padding: 8px 2px 2px 0px;
 `;
 
 export const FullNameContainer = styled.div`
@@ -36,5 +38,5 @@ export const RowContainer = styled.div`
 
 export const DescriptionContainer = styled.div`
     font-size: 10px;
-    padding: 8px 8px 8px 0px;
+    padding: 0px 2px 2px 16px;
 `;

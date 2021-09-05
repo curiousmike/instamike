@@ -10,7 +10,7 @@ function UserProfileHeader({user}) {
 		<Container>
             <ItemContainer>
                 <AvatarContainer>
-                    <Avatar alt={userData.name} src={userData.avatar} style={{width: '96px', height: '96px'}}/>
+                    <Avatar alt={userData.name} src={userData.avatar} style={{width: '10vh', height: '10vh'}}/>
                 </AvatarContainer>
             </ItemContainer>
             <RightContainer>
@@ -33,12 +33,13 @@ function UserProfileHeader({user}) {
                         <HeaderItem number={userData.following} label={'Following'} />
                     </ItemContainer>
                 </RowContainer>                
+            </RightContainer>
+            <RightContainer>
                 <RowContainer>
                     <DescriptionContainer>
                         {userData.description ? userData.description : 'No description'}
                     </DescriptionContainer>
                 </RowContainer>
-
             </RightContainer>
 
 		</Container>

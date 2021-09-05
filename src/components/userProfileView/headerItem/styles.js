@@ -7,11 +7,11 @@ export const Item = styled.div`
     flex-direction: column;
 `
 export const Number = styled.div`
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
 `;
 
 export const Label = styled.div`
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 300;
 `;
