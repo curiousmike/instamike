@@ -2,7 +2,7 @@ import { Container } from './styles'
 import SinglePost from '../singlePost';
 import mockPostListData from '../../mockData/mockPostListData.js';
 
-function PostList({theRef}) {
+function PostList({theRef, selectUser}) {
 	return (
 		<Container ref={theRef}>
 				{ mockPostListData.map( (post, index)=>(
@@ -11,6 +11,7 @@ function PostList({theRef}) {
                         userId={post.userId}
                         postId={post.postId}
                         imgSrc={post.imgSrc}
+                        selectUser={selectUser}
                     />
                 )) }
 		</Container>

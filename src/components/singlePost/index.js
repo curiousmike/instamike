@@ -8,7 +8,7 @@ import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 
-function SinglePost({ userId, postId, imgSrc }) {
+function SinglePost({ userId, postId, imgSrc, selectUser }) {
     const [dialogTitle, setDialogTitle] = useState(null);
 	const addFavorite = () => {
 		setDialogTitle('add favorite post');
@@ -32,7 +32,7 @@ function SinglePost({ userId, postId, imgSrc }) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-			<SinglePostHeader userId={userId} />
+			<SinglePostHeader userId={userId} selectUser={(user)=>selectUser(user)} />
 			<SinglePostImage imgSrc={imgSrc}/>
 			<SinglePostActionBar 
 				addFavorite={()=>addFavorite()}

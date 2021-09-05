@@ -6,7 +6,7 @@ import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
 import mockUserData from '../../../../mockData/mockUserData.js';
 
-function SinglePostHeader({userId}) {
+function SinglePostHeader({userId, selectUser}) {
     const [anchorEl, setAnchorEl] = useState(null);
     const userData = mockUserData.filter(obj=>{ return obj.id === userId})[0];
     const handleMenuOpen = (event) => {
@@ -23,7 +23,7 @@ function SinglePostHeader({userId}) {
 	return (
 		<Container>
             <UserInfoContainer>
-                <ItemContainer>
+                <ItemContainer onClick={()=>selectUser(userData)}>
                     <Avatar alt={userData.name} src={userData.avatar} />
                 </ItemContainer>
                 <ItemContainer>

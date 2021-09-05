@@ -7,7 +7,7 @@ function PopularPosters({onSelect}) {
 		<Container>
 			<PopularPostersContainer>
 				{ mockPopularPosters.map( (poster, index)=>(
-                    <ItemContainer key={index} onClick={()=>onSelect(poster.id)}>
+                    <ItemContainer key={index} onClick={()=>onSelect(poster)}>
 						<Avatar alt={poster.name} src={poster.avatar} />
 					</ItemContainer>
                 )) }
