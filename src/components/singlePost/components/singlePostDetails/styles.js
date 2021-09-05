@@ -13,6 +13,6 @@ export const PosterName = styled.span`
     margin-top: 8px;
 `
 
-export const DescriptionContainer = styled.span`
+export const DescriptionContainer = styled.div`
 margin-left: 8px;
 `;

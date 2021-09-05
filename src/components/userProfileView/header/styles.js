@@ -6,6 +6,7 @@ export const Container = styled.div`
     align-items: center;
     overflow: hidden;
     background-color: #fec89a;
+    height: 10vh;
 `;
 export const AvatarContainer = styled.div`
     margin-right: 12px;
