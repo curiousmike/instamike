@@ -1,12 +1,23 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+height: 30vh;
+`;
+export const TopContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    // align-items: center;
     overflow: hidden;
     background-color: #fec89a;
-    height: 10vh;
+    height: 15vh;
+`;
+export const BottomContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    overflow: hidden;
+    background-color: #fec89a;
+    height: 15vh;
 `;
 export const AvatarContainer = styled.div`
     margin-right: 12px;
@@ -37,6 +48,6 @@ export const RowContainer = styled.div`
 `;
 
 export const DescriptionContainer = styled.div`
-    font-size: 10px;
+    font-size: 15px;
     padding: 0px 2px 2px 16px;
 `;

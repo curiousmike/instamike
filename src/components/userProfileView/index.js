@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from './styles'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import UserProfileHeader from './header';
 import UserPostGrid from './userPostGrid';
 import FollowView from './followView';
@@ -14,6 +14,18 @@ function UserProfileView({user, onSelectUser}) {
 	const [viewingFollowing, setViewingFollowing] = useState(false);
 	const contentContainer = React.createRef();
     const postData = mockUserPosts.filter(obj=>{ return obj.userId === user.id});
+	console.log('\n\n\nUserProfileView [ postList, postGrid, Followers, Following = ', viewingPostList, viewingPostGrid, viewingFollowers, viewingFollowing);
+
+	useEffect(() => {
+		resetToGridView();
+	}, [user]);
+
+	const resetToGridView = () => {
+		setViewingPostList(false);
+		setViewingPostGrid(true);
+		setViewingFollowers(false);
+		setViewingFollowing(false);
+	}
 
 	const onSelectImage = (image) => {
 		console.log('<UserProfileView onSelectImage');
@@ -52,7 +64,7 @@ function UserProfileView({user, onSelectUser}) {
 			{ viewingPostGrid && 
 				<UserPostGrid posts={postData} onSelectImage={(image)=>onSelectImage(image)}/>
 			}
-			{ viewingPostList && <PostList postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
+			{ viewingPostList && <PostList isProfile={true} postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
 			{ (viewingFollowers || viewingFollowing) && 
 			<FollowView 
 				user={user}

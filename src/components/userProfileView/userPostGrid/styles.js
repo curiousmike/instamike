@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    height: 75vh;
+    height: 55vh;
 `;
 
 export const MainImageContainer = styled.div`
@@ -16,7 +16,7 @@ export const MainImageContainer = styled.div`
 
 export const ImageContainer = styled.div`
     width: 33%;
-    height: 25%;
-    padding: 16px;
+    height: 33%;
+    padding: 4px;
 `;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import './App.css';
 import Header from './components/header';
-import PopularPosters from './components/popularPosters';
+import UserStories from './components/userStories';
 import PostList from './components/postList';
 import UserProfileView from './components/userProfileView';
 import mockPostListData from './mockData/mockPostListData.js';
@@ -20,8 +20,6 @@ function App() {
   const contentContainer = React.createRef();
   const [userProfileView, setUserProfileView] = useState(false);
   const [currentUser, setCurrentUser] = useState(youUser);
-  useEffect(() => {
-  }, [userProfileView])
   
   const goHome = () => {
     setUserProfileView(false);
@@ -53,13 +51,13 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {!userProfileView && <PopularPosters onSelect={onSelectUser}/>}
+      {!userProfileView && <UserStories onSelect={onSelectUser}/>}
       {!userProfileView && (  
           <InnerContent>
-            <PostList postData={mockPostListData} theRef={contentContainer} selectUser={onSelectUser} /> 
+            <PostList isProfile={false} postData={mockPostListData} theRef={contentContainer} selectUser={onSelectUser} /> 
           </InnerContent>
       )}
-      {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} />}
+      {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser}/>}
       <Footer 
         goHome = {() => goHome()}
         doSearch = {() => doSearch()}

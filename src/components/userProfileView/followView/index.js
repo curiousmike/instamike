@@ -8,7 +8,6 @@ function FollowView({user, onSelectUser, followers}) {
     const dense = false;
     const secondary = false;
     let users;
-    console.log('user = ', user);
     if (followers) {
         users = user.followers.map((item)=>{
             const user = mockUserData.filter(userData=> {return userData.id === item})[0];
@@ -23,6 +22,7 @@ function FollowView({user, onSelectUser, followers}) {
 
 	return (
 		<Container>
+            { followers ? 'Follwers' : 'Following'}
             <List dense={dense} style={{width: '100%'}}>
                 { users.map( (user, index)=>(
                     <ListItem onClick={()=>onSelectUser(user)} key={index}>

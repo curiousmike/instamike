@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    height: 80vh;
     overflow-y: scroll;
     scrollbar-width: thin;
     // scrollbar-color: #6969dd #e0e0e0;

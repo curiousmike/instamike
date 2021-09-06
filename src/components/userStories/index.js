@@ -1,19 +1,19 @@
-import { Container, PopularPostersContainer, ItemContainer } from './styles'
+import { Container, UserStoriesContainer, ItemContainer } from './styles'
 import Avatar from '@material-ui/core/Avatar';
 import mockUserData from '../../mockData/mockUserData';
 
-function PopularPosters({onSelect}) {
+function UserStories({onSelect}) {
 	return (
 		<Container>
-			<PopularPostersContainer >
+			<UserStoriesContainer >
 				{ mockUserData.map( (poster, index)=>(
                     <ItemContainer key={index} onClick={()=>onSelect(poster)}>
 						<Avatar alt={poster.name} src={poster.avatar}/>
 					</ItemContainer>
                 )) }
-			</PopularPostersContainer>
+			</UserStoriesContainer>
 		</Container>
 	)
 }
 
-export default PopularPosters;
+export default UserStories;

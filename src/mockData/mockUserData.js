@@ -4,7 +4,7 @@ const mockUserData = [
 		name: 'MegapixelsMike',
 		firstName: 'Michael',
 		lastName: 'Coustier',
-		description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.',
+		description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
 	 	avatar: 'me.jpg',
         posts: 50,
         followers: [2,3],

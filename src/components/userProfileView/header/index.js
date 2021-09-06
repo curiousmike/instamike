@@ -1,27 +1,28 @@
-import { Container, ItemContainer, RightContainer, NameContainer, AvatarContainer,
-    FullNameContainer, RowContainer, DescriptionContainer } from './styles'
+import { Container, TopContainer, ItemContainer, RightContainer, NameContainer, AvatarContainer,
+    FullNameContainer, RowContainer, DescriptionContainer, BottomContainer } from './styles'
 import HeaderItem from '../headerItem';
-import Avatar from '@material-ui/core/Avatar';
+import { Avatar, Button } from '@material-ui/core';
 import mockUserData from '../../../mockData/mockUserData.js';
 
 function UserProfileHeader({user, onSelectPosts, onSelectFollowers, onSelectFollowing}) {
     const userData = mockUserData.filter(obj=>{ return obj.id === user.id})[0];
 	return (
-		<Container>
+        <Container>
+		<TopContainer>
             <ItemContainer>
                 <AvatarContainer>
                     <Avatar alt={userData.name} src={userData.avatar} style={{width: '10vh', height: '10vh'}}/>
                 </AvatarContainer>
             </ItemContainer>
             <RightContainer>
-                <NameContainer>
+                {/* <NameContainer>
                     {userData.name}
                 </NameContainer>
                 <RowContainer>
                     <FullNameContainer>
                         {userData.firstName ? `${userData.firstName} ${userData.lastName}` : 'No name given.'}
                     </FullNameContainer>
-                </RowContainer>
+                </RowContainer> */}
                 <RowContainer>
                     <ItemContainer onClick={onSelectPosts}>
                         <HeaderItem number={userData.posts} label={'Posts'} />
@@ -33,16 +34,19 @@ function UserProfileHeader({user, onSelectPosts, onSelectFollowers, onSelectFoll
                         <HeaderItem number={userData.following.length} label={'Following'} />
                     </ItemContainer>
                 </RowContainer>                
-            </RightContainer>
-            <RightContainer>
                 <RowContainer>
-                    <DescriptionContainer>
-                        {userData.description ? userData.description : 'No description'}
-                    </DescriptionContainer>
+                    <Button variant = "outlined" size="small"> Edit your profile</Button>
                 </RowContainer>
             </RightContainer>
-
-		</Container>
+		</TopContainer>
+        <BottomContainer>
+            <RowContainer>
+                <DescriptionContainer>
+                    {userData.description ? userData.description : 'No description'}
+                </DescriptionContainer>
+            </RowContainer>
+        </BottomContainer>
+    </Container>
 	)
 }
 
