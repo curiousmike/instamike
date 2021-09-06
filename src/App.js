@@ -8,19 +8,13 @@ import UserProfileView from './components/userProfileView';
 import mockPostListData from './mockData/mockPostListData.js';
 import Footer from './components/footer'
 import styled from 'styled-components'
+import mockUserData from './mockData/mockUserData';
 
 const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
 `
-const youUser = { 
-  id: 1,
-  name: 'MegapixelsMike',
-  avatar: 'me.jpg',
-  posts: 50,
-  followers: 120,
-  following: 45,
-};
+const youUser = mockUserData[0];
 
 function App() {
   const contentContainer = React.createRef();
@@ -65,7 +59,7 @@ function App() {
             <PostList postData={mockPostListData} theRef={contentContainer} selectUser={onSelectUser} /> 
           </InnerContent>
       )}
-      {userProfileView && <UserProfileView user={currentUser} />}
+      {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} />}
       <Footer 
         goHome = {() => goHome()}
         doSearch = {() => doSearch()}

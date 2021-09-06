@@ -7,8 +7,8 @@ const mockUserData = [
 		description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.',
 	 	avatar: 'me.jpg',
         posts: 50,
-        followers: 120,
-        following: 45,
+        followers: [2,3],
+        following: [2],
 	},
 	{ 
 		id: 2,
@@ -18,8 +18,8 @@ const mockUserData = [
 		description: 'A world class video game player who also enjoys saxophone, piano and guitar.  And Chipotle',
 	 	avatar: 'liam.jpg',
          posts: 13,
-         followers: 20,
-         following: 5,
+		 followers: [1, 3, 4],
+         following: [5],
      },
 	{ 
 		id: 3,
@@ -29,8 +29,8 @@ const mockUserData = [
 		description: 'A baker extraordinaire. A hiker of extreme speed.  Loves to dance and sing.',
 	 	avatar: 'deedee.jpg',
         posts: 66,
-        followers: 43,
-        following: 4,
+		followers: [1, 2, 4, 5, 6],
+        following: [1,2 ,4],
      },
 	{ 
 		id: 4,
@@ -40,8 +40,8 @@ const mockUserData = [
 		lastName: 'Coustier',
 		description: 'Metacognition is my game.  Chess, piano, math and other heady stuff is my game.',
         posts: 50,
-        followers: 321,
-        following: 54,
+		followers: [1, 2, 3, 5, 6],
+        following: [5,6],
      },
 	{ 
 		id: 5,
@@ -51,8 +51,8 @@ const mockUserData = [
 		lastName: 'Coustier',
 		description: 'Cats, paints and health.',
 		posts: 150,
-        followers: 5120,
-        following: 4590,
+		followers: [2, 3 ],
+        following: [1,2,3,4],
      },
 	{ 
 		id: 6,
@@ -62,8 +62,8 @@ const mockUserData = [
 		lastName: 'Hammer',
 		description: 'Games - board games, puzzle games and video games.  Friends.  Food.',
         posts: 53,
-        followers: 112,
-        following: 845,
+		followers: [2, 3, 5],
+        following: [4,5],
      },
 ];
 
