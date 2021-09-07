@@ -4,7 +4,7 @@ import HeaderItem from '../headerItem';
 import { Avatar, Button } from '@material-ui/core';
 import mockUserData from '../../../mockData/mockUserData.js';
 
-function UserProfileHeader({user, onSelectPosts, onSelectFollowers, onSelectFollowing}) {
+function UserProfileHeader({user, onSelectPosts, onSelectFollowers, onSelectFollowing, editProfile}) {
     const userData = mockUserData.filter(obj=>{ return obj.id === user.id})[0];
 	return (
         <Container>
@@ -35,7 +35,7 @@ function UserProfileHeader({user, onSelectPosts, onSelectFollowers, onSelectFoll
                     </ItemContainer>
                 </RowContainer>                
                 <RowContainer>
-                    <Button variant = "outlined" size="small"> Edit your profile</Button>
+                    <Button variant = "outlined" size="small" onClick={()=>editProfile()}> Edit your profile</Button>
                 </RowContainer>
             </RightContainer>
 		</TopContainer>

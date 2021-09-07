@@ -48,6 +48,11 @@ function App() {
     setUserProfileView(true);
   }
 
+  const onUpdateUser = (updatedData) => {
+    const updatedUser = { ...currentUser, ...updatedData };
+    console.log('updateUser = ', updatedUser);
+  }
+
   return (
     <div className="App">
       <Header />
@@ -57,7 +62,7 @@ function App() {
             <PostList isProfile={false} postData={mockUserPosts} theRef={contentContainer} selectUser={onSelectUser} /> 
           </InnerContent>
       )}
-      {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser}/>}
+      {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
       <Footer 
         goHome = {() => goHome()}
         doSearch = {() => doSearch()}

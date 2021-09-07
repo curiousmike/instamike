@@ -9,6 +9,9 @@ import mockUserData from '../../../../mockData/mockUserData.js';
 function SinglePostHeader({userId, selectUser}) {
     const [anchorEl, setAnchorEl] = useState(null);
     const userData = mockUserData.filter(obj=>{ return obj.id === userId})[0];
+    if (!userData) {
+        console.log('\nNOT USER DATA, userId = ', userId);
+    }
     const handleMenuOpen = (event) => {
         console.log('handl menu open');
         setAnchorEl(event.currentTarget);

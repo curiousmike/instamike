@@ -4,14 +4,16 @@ import {useState, useEffect} from 'react';
 import UserProfileHeader from './header';
 import UserPostGrid from './userPostGrid';
 import FollowView from './followView';
+import EditProfile from './editProfile';
 import mockUserPosts from '../../mockData/mockUserPosts';
 import PostList from '../postList';
 
-function UserProfileView({user, onSelectUser}) {
+function UserProfileView({user, onSelectUser, onUpdateUser}) {
 	const [viewingPostList, setViewingPostList] = useState(false);
 	const [viewingPostGrid, setViewingPostGrid] = useState(true);
 	const [viewingFollowers, setViewingFollowers] = useState(false);
 	const [viewingFollowing, setViewingFollowing] = useState(false);
+	const [editingProfile, setEditingProfile] = useState(false);
 	const contentContainer = React.createRef();
     const postData = mockUserPosts.filter(obj=>{ return obj.userId === user.id});
 	console.log('\n\n\nUserProfileView [ postList, postGrid, Followers, Following = ', viewingPostList, viewingPostGrid, viewingFollowers, viewingFollowing);
@@ -53,24 +55,34 @@ function UserProfileView({user, onSelectUser}) {
 		setViewingFollowing(true);
 		
 	}
+
+	const updateUserProfile = (updatedProfile) => {
+		onUpdateUser(updatedProfile);
+		setEditingProfile(false);
+	}
+
 	return (
 		<Container>
-            <UserProfileHeader 
-				user={user}
-				onSelectPosts={onSelectPosts}
-				onSelectFollowers={onSelectFollowers}
-				onSelectFollowing={onSelectFollowing}
-			/>
-			{ viewingPostGrid && 
-				<UserPostGrid posts={postData} onSelectImage={(image)=>onSelectImage(image)}/>
-			}
-			{ viewingPostList && <PostList isProfile={true} postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
-			{ (viewingFollowers || viewingFollowing) && 
-			<FollowView 
-				user={user}
-				onSelectUser={(user)=>onSelectUser(user)}
-				followers={viewingFollowers}
-			/>}
+			{editingProfile && <EditProfile user={user} onClose={(updatedUser)=>updateUserProfile(updatedUser)} /> }
+			{!editingProfile && <div>
+				<UserProfileHeader 
+					user={user}
+					onSelectPosts={onSelectPosts}
+					onSelectFollowers={onSelectFollowers}
+					onSelectFollowing={onSelectFollowing}
+					editProfile={()=>setEditingProfile(true)}
+				/>
+				{ viewingPostGrid && 
+					<UserPostGrid posts={postData} onSelectImage={(image)=>onSelectImage(image)}/>
+				}
+				{ viewingPostList && <PostList isProfile={true} postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
+				{ (viewingFollowers || viewingFollowing) && 
+				<FollowView 
+					user={user}
+					onSelectUser={(user)=>onSelectUser(user)}
+					followers={viewingFollowers}
+				/>} 
+			</div>}
 		</Container>
 	)
 }
