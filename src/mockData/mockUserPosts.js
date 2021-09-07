@@ -126,5 +126,44 @@ const mockUserPosts = [
 		comments: [],
 		image: "https://live.staticflickr.com/65535/49611168748_369efa1dab.jpg",
 	},
+
+
+
+	{
+		id: 14,
+		userId: 2,
+		timestamp: 14,
+		description: `A different view of the Golden Gate Bridge`,
+		likes: [1,5,3,3,4,3],	// index of userId who liked it
+		comments: [],
+		image: "https://live.staticflickr.com/65535/49611163143_2ccd93af6c_z.jpg",
+	},
+	{
+		id: 14,
+		userId: 3,
+		timestamp: 14,
+		description: `Had a great time at the Monterey Bay Aquarium.`,
+		likes: [1,5,3,3,4,3],	// index of userId who liked it
+		comments: [],
+		image: "https://live.staticflickr.com/65535/49611677971_247759e8c5_z.jpg",
+	},
+	{
+		id: 14,
+		userId: 4,
+		timestamp: 14,
+		description: `The Narrows from Zion National Park - a trip I won't soon forget`,
+		likes: [1,5,3,3,4,3],	// index of userId who liked it
+		comments: [],
+		image: "https://live.staticflickr.com/65535/48953868636_061dc49cef_z.jpg",
+	},
+	{
+		id: 14,
+		userId: 5,
+		timestamp: 14,
+		description: `Standing tall - these trees are from a forest in extreme northern california`,
+		likes: [1,5,3,3,4,3],	// index of userId who liked it
+		comments: [],
+		image: "https://live.staticflickr.com/65535/48388847622_05401ec7c5_z.jpg",
+	},
 ];
 export default mockUserPosts;

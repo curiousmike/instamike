@@ -5,10 +5,10 @@ import Header from './components/header';
 import UserStories from './components/userStories';
 import PostList from './components/postList';
 import UserProfileView from './components/userProfileView';
-import mockPostListData from './mockData/mockPostListData.js';
 import Footer from './components/footer'
 import styled from 'styled-components'
 import mockUserData from './mockData/mockUserData';
+import mockUserPosts from './mockData/mockUserPosts';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -54,7 +54,7 @@ function App() {
       {!userProfileView && <UserStories onSelect={onSelectUser}/>}
       {!userProfileView && (  
           <InnerContent>
-            <PostList isProfile={false} postData={mockPostListData} theRef={contentContainer} selectUser={onSelectUser} /> 
+            <PostList isProfile={false} postData={mockUserPosts} theRef={contentContainer} selectUser={onSelectUser} /> 
           </InnerContent>
       )}
       {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser}/>}
