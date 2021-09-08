@@ -4,12 +4,11 @@ import Avatar from '@material-ui/core/Avatar';
 import UserQuickActionMenu from '../userQuickActionMenu';
 import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
-import mockUserData from '../../../../mockData/mockUserData.js';
 
-function SinglePostHeader({userId, selectUser}) {
+function SinglePostHeader({usersData, userId, selectUser}) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const userData = mockUserData.filter(obj=>{ return obj.id === userId})[0];
-    if (!userData) {
+    const user = usersData.filter(obj=>{ return obj.id === userId})[0];
+    if (!user) {
         console.log('\nNOT USER DATA, userId = ', userId);
     }
     const handleMenuOpen = (event) => {
@@ -26,11 +25,11 @@ function SinglePostHeader({userId, selectUser}) {
 	return (
 		<Container>
             <UserInfoContainer>
-                <ItemContainer onClick={()=>selectUser(userData)}>
-                    <Avatar alt={userData.name} src={userData.avatar} />
+                <ItemContainer onClick={()=>selectUser(user)}>
+                    <Avatar alt={user.name} src={user.avatar} />
                 </ItemContainer>
                 <ItemContainer>
-                    {userData.name}
+                    {user.name}
                 </ItemContainer>
             </UserInfoContainer>
             <Tooltip title="Menu">

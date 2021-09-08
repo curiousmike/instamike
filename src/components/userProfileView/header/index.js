@@ -2,10 +2,9 @@ import { Container, TopContainer, ItemContainer, RightContainer, NameContainer, 
     FullNameContainer, RowContainer, DescriptionContainer, BottomContainer } from './styles'
 import HeaderItem from '../headerItem';
 import { Avatar, Button } from '@material-ui/core';
-import mockUserData from '../../../mockData/mockUserData.js';
 
-function UserProfileHeader({user, onSelectPosts, onSelectFollowers, onSelectFollowing, editProfile}) {
-    const userData = mockUserData.filter(obj=>{ return obj.id === user.id})[0];
+function UserProfileHeader({usersData, user, onSelectPosts, onSelectFollowers, onSelectFollowing, editProfile}) {
+    const userData = usersData.filter(obj=>{ return obj.id === user.id})[0];
 	return (
         <Container>
 		<TopContainer>

@@ -3,19 +3,18 @@ import {List, ListItem, ListItemText, ListItemAvatar,
     Avatar, IconButton, ListItemSecondaryAction } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconVert from '@material-ui/icons/MoreVert';
-import mockUserData from '../../../mockData/mockUserData';
-function FollowView({user, onSelectUser, followers}) {
+function FollowView({usersData, user, onSelectUser, followers}) {
     const dense = false;
     const secondary = false;
     let users;
     if (followers) {
         users = user.followers.map((item)=>{
-            const user = mockUserData.filter(userData=> {return userData.id === item})[0];
+            const user = usersData.filter(userData=> {return userData.id === item})[0];
             return user;
         });
     } else {
         users = user.following.map((item)=>{
-            const user = mockUserData.filter(userData=> {return userData.id === item})[0];
+            const user = usersData.filter(userData=> {return userData.id === item})[0];
         return user;
         });
     }

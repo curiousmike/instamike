@@ -14,12 +14,12 @@ const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
 `
-const youUser = mockUserData[0];
-
 function App() {
   const contentContainer = React.createRef();
   const [userProfileView, setUserProfileView] = useState(false);
+  const [youUser, setYouUser] = useState(mockUserData[0]);
   const [currentUser, setCurrentUser] = useState(youUser);
+  const [usersData, setUsersData] = useState(mockUserData);
   
   const goHome = () => {
     setUserProfileView(false);
@@ -56,13 +56,13 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {!userProfileView && <UserStories onSelect={onSelectUser}/>}
+      {!userProfileView && <UserStories usersData={usersData} onSelect={onSelectUser}/>}
       {!userProfileView && (  
           <InnerContent>
-            <PostList isProfile={false} postData={mockUserPosts} theRef={contentContainer} selectUser={onSelectUser} /> 
+            <PostList usersData={usersData} isProfile={false} postData={mockUserPosts} theRef={contentContainer} selectUser={onSelectUser} /> 
           </InnerContent>
       )}
-      {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
+      {userProfileView && <UserProfileView usersData={usersData} user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
       <Footer 
         goHome = {() => goHome()}
         doSearch = {() => doSearch()}

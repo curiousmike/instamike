@@ -8,7 +8,7 @@ import EditProfile from './editProfile';
 import mockUserPosts from '../../mockData/mockUserPosts';
 import PostList from '../postList';
 
-function UserProfileView({user, onSelectUser, onUpdateUser}) {
+function UserProfileView({usersData, user, onSelectUser, onUpdateUser}) {
 	const [viewingPostList, setViewingPostList] = useState(false);
 	const [viewingPostGrid, setViewingPostGrid] = useState(true);
 	const [viewingFollowers, setViewingFollowers] = useState(false);
@@ -65,7 +65,8 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 		<Container>
 			{editingProfile && <EditProfile user={user} onClose={(updatedUser)=>updateUserProfile(updatedUser)} /> }
 			{!editingProfile && <div>
-				<UserProfileHeader 
+				<UserProfileHeader
+					usersData={usersData} 
 					user={user}
 					onSelectPosts={onSelectPosts}
 					onSelectFollowers={onSelectFollowers}
@@ -75,9 +76,10 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 				{ viewingPostGrid && 
 					<UserPostGrid posts={postData} onSelectImage={(image)=>onSelectImage(image)}/>
 				}
-				{ viewingPostList && <PostList isProfile={true} postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
+				{ viewingPostList && <PostList usersData={usersData} isProfile={true} postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
 				{ (viewingFollowers || viewingFollowing) && 
-				<FollowView 
+				<FollowView
+					usersData={usersData}
 					user={user}
 					onSelectUser={(user)=>onSelectUser(user)}
 					followers={viewingFollowers}
