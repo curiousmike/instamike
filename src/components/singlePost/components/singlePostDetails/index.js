@@ -3,7 +3,7 @@ import { Container, NumberOfLikes, PosterName, DescriptionContainer} from './sty
 // import Icon from '@material-ui/core/Icon';
 
 function SinglePostDetails({user, post, onSelectUser}) {
-	console.log('<SinglePostDetails - post  ', post);
+	// console.log('<SinglePostDetails - post  ', post);
 	return (
 		<Container>
             <NumberOfLikes>{post.likes.length} likes</NumberOfLikes>

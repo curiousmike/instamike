@@ -12,7 +12,7 @@ function SinglePost({ usersData, post, selectUser }) {
 	const {userId, postId, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
 	const user = usersData.filter(object=> {return object.id === userId})[0];
-	console.log('<SinglePost user = ', user);
+	// console.log('<SinglePost user = ', user);
 	const addFavorite = () => {
 		setDialogTitle('add favorite post');
 	}
