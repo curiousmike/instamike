@@ -9,16 +9,39 @@ import Footer from './components/footer'
 import styled from 'styled-components'
 import { StoreContext } from './store';
 
+import mockUserData from './mockData/mockUserData';
+import mockUserPosts from './mockData/mockUserPosts';
+// {
+//     usersData: mockUserData, 
+//     usersPosts: mockUserPosts,
+//     currentUser: 0,
+// });
+
+
 const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
 `
 function App() {
   const contentContainer = React.createRef();
-  const contextValue = useContext(StoreContext);  // this gets the context(store) as a JSON object
+  // const contextValue = useContext(StoreContext);  // this gets the context(store) as a JSON object
+  
+  const [usersData, setUsersData] = useState(mockUserData);
+  const [usersPosts, setUsersPosts] = useState(mockUserPosts);
+
   const [userProfileView, setUserProfileView] = useState(false);
-  const [youUser, setYouUser] = useState(contextValue.usersData[contextValue.currentUser]);
+  const [youUser, setYouUser] = useState(mockUserData[0]);
   const [currentUser, setCurrentUser] = useState(youUser);
+  
+  const globalStore = {
+    users: usersData,
+    posts: usersPosts,
+  };
+
+  const modifyUserData = (user) => {
+    console.log ('modify user data = ', user);
+  }
+
   const goHome = () => {
     setUserProfileView(false);
     if (contentContainer?.current)    contentContainer.current.scrollTo(0,0);
@@ -53,17 +76,16 @@ function App() {
 
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
-    <StoreContext.Consumer> 
-    {({usersData, usersPosts}) => (
+    <StoreContext.Provider value={globalStore}> 
       <div className="App">
           <Header />
-          {!userProfileView && <UserStories usersData={usersData} onSelect={onSelectUser}/>}
+          {!userProfileView && <UserStories onSelect={onSelectUser}/>}
           {!userProfileView && (  
               <InnerContent>
-                <PostList usersData={usersData} isProfile={false} postData={usersPosts} theRef={contentContainer} selectUser={onSelectUser} /> 
+                <PostList isProfile={false} theRef={contentContainer} postData={usersPosts} selectUser={onSelectUser} /> 
               </InnerContent>
           )}
-          {userProfileView && <UserProfileView usersData={usersData} user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
+          {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
           <Footer 
             goHome = {() => goHome()}
             doSearch = {() => doSearch()}
@@ -73,8 +95,7 @@ function App() {
             youUser = {youUser}
           />
       </div>
-    )}
-      </StoreContext.Consumer>
+    </StoreContext.Provider>
   );
 }
 
