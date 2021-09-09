@@ -71,7 +71,10 @@ function App() {
 
   const onUpdateUser = (updatedData) => {
     const updatedUser = { ...currentUser, ...updatedData };
-    console.log('updateUser = ', updatedUser);
+    const copyOfUsersData = [...usersData];
+    let indexOfUpdatedUser = copyOfUsersData.findIndex ( user => user.id === updatedUser.id);
+    copyOfUsersData[indexOfUpdatedUser] = updatedUser;
+    setUsersData(copyOfUsersData);
   }
 
   return (
