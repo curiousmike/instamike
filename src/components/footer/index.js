@@ -8,6 +8,7 @@ import IconPerson from '@material-ui/icons/Person';
 import Avatar from '@material-ui/core/Avatar';
 
 function Footer({goHome, doSearch, addImage, addFavorite, goYou, youUser}) {
+    // console.log('x youUser = ', youUser);
 	return (
 		<Container>
             <FooterContainer>
@@ -46,8 +47,8 @@ function Footer({goHome, doSearch, addImage, addFavorite, goYou, youUser}) {
 						</IconButton> */}
                         <Avatar 
                             onClick={goYou}
-                            alt={youUser.name}
-                            src={youUser.avatar}
+                            alt={youUser?.name}
+                            src={youUser?.avatar}
                             style={{width: '4vh', height: '4vh'}}/>
                     </Tooltip>
                 </ItemContainer>
