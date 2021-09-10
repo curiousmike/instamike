@@ -7,7 +7,7 @@ import IconFavorite from '@material-ui/icons/Favorite';
 import IconPerson from '@material-ui/icons/Person';
 import Avatar from '@material-ui/core/Avatar';
 
-function Footer({goHome, doSearch, addImage, addFavorite, goYou, youUser}) {
+function Footer({goHome, doSearch, createPost, addFavorite, goYou, youUser}) {
     // console.log('x youUser = ', youUser);
 	return (
 		<Container>
@@ -28,7 +28,7 @@ function Footer({goHome, doSearch, addImage, addFavorite, goYou, youUser}) {
                 </ItemContainer>
                 <ItemContainer>
                     <Tooltip title="Add Image">
-                        <IconButton aria-label="add image" onClick = {addImage}>
+                        <IconButton aria-label="add image" onClick = {createPost}>
 							<IconAdd />
 						</IconButton>
                     </Tooltip>

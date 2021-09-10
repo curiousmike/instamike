@@ -7,6 +7,7 @@ import PostList from './components/postList';
 import UserProfileView from './components/userProfileView';
 import Footer from './components/footer'
 import Search from './components/search'
+import CreatePost from './components/createPost';
 import styled from 'styled-components'
 import { StoreContext } from './store';
 
@@ -30,7 +31,8 @@ function App() {
   const [userProfileView, setUserProfileView] = useState(false);
   const [youUser, setYouUser] = useState(mockUserData[0]);
   const [currentUser, setCurrentUser] = useState(youUser);
-  const [searchVisible, setSearchVisible] = useState(false);  
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [showCreatePost, setShowCreatePost] = useState(false);
   const globalStore = {
     users: usersData,
     posts: usersPosts,
@@ -41,18 +43,23 @@ function App() {
   }
 
   const goHome = () => {
+    setShowCreatePost(false);
     setUserProfileView(false);
     setSearchVisible(false);
     if (contentContainer?.current)    contentContainer.current.scrollTo(0,0);
   }
   
   const doSearch = () => {
+    setShowCreatePost(false);
     setUserProfileView(false);
     setSearchVisible(true);
   }
 
-  const addImage = () => {
-    console.log ('add image');
+  const createPost = () => {
+    setUserProfileView(false);
+    setSearchVisible(false);
+    setShowCreatePost(true);
+    console.log('here');
   }
 
   const addFavorite = () => {
@@ -78,8 +85,8 @@ function App() {
     setUsersData(copyOfUsersData);
   }
 
-  const showUserStories = !searchVisible && !userProfileView;
-  const showPostList = !searchVisible && !userProfileView;
+  const showUserStories = !searchVisible && !showCreatePost && !userProfileView;
+  const showPostList = !searchVisible  && !showCreatePost && !userProfileView;
   // console.log('youUser = ', youUser);
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
@@ -94,10 +101,11 @@ function App() {
           )}
           {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
           {searchVisible && <Search />}
+          {showCreatePost && <CreatePost />}
           <Footer 
             goHome = {() => goHome()}
             doSearch = {() => doSearch()}
-            addImage = {() => addImage()}
+            createPost = {() => createPost()}
             addFavorite= {() => addFavorite()}
             goYou = {() => goYou()}
             youUser = {youUser}
