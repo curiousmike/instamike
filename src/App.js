@@ -42,6 +42,23 @@ function App() {
     console.log ('modify user data = ', user);
   }
 
+  const onCreatePost = (imageData, description) => {
+    const copyOfPostData = [...usersPosts];
+    const newPost = {
+      id: 27,
+      userId: 1,
+      timestamp: 11,
+      description: description,
+      likes: [3],	// index of userId who liked it
+      comments: [],
+      image: imageData
+    };
+    copyOfPostData.unshift(newPost);
+    setUsersPosts(copyOfPostData);
+    setShowCreatePost(false);
+    goYou();
+  }
+
   const goHome = () => {
     setShowCreatePost(false);
     setUserProfileView(false);
@@ -101,7 +118,7 @@ function App() {
           )}
           {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
           {searchVisible && <Search />}
-          {showCreatePost && <CreatePost />}
+          {showCreatePost && <CreatePost onClose={()=>setShowCreatePost(false)} onSave={(image, desc)=>onCreatePost(image, desc)}/>}
           <Footer 
             goHome = {() => goHome()}
             doSearch = {() => doSearch()}
