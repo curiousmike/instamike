@@ -43,7 +43,7 @@ const mockUserData = [
      },
 	{ 
 		id: 4,
-		name: 'CushionMaker',
+		name: 'CushionMaker Flower',
 	 	avatar: 'zac.jpg',
 		firstName: 'Zachary',
 		lastName: 'Coustier',
