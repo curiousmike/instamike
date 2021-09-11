@@ -37,7 +37,7 @@ function CreatePost({onClose, onSave}) {
                 <CenterItem>
                     Upload Image
                 </CenterItem>
-                <img style={{width: '320px'}} src={imageData} />
+                <img style={{width: '20vh'}} src={imageData} />
             </UploadContainer>
             <TextField fullWidth required id="description" multiline maxRows={4} label="Description" defaultValue={imageDescription} onChange={(e)=>setImageDescription(e.target.value)}/>
             <ButtonContainer>

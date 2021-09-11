@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect, useContext} from 'react';
+import {useState} from 'react';
 import './App.css';
 import Header from './components/header';
 import UserStories from './components/userStories';
@@ -29,7 +29,8 @@ function App() {
   const [usersData, setUsersData] = useState(mockUserData);
   const [usersPosts, setUsersPosts] = useState(mockUserPosts);
   const [userProfileView, setUserProfileView] = useState(false);
-  const [youUser, setYouUser] = useState(mockUserData[0]);
+  // const [youUser, setYouUser] = useState(mockUserData[0]);
+  const youUser = mockUserData[0];
   const [currentUser, setCurrentUser] = useState(youUser);
   const [searchVisible, setSearchVisible] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
@@ -37,6 +38,12 @@ function App() {
     users: usersData,
     posts: usersPosts,
   };
+  
+  const testBackend = async () => {
+    const result = await fetch('/api/get').then((t) => console.log('t= ',t));
+    console.log('result = ', result);
+  }
+  testBackend ();
 
   const modifyUserData = (user) => {
     console.log ('modify user data = ', user);
