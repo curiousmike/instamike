@@ -40,7 +40,28 @@ function App() {
   };
   
   const testBackend = async () => {
-    const result = await fetch('/api/get').then((t) => console.log('t= ',t));
+    // const result = await fetch('/api/get').then((t) => console.log('t= ',t));
+    // console.log('result = ', result);
+    const newUser = {
+      name: 'MegapixelsMike',
+      firstName: 'Michael',
+      lastName: 'Coustier',
+      email: 'curiousmike@gmail.com',
+      phone: '510-557-0109',
+      password: 'encrypted',
+      description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
+      avatar: 'me.jpg',
+      posts: 0,
+      followers: [],
+      following: [],
+    }
+    const result = await fetch('/api/create', {
+      method: 'POST',
+      body: JSON.stringify(newUser),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then((t) => console.log('t= ',t));
     console.log('result = ', result);
   }
   testBackend ();
