@@ -11,7 +11,7 @@ import CreatePost from './components/createPost';
 import CreateUser from './components/createUser';
 import styled from 'styled-components'
 import { StoreContext } from './store';
-import { doesUserExist, addNewUser } from './services/userservice';
+// import { doesUserExist, addNewUser } from './services/userservice';
 import mockUserData from './mockData/mockUserData';
 import mockUserPosts from './mockData/mockUserPosts';
 // {
@@ -41,32 +41,32 @@ function App() {
     posts: usersPosts,
   };
   
-  const testBackend = async () => {
-    const newUser = {
-      name: 'MegapixelsMike',
-      firstName: 'Michael',
-      lastName: 'Coustier',
-      email: 'curiousmike@gmail.com',
-      phone: '510-557-0109',
-      password: 'encrypted',
-      description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
-      avatar: 'me.jpg',
-      posts: 0,
-      followers: [],
-      following: [],
-    }
-    const userExists = await (doesUserExist(newUser.name));
-    if (!userExists) {
-      if (addNewUser (newUser)) {
-        console.log('user successfully added');
-      } else {
-        console.log('error adding new user');
-      };
-    } else {
-      console.log('new user not added');
-    }
-  }
-  testBackend ();
+  // const testBackend = async () => {
+  //   const newUser = {
+  //     name: 'MegapixelsMike',
+  //     firstName: 'Michael',
+  //     lastName: 'Coustier',
+  //     email: 'curiousmike@gmail.com',
+  //     phone: '510-557-0109',
+  //     password: 'encrypted',
+  //     description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
+  //     avatar: 'me.jpg',
+  //     posts: 0,
+  //     followers: [],
+  //     following: [],
+  //   }
+  //   const userExists = await (doesUserExist(newUser.name));
+  //   if (!userExists) {
+  //     if (addNewUser (newUser)) {
+  //       console.log('user successfully added');
+  //     } else {
+  //       console.log('error adding new user');
+  //     };
+  //   } else {
+  //     console.log('new user not added');
+  //   }
+  // }
+  // testBackend ();
 
   const modifyUserData = (user) => {
     console.log ('modify user data = ', user);
