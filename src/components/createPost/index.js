@@ -13,9 +13,15 @@ function CreatePost({onClose, onSave}) {
     const [imageDescription, setImageDescription] = useState('');
     const handleUploadClick = (e) => {
         const file = e.target.files[0];
+        console.log('file = ', file);
         const reader = new FileReader();
         reader.readAsDataURL(file);
-
+        // reader.addEventListener('progress', (event) => {
+        //     if (event.loaded && event.total) {
+        //       const percent = (event.loaded / event.total) * 100;
+        //       console.log(`Progress: ${Math.round(percent)}`);
+        //     }
+        //   });
         reader.onloadend = () =>  {
             setImageData(reader.result);
         }

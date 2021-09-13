@@ -10,7 +10,7 @@ import Search from './components/search'
 import CreatePost from './components/createPost';
 import styled from 'styled-components'
 import { StoreContext } from './store';
-
+import { doesUserExist, addNewUser } from './services/userservice';
 import mockUserData from './mockData/mockUserData';
 import mockUserPosts from './mockData/mockUserPosts';
 // {
@@ -40,43 +40,29 @@ function App() {
   };
   
   const testBackend = async () => {
-    // READ USER
-    const nameQuery = 'rhylee';
-    
-    const result = await fetch('/api/get?' + new URLSearchParams({query: nameQuery}));
-    
-    const abc = await result.json();
-    console.log('abc = ', abc);
-    
-    if (abc?.length) {
-      console.log(' already exists');
-    } else {
-      console.log ('user doesnt exist');
+    const newUser = {
+      name: 'MegapixelsMike',
+      firstName: 'Michael',
+      lastName: 'Coustier',
+      email: 'curiousmike@gmail.com',
+      phone: '510-557-0109',
+      password: 'encrypted',
+      description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
+      avatar: 'me.jpg',
+      posts: 0,
+      followers: [],
+      following: [],
     }
-
-
-    // CREATE NEW USER
-    // const newUser = {
-    //   name: 'MegapixelsMike',
-    //   firstName: 'Michael',
-    //   lastName: 'Coustier',
-    //   email: 'curiousmike@gmail.com',
-    //   phone: '510-557-0109',
-    //   password: 'encrypted',
-    //   description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
-    //   avatar: 'me.jpg',
-    //   posts: 0,
-    //   followers: [],
-    //   following: [],
-    // }
-    // const result = await fetch('/api/create', {
-    //   method: 'POST',
-    //   body: JSON.stringify(newUser),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   }
-    // }).then((t) => console.log('t= ',t));
-    // console.log('result = ', result);
+    const userExists = await (doesUserExist(newUser.name));
+    if (!userExists) {
+      if (addNewUser (newUser)) {
+        console.log('user successfully added');
+      } else {
+        console.log('error adding new user');
+      };
+    } else {
+      console.log('new user not added');
+    }
   }
   testBackend ();
 
