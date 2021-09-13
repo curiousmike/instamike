@@ -63,7 +63,7 @@ function CreateUser({onClose}) {
     }
 	return (
 		<Container>
-            Create Post
+            Create USER
             <UploadContainer>
                 <UploadButton>
                     <input style={{display:"none"}} accept="image/*" id="icon-button-file" type="file" onChange={handleUploadClick} />
