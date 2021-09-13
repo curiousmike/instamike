@@ -8,6 +8,7 @@ import UserProfileView from './components/userProfileView';
 import Footer from './components/footer'
 import Search from './components/search'
 import CreatePost from './components/createPost';
+import CreateUser from './components/createUser';
 import styled from 'styled-components'
 import { StoreContext } from './store';
 import { doesUserExist, addNewUser } from './services/userservice';
@@ -34,6 +35,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(youUser);
   const [searchVisible, setSearchVisible] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
+  const [showCreateUser, setShowCreateUser] = useState(false);
   const globalStore = {
     users: usersData,
     posts: usersPosts,
@@ -108,7 +110,12 @@ function App() {
   }
 
   const addFavorite = () => {
-    console.log ('add favorite');
+    // console.log ('add favorite');
+    setUserProfileView(false);
+    setSearchVisible(false);
+    setShowCreatePost(false);
+    setShowCreateUser(true);
+
   }
 
   const goYou = () => {
@@ -130,8 +137,8 @@ function App() {
     setUsersData(copyOfUsersData);
   }
 
-  const showUserStories = !searchVisible && !showCreatePost && !userProfileView;
-  const showPostList = !searchVisible  && !showCreatePost && !userProfileView;
+  const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
+  const showPostList = !searchVisible  && !showCreatePost && !userProfileView && !showCreateUser;
   // console.log('youUser = ', youUser);
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
@@ -147,6 +154,7 @@ function App() {
           {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
           {searchVisible && <Search />}
           {showCreatePost && <CreatePost onClose={()=>setShowCreatePost(false)} onSave={(image, desc)=>onCreatePost(image, desc)}/>}
+          {showCreateUser && <CreateUser onClose={()=>setShowCreateUser(false)} />}
           <Footer 
             goHome = {() => goHome()}
             doSearch = {() => doSearch()}
