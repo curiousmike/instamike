@@ -1,3 +1,13 @@
+export const getUsers = async (username) => {
+  const result = await fetch('/api/get');
+  
+  const jsonData = await result.json();
+  if (jsonData?.length) {
+      return jsonData;
+  } 
+  return null;
+}
+
 export const doesUserExist = async (username) => {
     // READ USER
     // Valid User GET keys = name, firstName, lastName, description, email, phone, phone, posts, followers, following
@@ -15,20 +25,6 @@ export const doesUserExist = async (username) => {
 }
 
 export const addNewUser = async (userdata) => {
-  // CREATE NEW USER
-    // const newUser = {
-    //   name: 'MegapixelsMike',
-    //   firstName: 'Michael',
-    //   lastName: 'Coustier',
-    //   email: 'curiousmike@gmail.com',
-    //   phone: '510-557-0109',
-    //   password: 'encrypted',
-    //   description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
-    //   avatar: 'me.jpg',
-    //   posts: 0,
-    //   followers: [],
-    //   following: [],
-    // }
     const result = await fetch('/api/create/user', {
       method: 'POST',
       body: JSON.stringify(userdata),
@@ -36,8 +32,14 @@ export const addNewUser = async (userdata) => {
         'Content-Type': 'application/json',
       }
     }).then((t) => {return (t.status === 200)});
-    // const jsonData = await result.json();
-
-    
 }
   
+export const updateUser = async (oldUser, updatedUser) => {
+  await fetch('/api/modify/user', {
+      method: 'POST',
+      body: JSON.stringify({oldData: oldUser, updatedData: updatedUser}),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then((t) => { return (t.status === 200)});
+}

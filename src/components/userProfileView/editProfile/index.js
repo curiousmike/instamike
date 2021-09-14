@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import { Container, ItemContainer, DescriptionContainer, ButtonContainer } from './styles'
+import { Container, ItemContainer, DescriptionContainer, ButtonContainer, UploadButton } from './styles'
 import { Avatar, TextField, Button } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 function EditProfile({user, onClose}) {
 	const [firstName, setFirstName] = useState(user.firstName);
@@ -9,6 +11,17 @@ function EditProfile({user, onClose}) {
 	const [phone, setPhone] = useState(user.phone);
 	const [password, setPassword] = useState(user.password);
 	const [description, setDescription] = useState(user.description);
+	const [avatar, setAvatar] = useState(user.avatar);
+
+	const handleUploadClick = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () =>  {
+            setAvatar(reader.result);
+        }
+    }
+
 	const saveProfile = () => {
 		const updatedUser = {
 			firstName: firstName,
@@ -16,7 +29,8 @@ function EditProfile({user, onClose}) {
 			email: email,
 			phone: phone,
 			password: password,
-			description: description
+			description: description,
+			avatar: avatar,
 		};
 		onClose(updatedUser);
 	}
@@ -24,7 +38,17 @@ function EditProfile({user, onClose}) {
 		<Container>
 			    <form noValidate autoComplete="off">
 					<ItemContainer>
-						<Avatar alt={user.name} src={user.avatar} style={{width: '10vh', height: '10vh'}}/>
+						<Avatar alt={user.name} src={avatar} style={{width: '10vh', height: '10vh'}} />
+						<UploadButton>
+							<input style={{display:"none"}} accept="image/*" id="icon-button-file" type="file" onChange={handleUploadClick} />
+							<label htmlFor="icon-button-file">
+								<IconButton  color="primary" aria-label="upload picture" component="span">
+									{/* <Fab style={{color: 'blue', margin: '10px'}} size="large" variant="extended"> */}
+										<PhotoCamera style={{fontSize: '80px'}}/>
+									{/* </Fab> */}
+								</IconButton>
+							</label>
+						</UploadButton>
 					</ItemContainer>
 					<ItemContainer>
 						<TextField required InputProps={{readOnly: true}} label="User Name" defaultValue={user.name} />

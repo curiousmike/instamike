@@ -21,3 +21,6 @@ display: flex;
 width: 20vw;
 justify-content: space-between;
 `;
+
+export const UploadButton = styled.div`
+`;

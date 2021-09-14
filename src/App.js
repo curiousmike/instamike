@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './App.css';
 import Header from './components/header';
 import UserStories from './components/userStories';
@@ -11,6 +11,7 @@ import CreatePost from './components/createPost';
 import CreateUser from './components/createUser';
 import styled from 'styled-components'
 import { StoreContext } from './store';
+import { getUsers, updateUser } from './services/userservice';
 // import { doesUserExist, addNewUser } from './services/userservice';
 import mockUserData from './mockData/mockUserData';
 import mockUserPosts from './mockData/mockUserPosts';
@@ -40,7 +41,14 @@ function App() {
     users: usersData,
     posts: usersPosts,
   };
-  
+  useEffect (() => {
+    async function loadUserData () {
+      const users = await getUsers();
+      console.log('users = ', users);
+      setUsersData(users);
+    }
+    loadUserData();
+  }, []);
   // const testBackend = async () => {
   //   const newUser = {
   //     name: 'MegapixelsMike',
@@ -130,11 +138,12 @@ function App() {
   }
 
   const onUpdateUser = (updatedData) => {
-    const updatedUser = { ...currentUser, ...updatedData };
-    const copyOfUsersData = [...usersData];
-    let indexOfUpdatedUser = copyOfUsersData.findIndex ( user => user.id === updatedUser.id);
-    copyOfUsersData[indexOfUpdatedUser] = updatedUser;
-    setUsersData(copyOfUsersData);
+    // const updatedUser = { ...currentUser, ...updatedData };
+    // const copyOfUsersData = [...usersData];
+    // let indexOfUpdatedUser = copyOfUsersData.findIndex ( user => user.id === updatedUser.id);
+    // copyOfUsersData[indexOfUpdatedUser] = updatedUser;
+    // setUsersData(copyOfUsersData);
+    updateUser(currentUser, updatedData);
   }
 
   const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
@@ -143,6 +152,7 @@ function App() {
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}> 
+    { usersData && (
       <div className="App">
           <Header />
           {showUserStories && <UserStories onSelect={onSelectUser}/>}
@@ -164,6 +174,7 @@ function App() {
             youUser = {youUser}
           />
       </div>
+      )}
     </StoreContext.Provider>
   );
 }

@@ -11,7 +11,7 @@ import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 function SinglePost({ usersData, post, selectUser }) {
 	const {userId, postId, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
-	const user = usersData.filter(object=> {return object.id === userId})[0];
+	const user = usersData.filter(object=> {return object._id === userId})[0];
 	// console.log('<SinglePost user = ', user);
 	const addFavorite = () => {
 		setDialogTitle('add favorite post');

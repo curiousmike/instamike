@@ -76,7 +76,7 @@ function CreateUser({onClose}) {
                     </label>
                 </UploadButton>
                 <CenterItem>
-                    Upload Image
+                    Upload Image - Limit 5MB
                 </CenterItem>
                 <img style={{width: '20vh'}} src={avatar} />
             </UploadContainer>

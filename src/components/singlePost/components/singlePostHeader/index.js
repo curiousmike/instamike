@@ -7,10 +7,8 @@ import IconHoriz from '@material-ui/icons/MoreHoriz';
 
 function SinglePostHeader({usersData, userId, selectUser}) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const user = usersData.filter(obj=>{ return obj.id === userId})[0];
-    if (!user) {
-        console.log('\nNOT USER DATA, userId = ', userId);
-    }
+    const user = usersData.filter(obj=>{ return obj._id === userId})[0];
+
     const handleMenuOpen = (event) => {
         console.log('handl menu open');
         setAnchorEl(event.currentTarget);
@@ -24,14 +22,14 @@ function SinglePostHeader({usersData, userId, selectUser}) {
     const id = open ? 'simple-popover' : undefined;
 	return (
 		<Container>
-            <UserInfoContainer>
+            { user && <UserInfoContainer>
                 <ItemContainer onClick={()=>selectUser(user)}>
                     <Avatar alt={user.name} src={user.avatar} />
                 </ItemContainer>
                 <ItemContainer>
                     {user.name}
                 </ItemContainer>
-            </UserInfoContainer>
+            </UserInfoContainer> }
             <Tooltip title="Menu">
                 <IconButton aria-label="home" onClick = {(e)=>handleMenuOpen(e)}>
                     <IconHoriz />
