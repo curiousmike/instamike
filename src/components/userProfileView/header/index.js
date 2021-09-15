@@ -4,7 +4,7 @@ import HeaderItem from '../headerItem';
 import { Avatar, Button } from '@material-ui/core';
 
 function UserProfileHeader({usersData, user, onSelectPosts, onSelectFollowers, onSelectFollowing, editProfile}) {
-    const userData = usersData.filter(obj=>{ return obj.id === user.id})[0];
+    const userData = usersData.filter(obj=>{ return obj.name === user.name})[0];
 	return (
         <Container>
 		<TopContainer>

@@ -30,7 +30,7 @@ const InnerContent = styled.main`
 function App() {
   const contentContainer = React.createRef();
   const [usersData, setUsersData] = useState(null);
-  const [usersPosts, setUsersPosts] = useState(mockUserPosts);
+  const [usersPosts, setUsersPosts] = useState(null);
   const [userProfileView, setUserProfileView] = useState(false);
   // const [youUser, setYouUser] = useState(mockUserData[0]);
   const youUser = mockUserData[0];
@@ -139,6 +139,7 @@ function App() {
   }
 
   const onSelectUser = (user) => {
+    // console.log('onSelectUser = ', user);
     setCurrentUser(user);
     setUserProfileView(true);
   }

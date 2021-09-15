@@ -20,7 +20,7 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 	const contentContainer = React.createRef();
     const postData = myContext.posts.filter(obj=>{ return obj.userId === user.id});
 	// console.log('\n\n\nUserProfileView [ postList, postGrid, Followers, Following = ', viewingPostList, viewingPostGrid, viewingFollowers, viewingFollowing);
-
+	console.log('userProfileView = user = ', user.name);
 	useEffect(() => {
 		resetToGridView();
 	}, [user]);
