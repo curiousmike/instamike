@@ -12,6 +12,7 @@ import CreateUser from './components/createUser';
 import styled from 'styled-components'
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
+import { getPosts, addNewPost } from './services/postservice';
 // import { doesUserExist, addNewUser } from './services/userservice';
 import mockUserData from './mockData/mockUserData';
 import mockUserPosts from './mockData/mockUserPosts';
@@ -28,7 +29,7 @@ const InnerContent = styled.main`
 `
 function App() {
   const contentContainer = React.createRef();
-  const [usersData, setUsersData] = useState(mockUserData);
+  const [usersData, setUsersData] = useState(null);
   const [usersPosts, setUsersPosts] = useState(mockUserPosts);
   const [userProfileView, setUserProfileView] = useState(false);
   // const [youUser, setYouUser] = useState(mockUserData[0]);
@@ -47,7 +48,13 @@ function App() {
       console.log('users = ', users);
       setUsersData(users);
     }
+    async function loadPostData () {
+      const posts = await getPosts();
+      console.log('posts = ', posts);
+      setUsersPosts(posts);
+    }
     loadUserData();
+    loadPostData();
   }, []);
   // const testBackend = async () => {
   //   const newUser = {
@@ -76,23 +83,22 @@ function App() {
   // }
   // testBackend ();
 
-  const modifyUserData = (user) => {
-    console.log ('modify user data = ', user);
-  }
 
-  const onCreatePost = (imageData, description) => {
-    const copyOfPostData = [...usersPosts];
-    const newPost = {
-      id: 27,
-      userId: 1,
-      timestamp: 11,
-      description: description,
-      likes: [3],	// index of userId who liked it
-      comments: [],
-      image: imageData
-    };
-    copyOfPostData.unshift(newPost);
-    setUsersPosts(copyOfPostData);
+  const onCreatePost = (newPost) => {
+    // const copyOfPostData = [...usersPosts];
+    // const newPost = {
+    //   id: 27,
+    //   userId: 1,
+    //   timestamp: 11,
+    //   description: description,
+    //   likes: [3],	// index of userId who liked it
+    //   comments: [],
+    //   image: imageData
+    // };
+    // copyOfPostData.unshift(newPost);
+    // setUsersPosts(copyOfPostData);
+    newPost.name = youUser.name;
+    addNewPost(newPost);
     setShowCreatePost(false);
     goYou();
   }
@@ -138,11 +144,6 @@ function App() {
   }
 
   const onUpdateUser = (updatedData) => {
-    // const updatedUser = { ...currentUser, ...updatedData };
-    // const copyOfUsersData = [...usersData];
-    // let indexOfUpdatedUser = copyOfUsersData.findIndex ( user => user.id === updatedUser.id);
-    // copyOfUsersData[indexOfUpdatedUser] = updatedUser;
-    // setUsersData(copyOfUsersData);
     updateUser(currentUser, updatedData);
   }
 
@@ -152,7 +153,7 @@ function App() {
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}> 
-    { usersData && (
+    { usersData && usersPosts && (
       <div className="App">
           <Header />
           {showUserStories && <UserStories onSelect={onSelectUser}/>}
@@ -163,7 +164,7 @@ function App() {
           )}
           {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
           {searchVisible && <Search />}
-          {showCreatePost && <CreatePost onClose={()=>setShowCreatePost(false)} onSave={(image, desc)=>onCreatePost(image, desc)}/>}
+          {showCreatePost && <CreatePost onClose={()=>setShowCreatePost(false)} onSave={(newpost)=>onCreatePost(newpost)}/>}
           {showCreateUser && <CreateUser onClose={()=>setShowCreateUser(false)} />}
           <Footer 
             goHome = {() => goHome()}

@@ -26,6 +26,16 @@ function CreatePost({onClose, onSave}) {
             setImageData(reader.result);
         }
     }
+
+    const doSave = () => {
+        const newPost = {
+            description: imageDescription,
+            likes: [],
+            comments: [],
+            image: imageData,
+        }
+        onSave (newPost);
+    }
 	return (
 		<Container>
             Create Post
@@ -48,7 +58,7 @@ function CreatePost({onClose, onSave}) {
             <TextField fullWidth required id="description" multiline maxRows={4} label="Description" defaultValue={imageDescription} onChange={(e)=>setImageDescription(e.target.value)}/>
             <ButtonContainer>
                 <Button variant = "outlined" size="small" onClick={()=>onClose()}> Cancel</Button>
-                <Button variant = "outlined" size="small" onClick={()=>onSave(imageData, imageDescription)}> Save</Button>
+                <Button variant = "outlined" size="small" onClick={()=>doSave()}> Save</Button>
             </ButtonContainer>
 
 		</Container>

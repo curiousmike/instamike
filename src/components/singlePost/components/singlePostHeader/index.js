@@ -5,9 +5,9 @@ import UserQuickActionMenu from '../userQuickActionMenu';
 import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
 
-function SinglePostHeader({usersData, userId, selectUser}) {
+function SinglePostHeader({usersData, name, selectUser}) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const user = usersData.filter(obj=>{ return obj._id === userId})[0];
+    const user = usersData.filter(obj=>{ return obj.name === name})[0];
 
     const handleMenuOpen = (event) => {
         console.log('handl menu open');
