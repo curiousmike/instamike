@@ -1,30 +1,16 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-height: 30vh;
+    height: 25vh;
 `;
 export const TopContainer = styled.div`
     display: flex;
-    justify-content: space-between;
-    // align-items: center;
     overflow: hidden;
     background-color: #fec89a;
     height: 15vh;
 `;
-export const BottomContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    // align-items: center;
-    overflow: hidden;
-    background-color: #fec89a;
-    height: 15vh;
-`;
-export const AvatarContainer = styled.div`
-    margin-right: 12px;
-    margin-left: 12px;
-`;
-export const ItemContainer = styled.div`
-    margin: 4px 4px 4px 0px;
+export const NameAndAvatarContainer = styled.div`
+    width: 34%;
 `;
 
 export const RightContainer = styled.div`
@@ -32,11 +18,33 @@ export const RightContainer = styled.div`
     flex-direction: column;
     height: 100%;
     justify-content: center;
+    align-items: center;
+    width: 66%;
 `;
 
+export const BottomContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    background-color: #fec89a;
+    height: 10vh;
+`;
+export const AvatarContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const ItemContainer = styled.div`
+    margin: 4px 4px 4px 0px;
+`;
+
+
 export const NameContainer = styled.div`
-    font-size: 12px;
-    padding: 8px 2px 2px 0px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 0px 8px 0px;
 `;
 
 export const FullNameContainer = styled.div`
@@ -47,7 +55,13 @@ export const RowContainer = styled.div`
     flex-direction: row;
 `;
 
+export const EditProfileButton = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 8px;
+`;
+
 export const DescriptionContainer = styled.div`
     font-size: 15px;
-    padding: 0px 2px 2px 16px;
+    padding: 16px 2px 2px 16px;
 `;

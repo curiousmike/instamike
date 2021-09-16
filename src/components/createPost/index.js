@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { StoreContext } from './../../store';
-import { Button, Fab, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import {useState} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
