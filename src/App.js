@@ -123,7 +123,7 @@ function App() {
               </InnerContent>
           )}
           {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
-          {searchVisible && <Search />}
+          {searchVisible && <Search selectUser={onSelectUser}/>}
           {showCreatePost && <CreatePost onClose={()=>setShowCreatePost(false)} onSave={(newpost)=>onCreatePost(newpost)}/>}
           {showCreateUser && <CreateUser onClose={()=>setShowCreateUser(false)} />}
           <Footer 
