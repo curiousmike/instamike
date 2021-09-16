@@ -18,9 +18,8 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 	const [viewingFollowing, setViewingFollowing] = useState(false);
 	const [editingProfile, setEditingProfile] = useState(false);
 	const contentContainer = React.createRef();
-    const postData = myContext.posts.filter(obj=>{ return obj.userId === user.id});
-	// console.log('\n\n\nUserProfileView [ postList, postGrid, Followers, Following = ', viewingPostList, viewingPostGrid, viewingFollowers, viewingFollowing);
-	console.log('userProfileView = user = ', user.name);
+    const singleUserPostData = myContext.posts.filter(obj=>{ return obj.name === user.name});
+
 	useEffect(() => {
 		resetToGridView();
 	}, [user]);
@@ -77,9 +76,9 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 					editProfile={()=>setEditingProfile(true)}
 				/>
 				{ viewingPostGrid && 
-					<UserPostGrid user={user} posts={postData} onSelectImage={(image)=>onSelectImage(image)}/>
+					<UserPostGrid user={user} posts={singleUserPostData} onSelectImage={(image)=>onSelectImage(image)}/>
 				}
-				{ viewingPostList && <PostList usersData={myContext.users} isProfile={true} postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
+				{ viewingPostList && <PostList usersData={myContext.users} isProfile={true} postData={singleUserPostData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
 				{ (viewingFollowers || viewingFollowing) && 
 				<FollowView
 					usersData={myContext.users}

@@ -14,7 +14,7 @@ import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost } from './services/postservice';
 
-const YouUserName = 'hopelinkvader';
+const YouUserName = 'MegapixelsMike';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -119,7 +119,7 @@ function App() {
           {showUserStories && <UserStories onSelect={onSelectUser}/>}
           {showPostList && (  
               <InnerContent>
-                <PostList isProfile={false} theRef={contentContainer} postData={usersPosts} selectUser={onSelectUser} /> 
+                <PostList isProfile={false} theRef={contentContainer} selectUser={onSelectUser} /> 
               </InnerContent>
           )}
           {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
