@@ -8,7 +8,7 @@ import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 
-function SinglePost({ usersData, post, selectUser }) {
+function SinglePost({ usersData, post, selectUser, id }) {
 	const {name, postId, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
 	const user = usersData.filter(object=> {return object.name === name})[0];
@@ -30,7 +30,7 @@ function SinglePost({ usersData, post, selectUser }) {
 		setDialogTitle('do bookmark');
 	}
 	return (
-		<Container>
+		<Container id={id}>
 			<Dialog open={dialogTitle !== null}>
 				<DialogTitle id="simple">{dialogTitle}</DialogTitle>
 				<DialogActions>

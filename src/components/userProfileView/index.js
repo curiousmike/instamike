@@ -17,12 +17,17 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 	const [viewingFollowers, setViewingFollowers] = useState(false);
 	const [viewingFollowing, setViewingFollowing] = useState(false);
 	const [editingProfile, setEditingProfile] = useState(false);
+	const [jumpToImageIndex, setJumpToImageIndex] = useState(null);
 	const contentContainer = React.createRef();
     const singleUserPostData = myContext.posts.filter(obj=>{ return obj.name === user.name});
 
 	useEffect(() => {
 		resetToGridView();
 	}, [user]);
+
+	useEffect(() => {
+		console.log('jump to = ', jumpToImageIndex);
+	}, [jumpToImageIndex]);
 
 	const resetToGridView = () => {
 		setViewingPostList(false);
@@ -31,10 +36,11 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 		setViewingFollowing(false);
 	}
 
-	const onSelectImage = (image) => {
-		console.log('<UserProfileView onSelectImage');
+	const onSelectImage = (image, index) => {
+		console.log('<UserProfileView onSelectImage - ', index);
 		setViewingPostGrid(false);
 		setViewingPostList(true);
+		setJumpToImageIndex(index);
 	}
 
 	const onSelectPosts = () => {
@@ -76,9 +82,9 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 					editProfile={()=>setEditingProfile(true)}
 				/>
 				{ viewingPostGrid && 
-					<UserPostGrid user={user} posts={singleUserPostData} onSelectImage={(image)=>onSelectImage(image)}/>
+					<UserPostGrid user={user} posts={singleUserPostData} onSelectImage={(image, index)=>onSelectImage(image, index)}/>
 				}
-				{ viewingPostList && <PostList usersData={myContext.users} isProfile={true} postData={singleUserPostData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
+				{ viewingPostList && <PostList usersData={myContext.users} isProfile={true} postData={singleUserPostData} theRef={contentContainer} jumpTo={jumpToImageIndex} selectUser={()=>alert('handle userProfileView select user')}/>}
 				{ (viewingFollowers || viewingFollowing) && 
 				<FollowView
 					usersData={myContext.users}

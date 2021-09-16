@@ -8,7 +8,7 @@ function UserPostGrid({user, posts, onSelectImage}) {
 			<MainImageContainer>
 			{
 				finalPosts.map( (post, index)=>(
-				<ImageContainer key={index} onClick={()=>onSelectImage(post)}>
+				<ImageContainer key={index} onClick={()=>onSelectImage(post, index)}>
 					<img className = "ImgClass"
 						src={post.image}
 						alt={'the alt'}
