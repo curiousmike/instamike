@@ -48,7 +48,7 @@ function SinglePost({ usersData, post, selectUser }) {
 				doBookmark={()=>doBookmark()} />
 			<SinglePostDetails user={user} post={post} onSelectUser={selectUser}/>
 			<SinglePostComments user={user}/>
-			<SinglePostDateFooter />
+			<SinglePostDateFooter post={post} />
 		</Container>
 	)
 }

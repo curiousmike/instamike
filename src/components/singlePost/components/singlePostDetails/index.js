@@ -1,5 +1,4 @@
 import { Container, NumberOfLikes, PosterName, DescriptionContainer} from './styles'
-
 // import Icon from '@material-ui/core/Icon';
 
 function SinglePostDetails({user, post, onSelectUser}) {

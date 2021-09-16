@@ -1,11 +1,11 @@
 import { Container, NumberOfLikes, PosterName} from './styles'
-
+import { formatDate } from '../../../../utils/utils';
 // import Icon from '@material-ui/core/Icon';
 
-function singlePostDateFooter() {
+function singlePostDateFooter({post}) {
 	return (
 		<Container>
-            4 DAYS AGO
+            {formatDate(post.timeStamp)}
 		</Container>
 	)
 }

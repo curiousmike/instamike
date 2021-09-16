@@ -1,6 +1,7 @@
 const mockUserPosts = [
 	{
-		id: 1,
+		_id: 1,
+		name: 'MegapixelsMike',
 		userId: '613fc88a347e951f52daf850',
 		timestamp: 1,
 		description: `From atop Mission Peak, DeeDee shares the love.`,

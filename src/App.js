@@ -13,15 +13,8 @@ import styled from 'styled-components'
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost } from './services/postservice';
-// import { doesUserExist, addNewUser } from './services/userservice';
-import mockUserData from './mockData/mockUserData';
-import mockUserPosts from './mockData/mockUserPosts';
-// {
-//     usersData: mockUserData, 
-//     usersPosts: mockUserPosts,
-//     currentUser: 0,
-// });
 
+const YouUserName = 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -29,77 +22,47 @@ const InnerContent = styled.main`
 `
 function App() {
   const contentContainer = React.createRef();
-  const [usersData, setUsersData] = useState(null);
-  const [usersPosts, setUsersPosts] = useState(null);
+  const [usersData, setUsersData] = useState([]);
+  const [usersPosts, setUsersPosts] = useState([]);
   const [userProfileView, setUserProfileView] = useState(false);
-  // const [youUser, setYouUser] = useState(mockUserData[0]);
-  const youUser = mockUserData[0];
-  const [currentUser, setCurrentUser] = useState(youUser);
+  const [currentUser, setCurrentUser] = useState(null);
   const [searchVisible, setSearchVisible] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showCreateUser, setShowCreateUser] = useState(false);
+  const [youUser, setYouUser] = useState(null);
+  
   const globalStore = {
     users: usersData,
     posts: usersPosts,
   };
+
   useEffect (() => {
     async function loadUserData () {
       const users = await getUsers();
-      console.log('users = ', users);
-      setUsersData(users);
+      if (users) setUsersData(users);
+
+      const defaultUser = users.filter(user=> {return user.name === YouUserName})[0];
+      console.log('YouUser = ', defaultUser.name);
+      setCurrentUser(defaultUser);
+      setYouUser(defaultUser);
     }
     async function loadPostData () {
       const posts = await getPosts();
-      console.log('posts = ', posts);
-      setUsersPosts(posts);
+      if (posts) setUsersPosts(posts);
     }
     loadUserData();
     loadPostData();
   }, []);
-  // const testBackend = async () => {
-  //   const newUser = {
-  //     name: 'MegapixelsMike',
-  //     firstName: 'Michael',
-  //     lastName: 'Coustier',
-  //     email: 'curiousmike@gmail.com',
-  //     phone: '510-557-0109',
-  //     password: 'encrypted',
-  //     description: 'A photographer who loves astrophotography, pet photography and landscapes.  Nikon Z lover.  Computer hardware enthusiast.  Hiker.  Dog lover.  Family lover.  Enjoys a good Stephen King book.  Respects the sloth.',
-  //     avatar: 'me.jpg',
-  //     posts: 0,
-  //     followers: [],
-  //     following: [],
-  //   }
-  //   const userExists = await (doesUserExist(newUser.name));
-  //   if (!userExists) {
-  //     if (addNewUser (newUser)) {
-  //       console.log('user successfully added');
-  //     } else {
-  //       console.log('error adding new user');
-  //     };
-  //   } else {
-  //     console.log('new user not added');
-  //   }
-  // }
-  // testBackend ();
-
 
   const onCreatePost = (newPost) => {
-    // const copyOfPostData = [...usersPosts];
-    // const newPost = {
-    //   id: 27,
-    //   userId: 1,
-    //   timestamp: 11,
-    //   description: description,
-    //   likes: [3],	// index of userId who liked it
-    //   comments: [],
-    //   image: imageData
-    // };
-    // copyOfPostData.unshift(newPost);
-    // setUsersPosts(copyOfPostData);
     newPost.name = youUser.name;
-    addNewPost(newPost);
     setShowCreatePost(false);
+    addNewPost(newPost);  // tell backend
+
+    // locally add
+    const posts = [...usersPosts];
+    posts.unshift(newPost);
+    setUsersPosts(posts);
     goYou();
   }
 
@@ -120,11 +83,9 @@ function App() {
     setUserProfileView(false);
     setSearchVisible(false);
     setShowCreatePost(true);
-    console.log('here');
   }
 
   const addFavorite = () => {
-    // console.log ('add favorite');
     setUserProfileView(false);
     setSearchVisible(false);
     setShowCreatePost(false);
@@ -139,7 +100,6 @@ function App() {
   }
 
   const onSelectUser = (user) => {
-    // console.log('onSelectUser = ', user);
     setCurrentUser(user);
     setUserProfileView(true);
   }
@@ -150,7 +110,6 @@ function App() {
 
   const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !searchVisible  && !showCreatePost && !userProfileView && !showCreateUser;
-  // console.log('youUser = ', youUser);
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}> 

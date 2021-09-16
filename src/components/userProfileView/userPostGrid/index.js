@@ -1,12 +1,13 @@
 import { Container, MainImageContainer, ImageContainer } from './styles'
 import './userPostGrid.css';
 
-function UserPostGrid({posts, onSelectImage}) {
+function UserPostGrid({user, posts, onSelectImage}) {
+	const finalPosts = posts.filter(post=> {return post.name === user.name});
 	return (
 		<Container>
 			<MainImageContainer>
 			{
-				posts.map( (post, index)=>(
+				finalPosts.map( (post, index)=>(
 				<ImageContainer key={index} onClick={()=>onSelectImage(post)}>
 					<img className = "ImgClass"
 						src={post.image}

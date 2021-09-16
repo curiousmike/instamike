@@ -77,7 +77,7 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 					editProfile={()=>setEditingProfile(true)}
 				/>
 				{ viewingPostGrid && 
-					<UserPostGrid posts={postData} onSelectImage={(image)=>onSelectImage(image)}/>
+					<UserPostGrid user={user} posts={postData} onSelectImage={(image)=>onSelectImage(image)}/>
 				}
 				{ viewingPostList && <PostList usersData={myContext.users} isProfile={true} postData={postData} theRef={contentContainer} selectUser={()=>alert('handle userProfileView select user')}/>}
 				{ (viewingFollowers || viewingFollowing) && 

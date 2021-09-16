@@ -8,7 +8,6 @@ import IconPerson from '@material-ui/icons/Person';
 import Avatar from '@material-ui/core/Avatar';
 
 function Footer({goHome, doSearch, createPost, addFavorite, goYou, youUser}) {
-    // console.log('x youUser = ', youUser);
 	return (
 		<Container>
             <FooterContainer>
