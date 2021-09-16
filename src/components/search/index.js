@@ -24,11 +24,20 @@ function Search({selectUser}) {
         }
     }
 
-    const handleSelectUser = (user) => {
+    const resetStuff = () => {
         setSearchTerm(null);
         setUserSearchResults(null);
         setPostSearchResults(null);
-        selectUser(user);
+    }
+    const handleSelectUser = (user) => {
+        resetStuff();
+        selectUser(user); // an actual user
+    }
+
+    const handleSelectPost = (post) => {
+        resetStuff();
+        console.log('post.user = ', post.name); // is "username"  this isnt a user.  confusing.
+        //selectUser(post.user);
     }
 
 	return (
@@ -36,12 +45,20 @@ function Search({selectUser}) {
             <SearchContainer>
                 <TextField id="standard-search" label="Search..." value={searchTerm} type="search" onKeyDown={keyPress} onChange={handleChange}/>
             </SearchContainer>
+            <div>Users</div>
             { userSearchResults && userSearchResults.map( (user, index)=>(
                 <Button style={{width:'25%'}} variant="outlined" key={index} onClick={() => handleSelectUser(user)}> {user.name} </Button>
             )) }
-            { postSearchResults && postSearchResults.map( (post, index)=>(
-                <div key={index}> {post.description} </div>
-            )) }
+            <div>Posts</div>
+            { postSearchResults && (
+                postSearchResults.map( 
+                    (post, index)=>(
+                        <Button style={{width:'25%'}} variant="outlined" key={index} onClick={()=>handleSelectPost(post)}> 
+                            {post.description} 
+                        </Button>
+                    )
+                )) 
+            }
 
 		</Container>
 	)
