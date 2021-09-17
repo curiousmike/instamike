@@ -42,7 +42,6 @@ function App() {
       if (users) setUsersData(users);
 
       const defaultUser = users.filter(user=> {return user.name === YouUserName})[0];
-      console.log('YouUser = ', defaultUser.name);
       setCurrentUser(defaultUser);
       setYouUser(defaultUser);
     }

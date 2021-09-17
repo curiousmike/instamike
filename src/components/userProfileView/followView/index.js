@@ -1,7 +1,6 @@
 import { Container} from './styles'
 import {List, ListItem, ListItemText, ListItemAvatar, 
     Avatar, IconButton, ListItemSecondaryAction } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import IconVert from '@material-ui/icons/MoreVert';
 function FollowView({usersData, user, onSelectUser, followers}) {
     const dense = false;

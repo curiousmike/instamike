@@ -4,7 +4,6 @@ import IconHome from '@material-ui/icons/Home';
 import IconSearch from '@material-ui/icons/Search';
 import IconAdd from '@material-ui/icons/AddAPhoto';
 import IconFavorite from '@material-ui/icons/Favorite';
-import IconPerson from '@material-ui/icons/Person';
 import Avatar from '@material-ui/core/Avatar';
 
 function Footer({goHome, doSearch, createPost, addFavorite, goYou, youUser}) {
@@ -41,9 +40,6 @@ function Footer({goHome, doSearch, createPost, addFavorite, goYou, youUser}) {
                 </ItemContainer>
                 <ItemContainer>
                     <Tooltip title="You">
-                        {/* <IconButton aria-label="you" onClick = {goYou}>
-							<IconPerson />
-						</IconButton> */}
                         <Avatar 
                             onClick={goYou}
                             alt={youUser?.name}

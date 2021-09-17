@@ -1,11 +1,11 @@
 import { Container } from './styles'
 import { MenuItem } from '@material-ui/core';
 
-function UserQuickActionMenu() {
+function UserQuickActionMenu({onFollow, onHide}) {
 	return (
 		<Container>
-            <MenuItem>Follow</MenuItem>
-            <MenuItem>Hide</MenuItem>
+            <MenuItem onClick={onFollow}>Follow</MenuItem>
+            <MenuItem onClick={onHide}>Hide</MenuItem>
 		</Container>
 	)
 }

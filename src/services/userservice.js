@@ -25,7 +25,7 @@ export const doesUserExist = async (username) => {
 }
 
 export const addNewUser = async (userdata) => {
-    const result = await fetch('/api/create/user', {
+    await fetch('/api/create/user', {
       method: 'POST',
       body: JSON.stringify(userdata),
       headers: {

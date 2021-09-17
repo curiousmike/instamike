@@ -9,14 +9,13 @@ import SinglePostDateFooter from './components/singlePostDateFooter';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 
 function SinglePost({ usersData, post, selectUser, id }) {
-	const {name, postId, image} = post;
+	const {name, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
 	const user = usersData.filter(object=> {return object.name === name})[0];
 	if (!user) {
 		console.log('could not find user name = ', name);
 		return(<div/>);
 	}
-	// console.log('<SinglePost user = ', user);
 	const addFavorite = () => {
 		setDialogTitle('add favorite post');
 	}

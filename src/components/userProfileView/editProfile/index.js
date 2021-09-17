@@ -9,7 +9,6 @@ function EditProfile({user, onClose}) {
 	const [lastName, setLastName] = useState(user.lastName);
 	const [email, setEmail] = useState(user.email);
 	const [phone, setPhone] = useState(user.phone);
-	const [password, setPassword] = useState(user.password);
 	const [description, setDescription] = useState(user.description);
 	const [avatar, setAvatar] = useState(user.avatar);
 
@@ -28,7 +27,7 @@ function EditProfile({user, onClose}) {
 			lastName: lastName,
 			email: email,
 			phone: phone,
-			password: password,
+			password: user.password,
 			description: description,
 			avatar: avatar,
 		};
@@ -69,7 +68,7 @@ function EditProfile({user, onClose}) {
 						<TextField required id="phone" multiline maxRows={4} label="Phone" defaultValue={phone} onChange={(e)=>setPhone(e.target.value)}/>
 					</ItemContainer>
 					<ItemContainer>
-						<TextField required InputProps={{readOnly: true}} id="password" type = "password" multiline maxRows={4} label="Password" defaultValue={password} />
+						<TextField required InputProps={{readOnly: true}} id="password" type = "password" multiline maxRows={4} label="Password" defaultValue={user.password} />
 					</ItemContainer>
 					<ItemContainer>
 						<ButtonContainer>

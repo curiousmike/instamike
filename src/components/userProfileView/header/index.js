@@ -1,5 +1,5 @@
 import { Container, TopContainer, ItemContainer, RightContainer, NameContainer, AvatarContainer,
-    FullNameContainer, RowContainer, DescriptionContainer, BottomContainer, NameAndAvatarContainer, EditProfileButton } from './styles'
+    RowContainer, DescriptionContainer, BottomContainer, NameAndAvatarContainer, EditProfileButton } from './styles'
 import HeaderItem from '../headerItem';
 import { Avatar, Button } from '@material-ui/core';
 

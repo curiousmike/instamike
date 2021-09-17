@@ -10,7 +10,7 @@ export const getPosts = async (username) => {
   
   
 export const addNewPost = async (postdata) => {
-    const result = await fetch('/api/create/post', {
+    await fetch('/api/create/post', {
     method: 'POST',
     body: JSON.stringify(postdata),
     headers: {

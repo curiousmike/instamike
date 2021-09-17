@@ -6,7 +6,6 @@ import Avatar from '@material-ui/core/Avatar';
 
 function UserStories({onSelect}) {
 	const myContext = useContext(StoreContext);
-	console.log('myContext = ', myContext);
 	return (
 		<Container>
 			<UserStoriesContainer >

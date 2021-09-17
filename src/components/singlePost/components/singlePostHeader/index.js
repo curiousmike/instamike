@@ -10,12 +10,19 @@ function SinglePostHeader({usersData, name, selectUser}) {
     const user = usersData.filter(obj=>{ return obj.name === name})[0];
 
     const handleMenuOpen = (event) => {
-        console.log('handl menu open');
         setAnchorEl(event.currentTarget);
     };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
+    }
+
+    const onFollow = (user) => {
+        console.log('add follow');
+    }
+
+    const onHide = (user) => { 
+        console.log('on hide');
     }
 
     const open = Boolean(anchorEl);
@@ -41,7 +48,9 @@ function SinglePostHeader({usersData, name, selectUser}) {
                 anchorEl={anchorEl}
                 onClose={handleMenuClose}
                 >
-                    <UserQuickActionMenu/>
+                <div id ="fix react ref error">
+                    <UserQuickActionMenu onFollow={(user)=>onFollow(user)} onHide={(user)=>onHide(user)}/>
+                </div>
             </Menu>
 		</Container>
 	)

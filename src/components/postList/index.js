@@ -10,12 +10,12 @@ function PostList({theRef, selectUser, isProfile, postData, jumpTo}) {
     useEffect( () => {
         if (jumpTo) {
             // When jumping to an element, we need to take into account the UserProfile Element + the main header height
-            var myElement = document.getElementById(`post_${jumpTo}`);
-            var userProfileElementHeight = myElement.parentElement.parentElement.children[0].clientHeight;
-            var headerHeight = document.querySelector('header').clientHeight;
+            const myElement = document.getElementById(`post_${jumpTo}`);  // the element to jump to
             if (myElement) {
-                const topPos = myElement?.offsetTop - userProfileElementHeight - headerHeight;
-                theRef.current.scrollTo(0, topPos);
+                const userProfileElementHeight = myElement.parentElement.parentElement.children[0].clientHeight; // whacky way to get UserProfile height
+                const headerHeight = document.querySelector('header').clientHeight; // the height of the root header
+                const scrollToPos = myElement?.offsetTop - userProfileElementHeight - headerHeight;
+                theRef.current.scrollTo(0, scrollToPos);
             }
         }
     });
