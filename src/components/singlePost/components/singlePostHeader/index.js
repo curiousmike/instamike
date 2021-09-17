@@ -35,8 +35,8 @@ function SinglePostHeader({name, selectUser }) {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
     const showFollowHideMenu = user.name !== myContext.youUser.name;
-
-	return (
+    const showFollowOption = myContext.youUser.following.filter(followName=> {return followName === user.name}).length ? false : true;
+    return (
 		<Container>
             { user && <UserInfoContainer>
                 <ItemContainer onClick={()=>selectUser(user)}>
@@ -60,7 +60,10 @@ function SinglePostHeader({name, selectUser }) {
                     onClose={handleMenuClose}
                     >
                     <div id ="fix react ref error">
-                        <UserQuickActionMenu onFollow={()=>onFollow(user)} onHide={()=>onHide(user)}/>
+                        <UserQuickActionMenu 
+                            onFollow={showFollowOption ? ()=>onFollow(user) : null} 
+                            onHide={()=>onHide(user)}
+                        />
                     </div>
                 </Menu>
             </div>

@@ -4,8 +4,8 @@ import { MenuItem } from '@material-ui/core';
 function UserQuickActionMenu({onFollow, onHide}) {
 	return (
 		<Container>
-            <MenuItem onClick={onFollow}>Follow</MenuItem>
-            <MenuItem onClick={onHide}>Hide</MenuItem>
+            {onFollow && <MenuItem onClick={onFollow}>Follow</MenuItem>}
+            {onHide && <MenuItem onClick={onHide}>Hide</MenuItem>}
 		</Container>
 	)
 }
