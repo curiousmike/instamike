@@ -1,5 +1,8 @@
 import {useState} from 'react';
 import { Container } from './styles'
+import { useContext } from 'react';
+import { StoreContext } from '../../store';
+
 import SinglePostHeader from './components/singlePostHeader';
 import SinglePostImage from './components/singlePostImage';
 import SinglePostActionBar from './components/singlePostActionBar';
@@ -8,10 +11,11 @@ import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 
-function SinglePost({ usersData, post, selectUser, id }) {
+function SinglePost({ post, selectUser, id }) {
+    const myContext = useContext(StoreContext);
 	const {name, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
-	const user = usersData.filter(object=> {return object.name === name})[0];
+	const user = myContext.users.filter(object=> {return object.name === name})[0];
 	if (!user) {
 		console.log('could not find user name = ', name);
 		return(<div/>);
@@ -38,7 +42,7 @@ function SinglePost({ usersData, post, selectUser, id }) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-			<SinglePostHeader usersData={usersData} name={name} selectUser={(user)=>selectUser(user)} />
+			<SinglePostHeader name={name} selectUser={(user)=>selectUser(user)} />
 			<SinglePostImage imgSrc={image}/>
 			<SinglePostActionBar 
 				addFavorite={()=>addFavorite()}

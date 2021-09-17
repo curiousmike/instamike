@@ -1,14 +1,21 @@
 import {useState} from 'react';
+import { useContext } from 'react';
+import { StoreContext } from '../../../../store';
+
 import { Container,UserInfoContainer, ItemContainer } from './styles'
 import Avatar from '@material-ui/core/Avatar';
 import UserQuickActionMenu from '../userQuickActionMenu';
 import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
 
-function SinglePostHeader({usersData, name, selectUser}) {
+function SinglePostHeader({name, selectUser, users, posts, youUser}) {
+    const myContext = useContext(StoreContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    const user = usersData.filter(obj=>{ return obj.name === name})[0];
+    const user = myContext.users.filter(obj=>{ return obj.name === name})[0];
 
+    // console.log('singlePostHeader = users ', myContext.users);
+    // console.log('singlePostHeader = posts ', myContext.posts);
+    // console.log('singlePostHeader = youUser ', myContext.youUser);
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };

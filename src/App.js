@@ -34,6 +34,7 @@ function App() {
   const globalStore = {
     users: usersData,
     posts: usersPosts,
+    youUser: youUser,
   };
 
   useEffect (() => {

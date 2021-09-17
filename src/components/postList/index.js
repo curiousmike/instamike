@@ -25,7 +25,6 @@ function PostList({theRef, selectUser, isProfile, postData, jumpTo}) {
 				{ postsToUser && postsToUser.map( (post, index)=>(
                     <SinglePost
                         id={`post_${index}`}
-                        usersData={myContext.users}
                         key={index}
                         post={post}
                         selectUser={selectUser}
