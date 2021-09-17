@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import { useContext } from 'react';
 import { StoreContext } from '../../../../store';
+import { updateUser } from '../../../../services/userservice';
 
 import { Container,UserInfoContainer, ItemContainer } from './styles'
 import Avatar from '@material-ui/core/Avatar';
@@ -8,14 +9,11 @@ import UserQuickActionMenu from '../userQuickActionMenu';
 import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
 
-function SinglePostHeader({name, selectUser, users, posts, youUser}) {
+function SinglePostHeader({name, selectUser }) {
     const myContext = useContext(StoreContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const user = myContext.users.filter(obj=>{ return obj.name === name})[0];
 
-    // console.log('singlePostHeader = users ', myContext.users);
-    // console.log('singlePostHeader = posts ', myContext.posts);
-    // console.log('singlePostHeader = youUser ', myContext.youUser);
     const handleMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -25,7 +23,9 @@ function SinglePostHeader({name, selectUser, users, posts, youUser}) {
     }
 
     const onFollow = (user) => {
-        console.log('add follow');
+        const updatedUser = {...myContext.youUser};
+        updatedUser.following.push(user.name);
+        updateUser(myContext.youUser, updatedUser);
     }
 
     const onHide = (user) => { 
@@ -34,6 +34,8 @@ function SinglePostHeader({name, selectUser, users, posts, youUser}) {
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
+    const showFollowHideMenu = user.name !== myContext.youUser.name;
+
 	return (
 		<Container>
             { user && <UserInfoContainer>
@@ -44,21 +46,25 @@ function SinglePostHeader({name, selectUser, users, posts, youUser}) {
                     {user.name}
                 </ItemContainer>
             </UserInfoContainer> }
-            <Tooltip title="Menu">
-                <IconButton aria-label="home" onClick = {(e)=>handleMenuOpen(e)}>
-                    <IconHoriz />
-                </IconButton>
-            </Tooltip>
-            <Menu    
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleMenuClose}
-                >
-                <div id ="fix react ref error">
-                    <UserQuickActionMenu onFollow={(user)=>onFollow(user)} onHide={(user)=>onHide(user)}/>
-                </div>
-            </Menu>
+            { showFollowHideMenu && 
+            <div id="followHideMenu">
+                <Tooltip title="Menu">
+                    <IconButton aria-label="home" onClick = {(e)=>handleMenuOpen(e)}>
+                        <IconHoriz />
+                    </IconButton>
+                </Tooltip>
+                <Menu    
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleMenuClose}
+                    >
+                    <div id ="fix react ref error">
+                        <UserQuickActionMenu onFollow={()=>onFollow(user)} onHide={()=>onHide(user)}/>
+                    </div>
+                </Menu>
+            </div>
+            }
 		</Container>
 	)
 }

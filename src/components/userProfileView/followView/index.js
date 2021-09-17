@@ -7,13 +7,13 @@ function FollowView({usersData, user, onSelectUser, followers}) {
     const secondary = false;
     let users;
     if (followers) {
-        users = user.followers.map((item)=>{
-            const user = usersData.filter(userData=> {return userData.id === item})[0];
+        users = user.followers.map((followerName)=>{
+            const user = usersData.filter(userData=> {return userData.id === followerName})[0];
             return user;
         });
     } else {
-        users = user.following.map((item)=>{
-            const user = usersData.filter(userData=> {return userData.id === item})[0];
+        users = user.following.map((followingUserName)=>{
+            const user = usersData.filter(userData=> {return userData.name === followingUserName})[0];
         return user;
         });
     }
