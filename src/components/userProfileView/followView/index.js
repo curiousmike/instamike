@@ -8,7 +8,7 @@ function FollowView({usersData, user, onSelectUser, followers}) {
     let users;
     if (followers) {
         users = user.followers.map((followerName)=>{
-            const user = usersData.filter(userData=> {return userData.id === followerName})[0];
+            const user = usersData.filter(userData=> {return userData.name === followerName})[0];
             return user;
         });
     } else {
