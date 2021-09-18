@@ -20,6 +20,7 @@ function PostList({theRef, selectUser, isProfile, postData, jumpTo}) {
         }
     });
 
+   
 	return (
 		<Container ref={theRef} style={isProfile ? {height:'65vh'}: {height:'80vh'}}>
 				{ postsToUser && postsToUser.map( (post, index)=>(

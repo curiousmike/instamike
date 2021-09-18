@@ -9,7 +9,7 @@ import UserQuickActionMenu from '../userQuickActionMenu';
 import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
 
-function SinglePostHeader({name, selectUser }) {
+function SinglePostHeader({post, name, selectUser, onDelete }) {
     const myContext = useContext(StoreContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const user = myContext.users.filter(obj=>{ return obj.name === name})[0];
@@ -50,7 +50,8 @@ function SinglePostHeader({name, selectUser }) {
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
-    const showFollowHideMenu = user?.name !== myContext?.youUser?.name;
+    const showDeletePost = post.name === myContext?.youUser?.name;
+    const showFollowHideMenu = showDeletePost || user?.name !== myContext?.youUser?.name;
     const showFollowOption = myContext?.youUser?.following.filter(followName=> {return followName === user.name}).length ? false : true;
     return (
 		<Container>
@@ -79,6 +80,7 @@ function SinglePostHeader({name, selectUser }) {
                         <UserQuickActionMenu 
                             onFollow={showFollowOption ? ()=>onFollow(user) : null} 
                             onHide={()=>onHide(user)}
+                            onDelete={showDeletePost ? onDelete : null}
                         />
                     </div>
                 </Menu>

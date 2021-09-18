@@ -2,7 +2,7 @@ import {useState} from 'react';
 import { Container } from './styles'
 import { useContext } from 'react';
 import { StoreContext } from '../../store';
-
+import { deletePost } from '../../services/postservice';
 import SinglePostHeader from './components/singlePostHeader';
 import SinglePostImage from './components/singlePostImage';
 import SinglePostActionBar from './components/singlePostActionBar';
@@ -32,6 +32,12 @@ function SinglePost({ post, selectUser, id }) {
 	const doBookmark = () => {
 		setDialogTitle('do bookmark');
 	}
+
+	const handleDelete = (post) => {
+		console.log ("delete post dfd = ", post.name);
+		deletePost(post);
+	}
+
 	return (
 		<Container id={id}>
 			<Dialog open={dialogTitle !== null}>
@@ -42,7 +48,7 @@ function SinglePost({ post, selectUser, id }) {
 					</Button>
 				</DialogActions>
 			</Dialog>
-			<SinglePostHeader name={name} selectUser={(user)=>selectUser(user)} />
+			<SinglePostHeader post={post} name={name} selectUser={(user)=>selectUser(user)} onDelete={() => handleDelete(post)}/>
 			<SinglePostImage imgSrc={image}/>
 			<SinglePostActionBar 
 				addFavorite={()=>addFavorite()}
