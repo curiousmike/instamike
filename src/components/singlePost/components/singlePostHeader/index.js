@@ -22,10 +22,26 @@ function SinglePostHeader({name, selectUser }) {
         setAnchorEl(null);
     }
 
-    const onFollow = (user) => {
-        const updatedUser = {...myContext.youUser};
-        updatedUser.following.push(user.name);
-        updateUser(myContext.youUser, updatedUser);
+    const addFollowing = async (newFollowUser) => {
+        // myUser will FOLLOWING user
+        const updatedYouUser = {...myContext.youUser};
+        updatedYouUser.following.push(newFollowUser.name);
+        console.log('Update user FOLLOWING - ', myContext.youUser.name);
+        await updateUser(myContext.youUser, updatedYouUser);
+    }
+
+    const addFollower = async (newFollowUser) => {
+        // newFollowUser will now have myUser as a FOLLOWERS
+        const updatedNewFollowUser = {...newFollowUser};
+        updatedNewFollowUser.followers.push(myContext.youUser.name);
+        console.log('Update user FOLLOWERS - ', newFollowUser.name);
+        await updateUser(newFollowUser, updatedNewFollowUser);
+    }
+
+    const onFollow = async (newFollowUser) => {
+        await addFollowing (newFollowUser);
+        await addFollower(newFollowUser);
+        handleMenuClose();
     }
 
     const onHide = (user) => { 
@@ -34,8 +50,8 @@ function SinglePostHeader({name, selectUser }) {
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
-    const showFollowHideMenu = user.name !== myContext.youUser.name;
-    const showFollowOption = myContext.youUser.following.filter(followName=> {return followName === user.name}).length ? false : true;
+    const showFollowHideMenu = user?.name !== myContext?.youUser?.name;
+    const showFollowOption = myContext?.youUser?.following.filter(followName=> {return followName === user.name}).length ? false : true;
     return (
 		<Container>
             { user && <UserInfoContainer>
