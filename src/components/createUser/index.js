@@ -53,6 +53,7 @@ function CreateUser({onClose}) {
         if (!userExists) {
         if (addNewUser (newUser)) {
             console.log('user successfully added');
+            onClose();
         } else {
             console.log('error adding new user');
         };
