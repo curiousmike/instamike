@@ -25,10 +25,6 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 		resetToGridView();
 	}, [user]);
 
-	useEffect(() => {
-		console.log('jump to = ', jumpToImageIndex);
-	}, [jumpToImageIndex]);
-
 	const resetToGridView = () => {
 		setViewingPostList(false);
 		setViewingPostGrid(true);
