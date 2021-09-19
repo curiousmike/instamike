@@ -1,10 +1,10 @@
 import { Container, ImageContainer } from './styles'
 
-function SinglePostImage({imgSrc}) {
+function SinglePostImage({imgSrc, onImageClick}) {
 	return (
 		<Container>
 			<ImageContainer>
-				<img alt="my alt" width="100%" src={imgSrc}></img>
+				<img alt="my alt" style={{maxHeight:"80vh", maxWidth:"100%"}} src={imgSrc} onClick={onImageClick}></img>
 			</ImageContainer>
 		</Container>
 	)

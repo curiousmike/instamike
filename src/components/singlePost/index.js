@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Container } from './styles'
+import { Container, FullScreenImage } from './styles'
 import { useContext } from 'react';
 import { StoreContext } from '../../store';
 import { deletePost } from '../../services/postservice';
@@ -15,6 +15,7 @@ function SinglePost({ post, selectUser, id }) {
     const myContext = useContext(StoreContext);
 	const {name, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
+	const [fullScreen, setFullScreen] = useState(false);
 	const user = myContext.users.filter(object=> {return object.name === name})[0];
 	if (!user) {
 		console.log('could not find user name = ', name);
@@ -38,8 +39,18 @@ function SinglePost({ post, selectUser, id }) {
 		deletePost(post);
 	}
 
+	const handleImageClick = (post) => {
+		console.log('clicked image = ', post);
+		setFullScreen(true);
+	}
+
 	return (
 		<Container id={id}>
+			{fullScreen && 
+				<FullScreenImage onClick={()=>setFullScreen(false)}>
+					<img alt="my alt" style={{maxHeight:"100%", maxWidth:"100%"}} src={image}/>
+				</FullScreenImage>
+			}
 			<Dialog open={dialogTitle !== null}>
 				<DialogTitle id="simple">{dialogTitle}</DialogTitle>
 				<DialogActions>
@@ -49,7 +60,7 @@ function SinglePost({ post, selectUser, id }) {
 				</DialogActions>
 			</Dialog>
 			<SinglePostHeader post={post} name={name} selectUser={(user)=>selectUser(user)} onDelete={() => handleDelete(post)}/>
-			<SinglePostImage imgSrc={image}/>
+			<SinglePostImage imgSrc={image} onImageClick={()=>handleImageClick(post)}/>
 			<SinglePostActionBar 
 				addFavorite={()=>addFavorite()}
 				addComment={()=>addComment()}
