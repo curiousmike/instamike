@@ -1,16 +1,16 @@
 import {useState} from 'react';
 import { Container, FollowTitle} from './styles'
 import {List, ListItem, ListItemText, ListItemAvatar, 
-    Avatar, IconButton, ListItemSecondaryAction,Tooltip, Menu, MenuItem } from '@material-ui/core';
+    Avatar,  ListItemSecondaryAction, Button } from '@material-ui/core';
+import { updateUser } from '../../../services/userservice';
 
-import IconVert from '@material-ui/icons/MoreVert';
 
 function FollowView({usersData, user, onSelectUser, followers}) {
     const [anchorEl, setAnchorEl] = useState(null);
-    const dense = false;
+    const isFollowers = followers;
     const secondary = false;
     let users;
-    if (followers) {
+    if (isFollowers) {
         users = user.followers.map((followerName)=>{
             const user = usersData.filter(userData=> {return userData.name === followerName})[0];
             return user;
@@ -30,8 +30,15 @@ function FollowView({usersData, user, onSelectUser, followers}) {
         setAnchorEl(null);
     }
 
-    const stopFollowing = (index, user) => {
-        alert('broke - also last user passed - closure issue? ' + user.name);
+    const stopFollowing = (userToRemoveOrBlock) => {
+        if (isFollowers) {
+            alert ('handle block');
+        } else {
+            const updatedUser = {...user};
+            const followingToKeep = updatedUser.following.filter(followingUserName => {return followingUserName !== userToRemoveOrBlock.name});
+            updatedUser.following = followingToKeep;
+            updateUser(user, updatedUser);
+        }
         handleMenuClose();
     }
 
@@ -40,7 +47,7 @@ function FollowView({usersData, user, onSelectUser, followers}) {
 	return (
         <Container>
             <FollowTitle>{ followers ? 'Followers' : 'Following'}</FollowTitle>
-            <List dense = {dense} style = {{width: '100%'}}>
+            <List dense = {false} style = {{width: '100%'}}>
                 { users.map( (user, index)=>(
                     <ListItem onClick = {()=>onSelectUser(user)} key = {index}>
                         <ListItemAvatar>
@@ -50,21 +57,11 @@ function FollowView({usersData, user, onSelectUser, followers}) {
                             primary={user?.name}
                             secondary={secondary ? 'Secondary text' : null}
                         />
-                        <ListItemSecondaryAction>
-                            <IconButton aria-label="home" onClick = {(e)=>handleMenuOpen(e)}>
-                                <IconVert />
-                            </IconButton>
-                            <Menu
-                                id={id}
-                                open={open}
-                                anchorEl={anchorEl}
-                                onClose={handleMenuClose}
-                            >
-                                <MenuItem onClick={()=>stopFollowing(index, user)}>Stop following {user.name}</MenuItem>
-                            </Menu>
+                        <ListItemSecondaryAction >
+                            <Button variant = "outlined" size="small" onClick={()=>stopFollowing(user)}>{isFollowers ? 'Block' : 'Stop'} following</Button>
                         </ListItemSecondaryAction>
                     </ListItem>
-                ))}
+            ))}
             </List>
         </Container>
 	)
