@@ -40,7 +40,6 @@ function SinglePost({ post, selectUser, id }) {
 	}
 
 	const handleImageClick = (post) => {
-		console.log('clicked image = ', post);
 		setFullScreen(true);
 	}
 
