@@ -13,6 +13,8 @@ import styled from 'styled-components'
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost } from './services/postservice';
+import {CircularProgress} from '@material-ui/core';
+
 
 const YouUserName = 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
@@ -20,6 +22,14 @@ const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
 `
+const LoadingContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 80vh;
+`;
+
 function App() {
   const contentContainer = React.createRef();
   const [usersData, setUsersData] = useState([]);
@@ -110,13 +120,14 @@ function App() {
 
   const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !searchVisible  && !showCreatePost && !userProfileView && !showCreateUser;
+  const showLoading = usersPosts.length === 0 || usersData.length === 0;
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
-    <StoreContext.Provider value={globalStore}> 
-    { usersData && usersPosts && (
+    <StoreContext.Provider value={globalStore}>
       <div className="App">
           <Header />
           {showUserStories && <UserStories onSelect={onSelectUser}/>}
+          {showLoading && <InnerContent><LoadingContainer><CircularProgress /></LoadingContainer></InnerContent>}
           {showPostList && (  
               <InnerContent>
                 <PostList isProfile={false} theRef={contentContainer} selectUser={onSelectUser} /> 
@@ -135,7 +146,6 @@ function App() {
             youUser = {youUser}
           />
       </div>
-      )}
     </StoreContext.Provider>
   );
 }
