@@ -1,9 +1,12 @@
 export const getUsers = async (username) => {
   try {
     const result = await fetch('/api/get');
+    if (result.status !== 200) {
+      return { error: true, status: result.status, msg: result.statusText, data: null };
+    }
     const jsonData = await result.json();
     if (jsonData?.length) {
-        return jsonData;
+        return {data: jsonData};
     } 
   } catch (e) {
     return null;

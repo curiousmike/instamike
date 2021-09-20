@@ -30,6 +30,17 @@ justify-content: center;
 height: 80vh;
 `;
 
+const ErrorContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 80vh;
+font-size: 24px;
+font-weight: 700;
+color: red;
+`;
+
 function App() {
   const contentContainer = React.createRef();
   const [usersData, setUsersData] = useState([]);
@@ -50,22 +61,22 @@ function App() {
 
   useEffect (() => {
     async function loadUserData () {
-      const users = await getUsers().catch((err)=>{ return null;});
-      if (users) { 
-        setUsersData(users);
-        const defaultUser = users.filter(user=> {return user.name === YouUserName})[0];
+      const usersResult = await getUsers();
+      if (usersResult.data) { 
+        setUsersData(usersResult.data);
+        const defaultUser = usersResult.data.filter(user=> {return user.name === YouUserName})[0];
         setCurrentUser(defaultUser);
         setYouUser(defaultUser);
         } else {
-        updateNetworkError('error with users');
+        updateNetworkError(`Error: loadUserData.\n${usersResult.status}\n${usersResult.msg}`);
       }
     }
     async function loadPostData () {
-      const posts = await getPosts().catch((err)=>null);
-      if (posts) {
-         setUsersPosts(posts);
+      const postsResult = await getPosts();
+      if (postsResult.data) {
+         setUsersPosts(postsResult.data);
       } else {
-        updateNetworkError('error loadPostData');
+        updateNetworkError(`Error: loadPostData.\n${postsResult.status}\n${postsResult.msg}`);
       }
     }
     loadUserData();
@@ -139,8 +150,8 @@ function App() {
     <StoreContext.Provider value={globalStore}>
       <div className="App">
           <Header />
-          {networkError && <div id="networkerror">{networkError}</div>}
-          {showUserStories && <UserStories onSelect={onSelectUser}/>}
+          {networkError && <ErrorContainer>{networkError}</ErrorContainer>}
+          {!networkError && showUserStories && <UserStories onSelect={onSelectUser}/>}
           {showLoading && networkError === null && <InnerContent><LoadingContainer><CircularProgress /></LoadingContainer></InnerContent>}
           {showPostList && (  
               <InnerContent>
@@ -151,14 +162,14 @@ function App() {
           {searchVisible && <Search selectUser={onSelectUser}/>}
           {showCreatePost && <CreatePost onClose={()=>setShowCreatePost(false)} onSave={(newpost)=>onCreatePost(newpost)}/>}
           {showCreateUser && <CreateUser onClose={()=>setShowCreateUser(false)} />}
-          <Footer 
+          {!networkError && <Footer 
             goHome = {() => goHome()}
             doSearch = {() => doSearch()}
             createPost = {() => createPost()}
             addFavorite= {() => addFavorite()}
             goYou = {() => goYou()}
             youUser = {youUser}
-          />
+          />}
       </div>
     </StoreContext.Provider>
   );
