@@ -1,10 +1,13 @@
 export const getPosts = async (username) => {
-    const result = await fetch('/api/get/posts');
-    
-    const jsonData = await result.json();
-    if (jsonData?.length) {
-        return jsonData;
-    } 
+    try {
+        const result = await fetch('/api/get/posts');
+        const jsonData = await result.json();
+        if (jsonData?.length) {
+            return jsonData;
+        } 
+    } catch (e) {
+        return null;
+    }
     return null;
   }
   

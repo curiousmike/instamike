@@ -40,6 +40,7 @@ function App() {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showCreateUser, setShowCreateUser] = useState(false);
   const [youUser, setYouUser] = useState(null);
+  const [networkError, setNetworkError] = useState(null);
   
   const globalStore = {
     users: usersData,
@@ -49,20 +50,31 @@ function App() {
 
   useEffect (() => {
     async function loadUserData () {
-      const users = await getUsers();
-      if (users) setUsersData(users);
-
-      const defaultUser = users.filter(user=> {return user.name === YouUserName})[0];
-      setCurrentUser(defaultUser);
-      setYouUser(defaultUser);
+      const users = await getUsers().catch((err)=>{ return null;});
+      if (users) { 
+        setUsersData(users);
+        const defaultUser = users.filter(user=> {return user.name === YouUserName})[0];
+        setCurrentUser(defaultUser);
+        setYouUser(defaultUser);
+        } else {
+        updateNetworkError('error with users');
+      }
     }
     async function loadPostData () {
-      const posts = await getPosts();
-      if (posts) setUsersPosts(posts);
+      const posts = await getPosts().catch((err)=>null);
+      if (posts) {
+         setUsersPosts(posts);
+      } else {
+        updateNetworkError('error loadPostData');
+      }
     }
     loadUserData();
     loadPostData();
   }, []);
+
+  const updateNetworkError = (error) => {
+    setNetworkError (error);
+  }
 
   const onCreatePost = (newPost) => {
     newPost.name = youUser.name;
@@ -121,13 +133,15 @@ function App() {
   const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !searchVisible  && !showCreatePost && !userProfileView && !showCreateUser;
   const showLoading = usersPosts.length === 0 || usersData.length === 0;
+
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
       <div className="App">
           <Header />
+          {networkError && <div id="networkerror">{networkError}</div>}
           {showUserStories && <UserStories onSelect={onSelectUser}/>}
-          {showLoading && <InnerContent><LoadingContainer><CircularProgress /></LoadingContainer></InnerContent>}
+          {showLoading && networkError === null && <InnerContent><LoadingContainer><CircularProgress /></LoadingContainer></InnerContent>}
           {showPostList && (  
               <InnerContent>
                 <PostList isProfile={false} theRef={contentContainer} selectUser={onSelectUser} /> 
