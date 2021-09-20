@@ -30,16 +30,30 @@ function FollowView({usersData, user, onSelectUser, followers}) {
         setAnchorEl(null);
     }
 
-    const stopFollowing = (userToRemoveOrBlock) => {
-        if (isFollowers) {
-            alert ('handle block');
-        } else {
-            const updatedUser = {...user};
-            const followingToKeep = updatedUser.following.filter(followingUserName => {return followingUserName !== userToRemoveOrBlock.name});
-            updatedUser.following = followingToKeep;
-            updateUser(user, updatedUser);
-        }
+    const stopFollowing = (userToRemove) => {
+        // Remove following
+        const updatedUser = {...user};
+        const followingToKeep = updatedUser.following.filter(followingUserName => {return followingUserName !== userToRemove.name});
+        updatedUser.following = followingToKeep;
+        updateUser(user, updatedUser);
+        
+        // Now, we need to remove you as a FOLLOWER
+        const otherUser = {...userToRemove};
+        const followersToKeep = otherUser.following.filter(followersUserName => {return followersUserName !== user.name});
+        otherUser.followers = followersToKeep;
+        updateUser(userToRemove, otherUser);
         handleMenuClose();
+    }
+
+    const blockFollowing = (userToBlock) => {
+        const userAlreadyBlocked = user.blocked.filter(blockedUser => blockedUser === userToBlock.name).length > 0;
+        if (userAlreadyBlocked) {
+            return;
+        } 
+        // add block
+        const updatedUser = {...user};
+        updatedUser.blocked.push(userToBlock.name);
+        updateUser(user, updatedUser);
     }
 
     const open = Boolean(anchorEl);
@@ -58,7 +72,8 @@ function FollowView({usersData, user, onSelectUser, followers}) {
                             secondary={secondary ? 'Secondary text' : null}
                         />
                         <ListItemSecondaryAction >
-                            <Button variant = "outlined" size="small" onClick={()=>stopFollowing(user)}>{isFollowers ? 'Block' : 'Stop'} following</Button>
+                            {!isFollowers && <Button variant = "outlined" size="small" onClick={()=>stopFollowing(user)}>Stop following</Button>}
+                            {isFollowers && <Button variant = "outlined" size="small" onClick={()=>blockFollowing(user)}>Block following</Button>}
                         </ListItemSecondaryAction>
                     </ListItem>
             ))}

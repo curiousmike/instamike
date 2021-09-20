@@ -50,9 +50,10 @@ function SinglePostHeader({post, name, selectUser, onDelete }) {
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
-    const showDeletePost = post.name === myContext?.youUser?.name;
+    const isThisYourPost = myContext?.youUser?.name === post.name;
+    const showDeletePost = isThisYourPost;
     const showFollowHideMenu = showDeletePost || user?.name !== myContext?.youUser?.name;
-    const showFollowOption = myContext?.youUser?.following.filter(followName=> {return followName === user.name}).length ? false : true;
+    const showFollowOption = myContext?.youUser?.following.filter(followName=> {return followName === user.name}).length ? false : true && !isThisYourPost;
     return (
 		<Container>
             { user && <UserInfoContainer>
