@@ -12,7 +12,7 @@ export const UploadContainer = styled.div`
     flex-direction: column;
     align-items: center;
     border-bottom: 4px black;
-    background-color: white;
+    background-color: white; /*#2d2d2d;*/
 `;
 
 export const UploadButton = styled.div`

@@ -40,20 +40,24 @@ function CreatePost({onClose, onSave}) {
 		<Container>
             Create Post
             <UploadContainer>
-                <UploadButton>
-                    <input style={{display:"none"}} accept="image/*" id="icon-button-file" type="file" onChange={handleUploadClick} />
-                    <label htmlFor="icon-button-file">
-                        <IconButton  color="primary" aria-label="upload picture" component="span">
-                            {/* <Fab style={{color: 'blue', margin: '10px'}} size="large" variant="extended"> */}
-                                <PhotoCamera style={{fontSize: '80px'}}/>
-                            {/* </Fab> */}
-                        </IconButton>
-                    </label>
-                </UploadButton>
-                <CenterItem>
-                    Upload Image
-                </CenterItem>
-                <img alt='upload here' style={{width: '20vh'}} src={imageData} />
+                {!imageData && 
+                    <div>
+                        <UploadButton>
+                            <input style={{display:"none"}} accept="image/*" id="icon-button-file" type="file" onChange={handleUploadClick} />
+                            <label htmlFor="icon-button-file">
+                                <IconButton  color="primary" aria-label="upload picture" component="span">
+                                    {/* <Fab style={{color: 'blue', margin: '10px'}} size="large" variant="extended"> */}
+                                        <PhotoCamera style={{fontSize: '80px'}}/>
+                                    {/* </Fab> */}
+                                </IconButton>
+                            </label>
+                        </UploadButton>
+                        <CenterItem>
+                            Upload Image
+                        </CenterItem>
+                    </div>
+                }
+                {imageData && <img alt='upload here' style={{width: '20vh'}} src={imageData} />}
             </UploadContainer>
             <TextField fullWidth required id="description" multiline maxRows={4} label="Description" defaultValue={imageDescription} onChange={(e)=>setImageDescription(e.target.value)}/>
             <ButtonContainer>

@@ -34,4 +34,14 @@ export const deletePost = async (postdata) => {
     }
     }).then((t) => {return (t.status === 200)});
 }
-    
+
+export const updatePost = async (oldPost, updatedPost) => {
+    await fetch('/api/modify/post', {
+        method: 'POST',
+        body: JSON.stringify({oldData: oldPost, updatedData: updatedPost}),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }).then((t) => { return (t.status === 200)});
+  }
+      
