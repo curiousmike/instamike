@@ -5,6 +5,9 @@ import { updateUser } from '../../../../services/userservice';
 
 import { Container,UserInfoContainer, ItemContainer } from './styles'
 import Avatar from '@material-ui/core/Avatar';
+import { DialogContent, DialogTitle, Dialog, Button, DialogActions } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+
 import UserQuickActionMenu from '../userQuickActionMenu';
 import { IconButton, Tooltip, Menu } from '@material-ui/core';
 import IconHoriz from '@material-ui/icons/MoreHoriz';
@@ -12,6 +15,8 @@ import IconHoriz from '@material-ui/icons/MoreHoriz';
 function SinglePostHeader({post, name, selectUser, onDelete }) {
     const myContext = useContext(StoreContext);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [deletePostDialogVisible, setDeletePostDialogVisible] = useState(false);
+    const [toastMessage, setToastMessage] = useState(null);
     const user = myContext.users.filter(obj=>{ return obj.name === name})[0];
 
     const handleMenuOpen = (event) => {
@@ -46,6 +51,14 @@ function SinglePostHeader({post, name, selectUser, onDelete }) {
 
     const onHide = (user) => { 
         console.log('on hide');
+        handleMenuClose();
+    }
+
+    const doDeletePost = () => {
+        onDelete();
+        setToastMessage('Post deleted');
+        handleMenuClose();
+        setDeletePostDialogVisible(false);
     }
 
     const open = Boolean(anchorEl);
@@ -56,6 +69,31 @@ function SinglePostHeader({post, name, selectUser, onDelete }) {
     const showFollowOption = myContext?.youUser?.following.filter(followName=> {return followName === user.name}).length ? false : true && !isThisYourPost;
     return (
 		<Container>
+            <Snackbar
+                open={toastMessage !=null}
+                autoHideDuration={2500}
+                onClose={()=>setToastMessage(null)}
+                message={toastMessage}
+                anchorOrigin = {{ vertical: 'top', horizontal:'center'}}
+            />	
+            <Dialog
+                fullWidth={true}
+                maxWidth={"sm"}
+                open={deletePostDialogVisible}
+            >
+                <DialogTitle>Delete Post</DialogTitle>
+                <DialogContent dividers>
+                    <div style={{textAlign:'center'}}>
+                        <img alt="the al" style={{width:'20vw'}} src={post.image}/>
+                    </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={()=>setDeletePostDialogVisible(false)}>
+                    Cancel
+                    </Button>
+                    <Button onClick={()=>doDeletePost()}>Ok</Button>
+                </DialogActions>
+            </Dialog>
             { user && <UserInfoContainer>
                 <ItemContainer onClick={()=>selectUser(user)}>
                     <Avatar alt={user.name} src={user.avatar} />
@@ -81,7 +119,9 @@ function SinglePostHeader({post, name, selectUser, onDelete }) {
                         <UserQuickActionMenu 
                             onFollow={showFollowOption ? ()=>onFollow(user) : null} 
                             onHide={()=>onHide(user)}
-                            onDelete={showDeletePost ? onDelete : null}
+                            onDelete={showDeletePost ? ()=> {
+                                handleMenuClose();
+                                setDeletePostDialogVisible(true); } : null}
                         />
                     </div>
                 </Menu>

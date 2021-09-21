@@ -35,7 +35,6 @@ function SinglePost({ post, selectUser, id }) {
 	}
 
 	const handleDelete = (post) => {
-		console.log ("delete post dfd = ", post.name);
 		deletePost(post);
 	}
 

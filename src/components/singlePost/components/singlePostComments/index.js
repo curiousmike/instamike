@@ -97,6 +97,7 @@ function SinglePostComments({user, post}) {
 					autoHideDuration={2500}
 					onClose={()=>setShowToast(null)}
 					message={toastMessage}
+					anchorOrigin = {{ vertical: 'top', horizontal:'center'}}
 				/>	
 			</div>
             {commentData.length ?
