@@ -11,7 +11,21 @@ export const Container = styled.div`
 export const CommentWrapper = styled.div`
     padding: 8px;
 `
+export const CommentDetailsWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`;
 export const CommentDetails = styled.div`
     font-size: 8px;
-    padding: 8px;
+    padding: 2px;
+    color: lightgray;
+    background-color: gray;
 `;
+
+export const CommentDetailItem = styled.span`
+    margin-right: 4px;
+`;
+
+export const ActionContainer = styled.div`
+    display: flex;
+`
