@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import { useContext } from 'react';
+import { StoreContext } from '../../../../store';
 import { Container} from './styles'
 import Comment from '../comment';
 import ReplyComment from '../replyComment';
@@ -10,6 +12,7 @@ import IconExpandMore from '@material-ui/icons/ExpandMore';
 import {updatePost} from '../../../../services/postservice';
 
 function SinglePostComments({user, post}) {
+    const myContext = useContext(StoreContext);
     const [commentsExpanded, setCommentsExpanded] = useState(false);
 	const [commentData, setCommentData] = useState(post.comments);
 	const [toastMessage, setShowToast] = useState(null);
@@ -24,7 +27,7 @@ function SinglePostComments({user, post}) {
 		const currentPost = {...post};
 		const commentToAdd = {
 			comment: newComment,
-			poster: user.name,
+			poster: myContext.youUser.name,
 			likes: [], // new comment has no likes !
 		};
 		currentPost.comments.push(commentToAdd);
