@@ -2,7 +2,9 @@ import {useState} from 'react';
 import { Container} from './styles'
 import Comment from '../comment';
 import ReplyComment from '../replyComment';
-import { IconButton } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import Dialog from '@material-ui/core/Dialog';
+import { DialogContent, DialogTitle, IconButton, Button, DialogActions } from '@material-ui/core';
 import IconExpandLess from '@material-ui/icons/ExpandLess';
 import IconExpandMore from '@material-ui/icons/ExpandMore';
 import {updatePost} from '../../../../services/postservice';
@@ -10,6 +12,10 @@ import {updatePost} from '../../../../services/postservice';
 function SinglePostComments({user, post}) {
     const [commentsExpanded, setCommentsExpanded] = useState(false);
 	const [commentData, setCommentData] = useState(post.comments);
+	const [toastMessage, setShowToast] = useState(null);
+	const [deleteCommentDialogVisible, setDeleteCommentDialogVisible] = useState(false);
+	const [commentToDelete, setCommentToDelete] = useState(false);
+
 	const expandComments = () => {
 		setCommentsExpanded(!commentsExpanded);
 	}
@@ -27,14 +33,22 @@ function SinglePostComments({user, post}) {
 	}
 
 	const deleteComment = (commentToDelete) => {
+		setCommentToDelete(commentToDelete);
+		setDeleteCommentDialogVisible(true);
+
+	} 
+
+	const doDeleteComment = () => {
+		setDeleteCommentDialogVisible(false);
 		const postCopy = {...post};
-		const updatedComments = postCopy.comments.filter((comment)=>comment._id != commentToDelete._id);
+		const updatedComments = postCopy.comments.filter((comment)=>comment._id !== commentToDelete._id);
 		postCopy.comments = updatedComments;
 		updatePost(post, postCopy);
+		setShowToast('Comment - deleted');
 	}
 
 	const editComment = (commentToEdit) => {
-		alert ('edit comment');
+		alert ('edit comment'); 
 	}
 
 	const likeComment = (commentToAddLike) => {
@@ -44,14 +58,13 @@ function SinglePostComments({user, post}) {
 		const isAlreadyLiked = commentToLike.likes.filter((likeUser) => likeUser === user.name )[0] ? true: false;
 		if (isAlreadyLiked) {
 			// remove like
-			console.log('remove like');
 			const updatedCommentLikes = commentToLike.likes.filter((likeUser) => likeUser !== user.name);
-			console.log('removedLikeComment = ', updatedCommentLikes);
 			postCopy.comments[commentToLikeIndex].likes = updatedCommentLikes;
 			updatePost(post, postCopy);
+			setShowToast('Comment - removed like');
 		} else {
 			// add like
-			console.log('add like');
+			setShowToast('Comment - Liked !');
 			commentToLike.likes.push(user.name);
 			postCopy.comments[commentToLikeIndex] = commentToLike;
 			updatePost(post, postCopy);
@@ -60,6 +73,32 @@ function SinglePostComments({user, post}) {
 
 	return (
 		<Container>
+			<div>
+			<Dialog
+				fullWidth={true}
+      			maxWidth={"sm"}
+		      	open={deleteCommentDialogVisible}
+		    >
+			<DialogTitle>Delete Comment</DialogTitle>
+			<DialogContent dividers>
+				{commentToDelete.comment}
+			</DialogContent>
+			<DialogActions>
+				<Button autoFocus onClick={()=>setDeleteCommentDialogVisible(false)}>
+				Cancel
+				</Button>
+				<Button onClick={()=>doDeleteComment()}>Ok</Button>
+			</DialogActions>
+			</Dialog>
+			</div>
+			<div>
+				<Snackbar
+					open={toastMessage !=null}
+					autoHideDuration={2500}
+					onClose={()=>setShowToast(null)}
+					message={toastMessage}
+				/>	
+			</div>
             {commentData.length ?
 				<div>
 					{`View all ${commentData.length} comments`} 

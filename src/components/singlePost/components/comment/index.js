@@ -8,7 +8,6 @@ import NotFavorited from '@material-ui/icons/FavoriteBorder';
 function Comment({comment, user, deleteComment, editComment, likeComment}) {
 	const canAlterComment = comment.poster === user.name;
 	const alreadyFavorited = comment.likes.filter((like) => like === user.name).length ? true : false;
-	console.log('canAddFav = ', alreadyFavorited);
 	return (
 		<Container>
             <CommentWrapper>{comment.comment}</CommentWrapper>
