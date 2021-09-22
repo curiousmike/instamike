@@ -4,7 +4,7 @@ import { Avatar, TextField, Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
-function EditProfile({user, onClose}) {
+function EditProfile({user, onSaveProfile, onClose}) {
 	const [firstName, setFirstName] = useState(user.firstName);
 	const [lastName, setLastName] = useState(user.lastName);
 	const [email, setEmail] = useState(user.email);
@@ -31,7 +31,7 @@ function EditProfile({user, onClose}) {
 			description: description,
 			avatar: avatar,
 		};
-		onClose(updatedUser);
+		onSaveProfile(updatedUser);
 	}
 	return (
 		<Container>

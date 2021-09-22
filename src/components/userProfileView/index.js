@@ -67,7 +67,13 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 
 	return (
 		<Container>
-			{editingProfile && <EditProfile user={user} onClose={(updatedUser)=>updateUserProfile(updatedUser)} /> }
+			{editingProfile && 
+				<EditProfile 
+					user={user} 
+					onSaveProfile={(updatedUser)=>updateUserProfile(updatedUser)} 
+					onClose={()=>setEditingProfile(false)} 
+				/> 
+				}
 			{!editingProfile && <div>
 				<UserProfileHeader
 					usersData={myContext.users} 
