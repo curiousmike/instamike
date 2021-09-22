@@ -117,8 +117,8 @@ function SinglePostHeader({post, name, selectUser, onDelete }) {
                     >
                     <div id ="fix react ref error">
                         <UserQuickActionMenu 
-                            onFollow={showFollowOption ? ()=>onFollow(user) : null} 
-                            onHide={()=>onHide(user)}
+                            onFollow={showFollowOption ? ()=>{ handleMenuClose(); onFollow(user); } : null} 
+                            onHide={()=>{handleMenuClose(); onHide(user)}}
                             onDelete={showDeletePost ? ()=> {
                                 handleMenuClose();
                                 setDeletePostDialogVisible(true); } : null}

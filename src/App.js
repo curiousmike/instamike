@@ -73,10 +73,10 @@ function App() {
     }
     async function loadPostData () {
       const postsResult = await getPosts();
-      if (postsResult.data) {
+      if (postsResult?.data) {
          setUsersPosts(postsResult.data);
       } else {
-        updateNetworkError(`Error: loadPostData.\n${postsResult.status}\n${postsResult.msg}`);
+        updateNetworkError(`Error: loadPostData.\n${postsResult?.status}\n${postsResult?.msg}`);
       }
     }
     loadUserData();
