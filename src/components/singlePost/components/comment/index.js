@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { StoreContext } from '../../../../store';
 import { Container, CommentWrapper, CommentDetailsWrapper, CommentDetails, CommentDetailItem, ActionContainer } from './styles'
 import {formatDate} from '../../../../utils/utils';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -6,8 +8,9 @@ import Favorited from '@material-ui/icons/Favorite';
 import NotFavorited from '@material-ui/icons/FavoriteBorder';
 
 function Comment({comment, user, deleteComment, editComment, likeComment}) {
-	const canAlterComment = comment.poster === user.name;
-	const alreadyFavorited = comment.likes.filter((like) => like === user.name).length ? true : false;
+    const myContext = useContext(StoreContext);
+	const canAlterComment = comment.poster === myContext.youUser.name;
+	const alreadyFavorited = comment.likes.filter((like) => like === myContext.youUser.name).length ? true : false;
 	return (
 		<Container>
             <CommentWrapper>{comment.comment}</CommentWrapper>
