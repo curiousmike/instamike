@@ -58,17 +58,17 @@ function SinglePostComments({user, post}) {
 		const postCopy = {...post};
 		const commentToLike = postCopy.comments.filter((comment) => comment._id === commentToAddLike._id)[0];
 		const commentToLikeIndex = postCopy.comments.findIndex((comment) => comment._id === commentToAddLike._id);
-		const isAlreadyLiked = commentToLike.likes.filter((likeUser) => likeUser === user.name )[0] ? true: false;
+		const isAlreadyLiked = commentToLike.likes.filter((likeUser) => likeUser === myContext.youUser.name )[0] ? true: false;
 		if (isAlreadyLiked) {
 			// remove like
-			const updatedCommentLikes = commentToLike.likes.filter((likeUser) => likeUser !== user.name);
+			const updatedCommentLikes = commentToLike.likes.filter((likeUser) => likeUser !== myContext.youUser.name);
 			postCopy.comments[commentToLikeIndex].likes = updatedCommentLikes;
 			updatePost(post, postCopy);
 			setShowToast('Comment - removed like');
 		} else {
 			// add like
 			setShowToast('Comment - Liked !');
-			commentToLike.likes.push(user.name);
+			commentToLike.likes.push(myContext.youUser.name);
 			postCopy.comments[commentToLikeIndex] = commentToLike;
 			updatePost(post, postCopy);
 		}
