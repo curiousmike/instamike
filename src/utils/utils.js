@@ -12,3 +12,24 @@ export const formatDate = (msDate) => {
     //   console.log('newDate = ', newResult);
     return newResult;
 }
+
+export const diffDatesMinutes = (msDate) =>
+ {
+    let diff =(Date.now() - msDate) / 1000;
+    diff /= 60;
+    return Math.abs(Math.round(diff));
+}
+
+export const diffDatesHours = (msDate) =>
+ {
+    let diff =(Date.now() - msDate) / 1000;
+    diff /= 60*60;
+    return Math.abs(Math.round(diff));
+}
+
+export const diffDatesDays = (msDate) =>
+ {
+    let diff =(Date.now() - msDate) / 1000;
+    diff /= 60*60*24;
+    return Math.abs(Math.round(diff));
+}
