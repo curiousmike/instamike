@@ -14,7 +14,7 @@ function Comment({comment, deleteComment, editComment, likeComment, viewCommente
 	const dateDiffMin = diffDatesMinutes(comment.timeStamp);
 	const dateDiffHours = diffDatesHours(comment.timeStamp);
 	const dateDiffDays = diffDatesDays(comment.timeStamp);
-	console.log ('day, hours, min = ', dateDiffDays, dateDiffHours, dateDiffMin);
+	// console.log ('day, hours, min = ', dateDiffDays, dateDiffHours, dateDiffMin);
 	const commentPoster = myContext.users.filter((user) => user.name === comment.poster)[0];
 	const canAlterComment = comment.poster === myContext.youUser.name;
 	const alreadyFavorited = comment.likes.filter((like) => like === myContext.youUser.name).length ? true : false;

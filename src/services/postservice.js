@@ -16,6 +16,7 @@ export const getPosts = async (username) => {
   
   
 export const addNewPost = async (postdata) => {
+    // console.log('\n\nNew post timeStamp = ', Date.now());
     await fetch('/api/create/post', {
     method: 'POST',
     body: JSON.stringify(postdata),

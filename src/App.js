@@ -15,7 +15,10 @@ import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost } from './services/postservice';
 import {CircularProgress} from '@material-ui/core';
 
-
+// import { formatDate } from './utils/utils';
+// console.log('monoinsert says =', formatDate(1632440515896));
+// console.log('db says = ', formatDate(1632440515896));
+// console.log('i said = ', formatDate(1632440515878));
 const YouUserName = 'NightOwlHiker'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`

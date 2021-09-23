@@ -33,3 +33,13 @@ export const diffDatesDays = (msDate) =>
     diff /= 60*60*24;
     return Math.abs(Math.round(diff));
 }
+
+export const getTimeToShow = (msDate) => {
+    const dateDiffMin = diffDatesMinutes(msDate);
+	const dateDiffHours = diffDatesHours(msDate);
+	const dateDiffDays = diffDatesDays(msDate);
+    if (dateDiffDays >= 1) return `${dateDiffDays} days ago`;
+    if (dateDiffHours >= 1 && dateDiffHours < 24) return  `${dateDiffHours} hours ago`;
+    
+    return `${dateDiffMin} minutes ago`;
+}
