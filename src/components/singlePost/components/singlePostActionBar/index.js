@@ -1,17 +1,18 @@
 import { Container, FooterActionContainer, ItemContainer } from './styles'
 import { IconButton, Tooltip } from '@material-ui/core';
-import IconFavorite from '@material-ui/icons/Favorite';
+import Favorited from '@material-ui/icons/Favorite';
+import NotFavorited from '@material-ui/icons/FavoriteBorder';
 import IconChat from '@material-ui/icons/Chat';
 import IconShare from '@material-ui/icons/Share';
 import IconBookmark from '@material-ui/icons/Bookmark';
-function SinglePostActionBar({addFavorite, addComment, doShare, doBookmark}) {
+function SinglePostActionBar({alreadyFavorited, addFavorite, addComment, doShare, doBookmark}) {
 	return (
 		<Container>
 			<FooterActionContainer>
 				<ItemContainer>
-	                <Tooltip title="Add Favorite">
+	                <Tooltip title={alreadyFavorited ? "Remove Favorite" : "Add Favorite"}>
 						<IconButton aria-label="favorite" onClick = {addFavorite}>
-							<IconFavorite />
+							{alreadyFavorited ? <Favorited style={{color: '#ff1493'}}/> : <NotFavorited />}
 						</IconButton>
 					</Tooltip>
 				</ItemContainer>

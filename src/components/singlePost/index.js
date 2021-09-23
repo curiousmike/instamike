@@ -10,9 +10,13 @@ import SinglePostDetails from './components/singlePostDetails';
 import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
+import Snackbar from '@material-ui/core/Snackbar';
+import {updatePost} from '../../services/postservice';
 
 function SinglePost({ post, selectUser, id }) {
     const myContext = useContext(StoreContext);
+	const [toastMessage, setShowToast] = useState(null);
+	const alreadyFavorited = post.likes.filter((like) => like === myContext.youUser.name).length ? true : false;
 	const {name, image} = post;
     const [dialogTitle, setDialogTitle] = useState(null);
 	const [fullScreen, setFullScreen] = useState(false);
@@ -22,8 +26,21 @@ function SinglePost({ post, selectUser, id }) {
 		return(<div/>);
 	}
 	const addFavorite = () => {
-		setDialogTitle('add favorite post');
+		const postCopy = {...post};
+		if (alreadyFavorited) {
+			// remove favorite
+			const updatedFavorites = postCopy.likes.filter((likeUser) => likeUser !== myContext.youUser.name);
+			postCopy.likes = updatedFavorites;
+			updatePost(post, postCopy);
+			setShowToast('Post - removed like');
+		} else {
+			// add favorite
+			postCopy.likes.push(myContext.youUser.name);
+			setShowToast('Post - Liked !');
+			updatePost(post, postCopy);
+		}
 	}
+
 	const addComment = () => {
 		setDialogTitle('add Comment');
 	}
@@ -44,6 +61,15 @@ function SinglePost({ post, selectUser, id }) {
 
 	return (
 		<Container id={id}>
+			<div>
+				<Snackbar
+					open={toastMessage !=null}
+					autoHideDuration={2500}
+					onClose={()=>setShowToast(null)}
+					message={toastMessage}
+					anchorOrigin = {{ vertical: 'top', horizontal:'center'}}
+				/>	
+			</div>
 			{fullScreen && 
 				<FullScreenImage onClick={()=>setFullScreen(false)}>
 					<img alt="my alt" style={{maxHeight:"100%", maxWidth:"100%"}} src={image}/>
@@ -59,7 +85,8 @@ function SinglePost({ post, selectUser, id }) {
 			</Dialog>
 			<SinglePostHeader post={post} name={name} selectUser={(user)=>selectUser(user)} onDelete={() => handleDelete(post)}/>
 			<SinglePostImage imgSrc={image} onImageClick={()=>handleImageClick(post)}/>
-			<SinglePostActionBar 
+			<SinglePostActionBar
+				alreadyFavorited={alreadyFavorited} 
 				addFavorite={()=>addFavorite()}
 				addComment={()=>addComment()}
 				doShare={()=>doShare()}

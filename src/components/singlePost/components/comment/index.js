@@ -26,7 +26,7 @@ function Comment({comment, deleteComment, editComment, likeComment, viewCommente
 				</AvatarContainer>
 				<CommentWrapper><CommentPosterName>{commentPoster.name}</CommentPosterName> {comment.comment}</CommentWrapper>
 				<LikeIconContainer>
-						{alreadyFavorited ? <Favorited style={{color: '#ff1493'}}fontSize="inherit" onClick={() => likeComment(comment)}/> :
+						{alreadyFavorited ? <Favorited style={{color: '#ff1493'}} fontSize="inherit" onClick={() => likeComment(comment)}/> :
 						<NotFavorited fontSize="inherit" onClick={() => likeComment(comment)}/>
 						}
 				</LikeIconContainer>

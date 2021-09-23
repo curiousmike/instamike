@@ -1,4 +1,4 @@
-import { Container, NumberOfLikes, PosterName, DescriptionContainer} from './styles'
+import { Container, NumberOfLikes, InnerCommentContainer, PosterName, DescriptionContainer} from './styles'
 // import Icon from '@material-ui/core/Icon';
 
 function SinglePostDetails({user, post, onSelectUser}) {
@@ -6,10 +6,14 @@ function SinglePostDetails({user, post, onSelectUser}) {
 	return (
 		<Container>
             <NumberOfLikes>{post.likes.length} likes</NumberOfLikes>
-            <PosterName onClick={()=>onSelectUser(user)}>
-				{user.name}
-			</PosterName>
-			<DescriptionContainer>{post.description || ''}</DescriptionContainer>
+			<InnerCommentContainer>
+				<PosterName onClick={()=>onSelectUser(user)}>
+					{user.name}
+				</PosterName>
+				<DescriptionContainer>
+					{post.description || ''}
+				</DescriptionContainer>
+			</InnerCommentContainer>
 		</Container>
 	)
 }

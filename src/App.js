@@ -16,7 +16,7 @@ import { getPosts, addNewPost } from './services/postservice';
 import {CircularProgress} from '@material-ui/core';
 
 
-const YouUserName = 'Watering Can'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+const YouUserName = 'NightOwlHiker'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
