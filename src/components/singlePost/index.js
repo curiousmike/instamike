@@ -65,7 +65,7 @@ function SinglePost({ post, selectUser, id }) {
 				doShare={()=>doShare()}
 				doBookmark={()=>doBookmark()} />
 			<SinglePostDetails user={user} post={post} onSelectUser={selectUser}/>
-			<SinglePostComments user={user} post={post}/>
+			<SinglePostComments user={user} post={post} viewCommenter={selectUser}/>
 			<SinglePostDateFooter post={post} />
 		</Container>
 	)

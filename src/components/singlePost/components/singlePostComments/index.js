@@ -11,7 +11,7 @@ import IconExpandLess from '@material-ui/icons/ExpandLess';
 import IconExpandMore from '@material-ui/icons/ExpandMore';
 import {updatePost} from '../../../../services/postservice';
 
-function SinglePostComments({user, post}) {
+function SinglePostComments({user, post, viewCommenter}) {
     const myContext = useContext(StoreContext);
     const [commentsExpanded, setCommentsExpanded] = useState(false);
 	const [commentData, setCommentData] = useState(post.comments);
@@ -111,7 +111,7 @@ function SinglePostComments({user, post}) {
 					</IconButton>
 					{commentsExpanded && 
 						commentData.map( (comment, index)=>(
-						<Comment comment={comment} key={index} user={user} deleteComment={deleteComment} editComment={editComment} likeComment={likeComment}/>
+						<Comment comment={comment} key={index} user={user} deleteComment={deleteComment} editComment={editComment} likeComment={likeComment} viewCommenter={viewCommenter}/>
 					))}
 				</div>
 			: ''}

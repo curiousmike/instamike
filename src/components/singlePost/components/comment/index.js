@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Favorited from '@material-ui/icons/Favorite';
 import NotFavorited from '@material-ui/icons/FavoriteBorder';
 
-function Comment({comment, user, deleteComment, editComment, likeComment}) {
+function Comment({comment, deleteComment, editComment, likeComment, viewCommenter}) {
     const myContext = useContext(StoreContext);
 	const dateDiffMin = diffDatesMinutes(comment.timeStamp);
 	const dateDiffHours = diffDatesHours(comment.timeStamp);
@@ -21,12 +21,12 @@ function Comment({comment, user, deleteComment, editComment, likeComment}) {
 	return (
 		<Container>
 			<InnerContainer>
-				<AvatarContainer>
+				<AvatarContainer onClick={()=>viewCommenter(commentPoster)}>
 					<Avatar alt={commentPoster.name} src={commentPoster.avatar} />
 				</AvatarContainer>
 				<CommentWrapper><CommentPosterName>{commentPoster.name}</CommentPosterName> {comment.comment}</CommentWrapper>
 				<LikeIconContainer>
-						{alreadyFavorited ? <Favorited fontSize="inherit" onClick={() => likeComment(comment)}/> :
+						{alreadyFavorited ? <Favorited style={{color: '#ff1493'}}fontSize="inherit" onClick={() => likeComment(comment)}/> :
 						<NotFavorited fontSize="inherit" onClick={() => likeComment(comment)}/>
 						}
 				</LikeIconContainer>
