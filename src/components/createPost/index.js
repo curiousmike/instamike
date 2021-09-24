@@ -13,7 +13,7 @@ function CreatePost({onClose, onSave}) {
     const [imageDescription, setImageDescription] = useState('');
     const handleUploadClick = (e) => {
         const file = e.target.files[0];
-        console.log('file = ', file);
+        // console.log('file = ', file);
         const reader = new FileReader();
         reader.readAsDataURL(file);
         // reader.addEventListener('progress', (event) => {

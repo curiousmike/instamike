@@ -19,7 +19,7 @@ import {CircularProgress} from '@material-ui/core';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
 // console.log('i said = ', formatDate(1632440515878));
-const YouUserName = 'Liamzing'; //// 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+const YouUserName = 'hopelinkvader'; //// 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -116,16 +116,19 @@ function App() {
     setNetworkError (error);
   }
 
-  const onCreatePost = (newPost) => {
+  const onCreatePost = async (newPost) => {
     newPost.name = youUser.name;
     setShowCreatePost(false);
-    addNewPost(newPost);  // tell backend
-
-    // locally add
-    const posts = [...usersPosts];
-    posts.unshift(newPost);
-    setUsersPosts(posts);
-    goYou();
+    const result = await addNewPost(newPost);  // tell backend
+    if (result.error === false) {
+      // locally add
+      const posts = [...usersPosts];
+      posts.unshift(newPost);
+      setUsersPosts(posts);
+      goYou();
+    } else {
+      updateNetworkError(`Error: CreatePostError ${result?.status}  ${result.msg}`)
+    }
   }
 
   const goHome = () => {
