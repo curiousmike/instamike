@@ -12,14 +12,14 @@ import CreateUser from './components/createUser';
 import styled from 'styled-components'
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
-import { getPosts, addNewPost } from './services/postservice';
+import { getPosts, addNewPost, updatePost } from './services/postservice';
 import {CircularProgress} from '@material-ui/core';
 
 // import { formatDate } from './utils/utils';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
 // console.log('i said = ', formatDate(1632440515878));
-const YouUserName = 'NightOwlHiker'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+const YouUserName = 'Liamzing'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -60,7 +60,23 @@ function App() {
     users: usersData,
     posts: usersPosts,
     youUser: youUser,
+    updateUser: (user) => {updateUser(user)},
+    updatePost: (post) => {updatePost(post)},
   };
+
+  const updateUser = (userToUpdate) => {
+    const updatedUsers = [...usersData];
+    const index = updatedUsers.findIndex((user) => user.name === userToUpdate.name);
+    updatedUsers[index] = userToUpdate;
+    setUsersData(updatedUsers);
+  }
+
+  const updatePost = (postToUpdate) => {
+    const updatedPosts = [...usersPosts];
+    const index = updatedPosts.findIndex((post) => post._id === postToUpdate._id);
+    updatedPosts[index] = postToUpdate;
+    setUsersPosts(updatedPosts);
+  }
 
   useEffect (() => {
     async function loadUserData () {

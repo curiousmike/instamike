@@ -32,12 +32,14 @@ function SinglePost({ post, selectUser, id }) {
 			const updatedFavorites = postCopy.likes.filter((likeUser) => likeUser !== myContext.youUser.name);
 			postCopy.likes = updatedFavorites;
 			updatePost(post, postCopy);
+			myContext.updatePost(postCopy)
 			setShowToast('Post - removed like');
 		} else {
 			// add favorite
 			postCopy.likes.push(myContext.youUser.name);
 			setShowToast('Post - Liked !');
 			updatePost(post, postCopy);
+			myContext.updatePost(postCopy);
 		}
 	}
 
