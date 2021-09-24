@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { useContext } from 'react';
 import { StoreContext } from '../../../../store';
 import { Container} from './styles'
@@ -9,15 +9,19 @@ import Dialog from '@material-ui/core/Dialog';
 import { DialogContent, DialogTitle, IconButton, Button, DialogActions } from '@material-ui/core';
 import IconExpandLess from '@material-ui/icons/ExpandLess';
 import IconExpandMore from '@material-ui/icons/ExpandMore';
-import {updatePost} from '../../../../services/postservice';
 
 function SinglePostComments({user, post, viewCommenter}) {
     const myContext = useContext(StoreContext);
     const [commentsExpanded, setCommentsExpanded] = useState(false);
 	const [commentData, setCommentData] = useState(post.comments);
+	// const commentData = myContext.post
 	const [toastMessage, setShowToast] = useState(null);
 	const [deleteCommentDialogVisible, setDeleteCommentDialogVisible] = useState(false);
 	const [commentToDelete, setCommentToDelete] = useState(false);
+
+	useEffect (() => {	// this is used for DELETE comment - post.comments doesn't change enough i guesss
+		setCommentData(post.comments);
+	},[post.comments]);
 
 	const expandComments = () => {
 		setCommentsExpanded(!commentsExpanded);
@@ -31,8 +35,7 @@ function SinglePostComments({user, post, viewCommenter}) {
 			likes: [], // new comment has no likes !
 		};
 		currentPost.comments.push(commentToAdd);
-		updatePost(post, currentPost);
-		
+		myContext.updateSinglePost(post, currentPost);
 	}
 
 	const deleteComment = (commentToDelete) => {
@@ -46,7 +49,7 @@ function SinglePostComments({user, post, viewCommenter}) {
 		const postCopy = {...post};
 		const updatedComments = postCopy.comments.filter((comment)=>comment._id !== commentToDelete._id);
 		postCopy.comments = updatedComments;
-		updatePost(post, postCopy);
+		myContext.updateSinglePost(post, postCopy);
 		setShowToast('Comment - deleted');
 	}
 
@@ -63,14 +66,14 @@ function SinglePostComments({user, post, viewCommenter}) {
 			// remove like
 			const updatedCommentLikes = commentToLike.likes.filter((likeUser) => likeUser !== myContext.youUser.name);
 			postCopy.comments[commentToLikeIndex].likes = updatedCommentLikes;
-			updatePost(post, postCopy);
+			myContext.updateSinglePost(post, postCopy);
 			setShowToast('Comment - removed like');
 		} else {
 			// add like
-			setShowToast('Comment - Liked !');
 			commentToLike.likes.push(myContext.youUser.name);
 			postCopy.comments[commentToLikeIndex] = commentToLike;
-			updatePost(post, postCopy);
+			myContext.updateSinglePost(post, postCopy);
+			setShowToast('Comment - Liked !');
 		}
 	}
 

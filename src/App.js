@@ -12,14 +12,14 @@ import CreateUser from './components/createUser';
 import styled from 'styled-components'
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
-import { getPosts, addNewPost, updatePost } from './services/postservice';
+import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
 import {CircularProgress} from '@material-ui/core';
 
 // import { formatDate } from './utils/utils';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
 // console.log('i said = ', formatDate(1632440515878));
-const YouUserName = 'Liamzing'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+const YouUserName = 'Liamzing'; //// 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -61,7 +61,8 @@ function App() {
     posts: usersPosts,
     youUser: youUser,
     updateUser: (user) => {updateUser(user)},
-    updatePost: (post) => {updatePost(post)},
+    updateSinglePost: (originalPost, updatedPost) => {updateSinglePost(originalPost, updatedPost)},
+    deleteSinglePost: (post) => {deleteSinglePost(post)},
   };
 
   const updateUser = (userToUpdate) => {
@@ -71,11 +72,20 @@ function App() {
     setUsersData(updatedUsers);
   }
 
-  const updatePost = (postToUpdate) => {
+  const updateSinglePost = (originalPost, postToUpdate) => {
     const updatedPosts = [...usersPosts];
     const index = updatedPosts.findIndex((post) => post._id === postToUpdate._id);
     updatedPosts[index] = postToUpdate;
+    updatePost(originalPost, postToUpdate);
     setUsersPosts(updatedPosts);
+  }
+
+  const deleteSinglePost = (postToRemove) => {
+    // console.log('deletePost = ', postToRemove);
+    const remainingPosts = usersPosts.filter((thePost) => thePost._id !== postToRemove._id);
+    // console.log('reaminigPosts = ', remainingPosts);
+    setUsersPosts(remainingPosts);
+    deletePost(postToRemove);
   }
 
   useEffect (() => {
@@ -94,7 +104,7 @@ function App() {
       const postsResult = await getPosts();
       if (postsResult?.data) {
          setUsersPosts(postsResult.data);
-      } else {
+      } else if (postsResult?.status) {
         updateNetworkError(`Error: loadPostData.\n${postsResult?.status}\n${postsResult?.msg}`);
       }
     }
@@ -162,7 +172,7 @@ function App() {
 
   const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !searchVisible  && !showCreatePost && !userProfileView && !showCreateUser;
-  const showLoading = usersPosts.length === 0 || usersData.length === 0;
+  const showLoading = usersData.length === 0; //usersPosts.length === 0 || 
 
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"

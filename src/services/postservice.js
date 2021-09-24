@@ -43,6 +43,11 @@ export const updatePost = async (oldPost, updatedPost) => {
         headers: {
           'Content-Type': 'application/json',
         }
-      }).then((t) => { return (t.status === 200)});
+      }).then((t) => { 
+          if (t.status !== 200) {
+              alert ('error in network updatePost');
+          }
+          return (t.status === 200)
+        });
   }
       
