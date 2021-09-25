@@ -173,7 +173,8 @@ function App() {
     updateUser(currentUser, updatedData);
   }
 
-  const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
+  const showUserStories =
+    !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !searchVisible  && !showCreatePost && !userProfileView && !showCreateUser;
   const showLoading = usersPosts.length === 0 || usersData.length === 0; //
 

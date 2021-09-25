@@ -20,12 +20,11 @@ export const diffDatesMinutes = (msDate) =>
     return Math.abs(Math.round(diff));
 }
 
-export const diffDatesHours = (msDate) =>
- {
-    let diff =(Date.now() - msDate) / 1000;
-    diff /= 60*60;
-    return Math.abs(Math.round(diff));
-}
+export const diffDatesHours = (msDate) => {
+  let diff = (Date.now() - msDate) / 1000;
+  diff /= 60 * 60;
+  return Math.abs(Math.round(diff));
+};
 
 export const diffDatesDays = (msDate) =>
  {

@@ -13,34 +13,37 @@ import { blue } from '@material-ui/core/colors';
 import {useContext} from 'react';
 import { StoreContext } from '../../../../store';
 
-function LikesDialog({onClose, open, post, onSelectUser}) {
+function LikesDialog({ onClose, open, post, onSelectUser }) {
   const myContext = useContext(StoreContext);
 
   const handleClose = () => {
-      onClose();
+    onClose();
   };
 
-    const getUserAvatar = (like) => {
-      const user = myContext.users.filter((user) => user.name === like)[0];
-      return user.avatar;
-    }
+  const getUserAvatar = (like) => {
+    const user = myContext.users.filter((user) => user.name === like)[0];
+    return user.avatar;
+  };
 
-    return (
-      <Dialog onClose={handleClose} open={open}>
-        <DialogTitle style={{minWidth: '50vw'}}>Likes</DialogTitle>
-        <List sx={{ pt: 0 }}>
-          {post.likes.map((like) => (
-            <ListItem button onClick={() => onSelectUser(like)} key={like}>
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }} src={getUserAvatar(like)} />
-              </ListItemAvatar>
-              <ListItemText primary={like} />
-            </ListItem>
-          ))}
-        </List>
-      </Dialog>
-    );
-  }
+  return (
+    <Dialog onClose={handleClose} open={open}>
+      <DialogTitle style={{ minWidth: "50vw" }}>Likes</DialogTitle>
+      <List sx={{ pt: 0 }}>
+        {post.likes.map((like) => (
+          <ListItem button onClick={() => onSelectUser(like)} key={like}>
+            <ListItemAvatar>
+              <Avatar
+                sx={{ bgcolor: blue[100], color: blue[600] }}
+                src={getUserAvatar(like)}
+              />
+            </ListItemAvatar>
+            <ListItemText primary={like} />
+          </ListItem>
+        ))}
+      </List>
+    </Dialog>
+  );
+}
   
   LikesDialog.propTypes = {
     onClose: PropTypes.func.isRequired,

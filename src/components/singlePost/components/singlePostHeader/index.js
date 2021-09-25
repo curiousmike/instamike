@@ -68,67 +68,78 @@ function SinglePostHeader({post, name, selectUser, onDelete }) {
     const showFollowHideMenu = showDeletePost || user?.name !== myContext?.youUser?.name;
     const showFollowOption = myContext?.youUser?.following.filter(followName=> {return followName === user.name}).length ? false : true && !isThisYourPost;
     return (
-		<Container>
-            <Snackbar
-                open={toastMessage !=null}
-                autoHideDuration={2500}
-                onClose={()=>setToastMessage(null)}
-                message={toastMessage}
-                anchorOrigin = {{ vertical: 'top', horizontal:'center'}}
-            />	
-            <Dialog
-                fullWidth={true}
-                maxWidth={"sm"}
-                open={deletePostDialogVisible}
-            >
-                <DialogTitle>Delete Post</DialogTitle>
-                <DialogContent dividers>
-                    <div style={{textAlign:'center'}}>
-                        <img alt="the al" style={{width:'20vw'}} src={post.image}/>
-                    </div>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={()=>setDeletePostDialogVisible(false)}>
-                    Cancel
-                    </Button>
-                    <Button onClick={()=>doDeletePost()}>Ok</Button>
-                </DialogActions>
-            </Dialog>
-            { user && <UserInfoContainer>
-                <ItemContainer onClick={()=>selectUser(user)}>
-                    <Avatar alt={user.name} src={user.avatar} />
-                </ItemContainer>
-                <ItemContainer>
-                    {user.name}
-                </ItemContainer>
-            </UserInfoContainer> }
-            { showFollowHideMenu && 
-            <div id="followHideMenu">
-                <Tooltip title="Menu">
-                    <IconButton aria-label="home" onClick = {(e)=>handleMenuOpen(e)}>
-                        <IconHoriz />
-                    </IconButton>
-                </Tooltip>
-                <Menu    
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleMenuClose}
-                    >
-                    <div id ="fix react ref error">
-                        <UserQuickActionMenu 
-                            onFollow={showFollowOption ? ()=>{ handleMenuClose(); onFollow(user); } : null} 
-                            onHide={()=>{handleMenuClose(); onHide(user)}}
-                            onDelete={showDeletePost ? ()=> {
-                                handleMenuClose();
-                                setDeletePostDialogVisible(true); } : null}
-                        />
-                    </div>
-                </Menu>
+      <Container>
+        <Snackbar
+          open={toastMessage != null}
+          autoHideDuration={2500}
+          onClose={() => setToastMessage(null)}
+          message={toastMessage}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        />
+        <Dialog fullWidth={true} maxWidth={"sm"} open={deletePostDialogVisible}>
+          <DialogTitle>Delete Post</DialogTitle>
+          <DialogContent dividers>
+            <div style={{ textAlign: "center" }}>
+              <img alt="the al" style={{ width: "20vw" }} src={post.image} />
             </div>
-            }
-		</Container>
-	)
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={() => setDeletePostDialogVisible(false)}>
+              Cancel
+            </Button>
+            <Button onClick={() => doDeletePost()}>Ok</Button>
+          </DialogActions>
+        </Dialog>
+        {user && (
+          <UserInfoContainer>
+            <ItemContainer onClick={() => selectUser(user)}>
+              <Avatar alt={user.name} src={user.avatar} />
+            </ItemContainer>
+            <ItemContainer>{user.name}</ItemContainer>
+          </UserInfoContainer>
+        )}
+        {showFollowHideMenu && (
+          <div id="followHideMenu">
+            <Tooltip title="Menu">
+              <IconButton aria-label="home" onClick={(e) => handleMenuOpen(e)}>
+                <IconHoriz />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleMenuClose}
+            >
+              <div id="fix react ref error">
+                <UserQuickActionMenu
+                  onFollow={
+                    showFollowOption
+                      ? () => {
+                          handleMenuClose();
+                          onFollow(user);
+                        }
+                      : null
+                  }
+                  onHide={() => {
+                    handleMenuClose();
+                    onHide(user);
+                  }}
+                  onDelete={
+                    showDeletePost
+                      ? () => {
+                          handleMenuClose();
+                          setDeletePostDialogVisible(true);
+                        }
+                      : null
+                  }
+                />
+              </div>
+            </Menu>
+          </div>
+        )}
+      </Container>
+    );
 }
 
 export default SinglePostHeader;

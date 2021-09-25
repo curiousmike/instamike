@@ -16,27 +16,30 @@ function SinglePostComments({user, post, viewCommenter}) {
 	const [commentData, setCommentData] = useState(post.comments);
 	// const commentData = myContext.post
 	const [toastMessage, setShowToast] = useState(null);
-	const [deleteCommentDialogVisible, setDeleteCommentDialogVisible] = useState(false);
-	const [commentToDelete, setCommentToDelete] = useState(false);
+  const [deleteCommentDialogVisible, setDeleteCommentDialogVisible] =
+    useState(false);
+  const [commentToDelete, setCommentToDelete] = useState(false);
 
-	useEffect (() => {	// this is used for DELETE comment - post.comments doesn't change enough i guesss
-		setCommentData(post.comments);
-	},[post.comments]);
+  useEffect(() => {
+    // this is used for DELETE comment - post.comments doesn't change enough i guesss
+    setCommentData(post.comments);
+  }, [post.comments]);
 
-	const expandComments = () => {
-		setCommentsExpanded(!commentsExpanded);
-	}
-	
-	const addNewComment = (newComment) => {
-		const currentPost = {...post};
-		const commentToAdd = {
-			comment: newComment,
-			poster: myContext.youUser.name,
-			likes: [], // new comment has no likes !
-		};
-		currentPost.comments.push(commentToAdd);
-		myContext.updateSinglePost(post, currentPost);
-	}
+  const expandComments = () => {
+    setCommentsExpanded(!commentsExpanded);
+  };
+
+  const addNewComment = (newComment) => {
+    const currentPost = { ...post };
+    const commentToAdd = {
+      comment: newComment,
+      poster: myContext.youUser.name,
+      likes: [], // new comment has no likes !
+    };
+    currentPost.comments.push(commentToAdd);
+    myContext.updateSinglePost(post, currentPost);
+    setCommentsExpanded(true);
+  };
 
 	const deleteComment = (commentToDelete) => {
 		setCommentToDelete(commentToDelete);

@@ -22,18 +22,22 @@ function PostList({theRef, selectUser, isProfile, postData, jumpTo}) {
 
    
 	return (
-		<Container ref={theRef} style={isProfile ? {height:'65vh'}: {height:'80vh'}}>
-				{ postsToUser && postsToUser.map( (post, index)=>(
-                    <SinglePost
-                        id={`post_${index}`}
-                        key={index}
-                        post={post}
-                        selectUser={selectUser}
-                        isProfile={isProfile}
-                    />
-                )) }
-		</Container>
-	)
+    <Container
+      ref={theRef}
+      style={isProfile ? { height: "65vh" } : { height: "80vh" }}
+    >
+      {postsToUser &&
+        postsToUser.map((post, index) => (
+          <SinglePost
+            id={`post_${index}`}
+            key={index}
+            post={post}
+            selectUser={selectUser}
+            isProfile={isProfile}
+          />
+        ))}
+    </Container>
+  );
 }
 
 export default PostList;
