@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { StoreContext } from '../../../../store';
 import { Container, InnerContainer, CommentWrapper, CommentDetailsWrapper,
 	AvatarContainer, LikeIconContainer, CommentPosterName, CommentDetails, CommentDetailItem, ActionContainer } from './styles'
-import {diffDatesMinutes, diffDatesHours, diffDatesDays} from '../../../../utils/utils';
+import {getTimeToShow} from '../../../../utils/utils';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,9 +11,7 @@ import NotFavorited from '@material-ui/icons/FavoriteBorder';
 
 function Comment({comment, deleteComment, editComment, likeComment, viewCommenter}) {
     const myContext = useContext(StoreContext);
-	const dateDiffMin = diffDatesMinutes(comment.timeStamp);
-	const dateDiffHours = diffDatesHours(comment.timeStamp);
-	const dateDiffDays = diffDatesDays(comment.timeStamp);
+	const timeToShow = getTimeToShow(comment.timeStamp);
 	// console.log ('day, hours, min = ', dateDiffDays, dateDiffHours, dateDiffMin);
 	const commentPoster = myContext.users.filter((user) => user.name === comment.poster)[0];
 	const canAlterComment = comment.poster === myContext.youUser.name;
@@ -34,8 +32,7 @@ function Comment({comment, deleteComment, editComment, likeComment, viewCommente
 			<ActionContainer>
 				<CommentDetails>
 					<CommentDetailItem>
-						{dateDiffDays >= 1 && `${dateDiffDays} days ago`} {dateDiffHours >= 1 && dateDiffHours < 24 &&  `${dateDiffHours} hours ago`}
-						{dateDiffHours < 1 && `${dateDiffMin} minutes ago`}
+						{timeToShow}
 					</CommentDetailItem>
 					<CommentDetailItem>
 						{comment.likes.length >= 1 ? `${comment.likes.length} likes` : ''}

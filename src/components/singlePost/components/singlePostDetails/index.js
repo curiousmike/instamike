@@ -1,11 +1,19 @@
+import {useState} from 'react';
 import { Container, NumberOfLikes, InnerCommentContainer, PosterName, DescriptionContainer} from './styles'
-// import Icon from '@material-ui/core/Icon';
+import LikesDialog from '../likesDialog';
 
 function SinglePostDetails({user, post, onSelectUser}) {
-	// console.log('<SinglePostDetails - post  ', post);
+	const [showLikes, setShowLikes] = useState(false);
+
 	return (
 		<Container>
-            <NumberOfLikes>{post.likes.length} likes</NumberOfLikes>
+			<LikesDialog 
+				onClose={()=>setShowLikes(false)}
+				open={showLikes}
+				post={post}
+				onSelectUser={(user)=>alert('selected', user.name)}
+			/>
+            <NumberOfLikes onClick={ () => setShowLikes(true)}>{post.likes.length} likes</NumberOfLikes>
 			<InnerCommentContainer>
 				<PosterName onClick={()=>onSelectUser(user)}>
 					{user.name}

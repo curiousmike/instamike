@@ -29,6 +29,7 @@ function PostList({theRef, selectUser, isProfile, postData, jumpTo}) {
                         key={index}
                         post={post}
                         selectUser={selectUser}
+                        isProfile={isProfile}
                     />
                 )) }
 		</Container>

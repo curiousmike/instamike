@@ -11,7 +11,7 @@ import SinglePostDateFooter from './components/singlePostDateFooter';
 import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 
-function SinglePost({ post, selectUser, id }) {
+function SinglePost({ post, selectUser, id, isProfile }) {
     const myContext = useContext(StoreContext);
 	const [toastMessage, setShowToast] = useState(null);
 	const alreadyFavorited = post.likes.filter((like) => like === myContext.youUser.name).length ? true : false;
@@ -82,7 +82,7 @@ function SinglePost({ post, selectUser, id }) {
 				</DialogActions>
 			</Dialog>
 			<SinglePostHeader post={post} name={name} selectUser={(user)=>selectUser(user)} onDelete={() => handleDelete(post)}/>
-			<SinglePostImage imgSrc={image} onImageClick={()=>handleImageClick(post)}/>
+			<SinglePostImage imgSrc={image} onImageClick={()=>handleImageClick(post)} isProfile={isProfile}/>
 			<SinglePostActionBar
 				alreadyFavorited={alreadyFavorited} 
 				addFavorite={()=>addFavorite()}
