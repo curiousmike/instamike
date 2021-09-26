@@ -1,9 +1,24 @@
-import {useState} from 'react';
-import { Container, NumberOfLikes, InnerCommentContainer, PosterName, DescriptionContainer} from './styles'
-import LikesDialog from '../likesDialog';
+import { useState, useContext } from "react";
+import { StoreContext } from "../../../../store";
+import {
+  Container,
+  NumberOfLikes,
+  InnerCommentContainer,
+  PosterName,
+  DescriptionContainer,
+} from "./styles";
+import LikesDialog from "../likesDialog";
 
-function SinglePostDetails({user, post, onSelectUser}) {
+function SinglePostDetails({ user, post, onSelectUser }) {
+  const myContext = useContext(StoreContext);
   const [showLikes, setShowLikes] = useState(false);
+  const showTheLiker = (likerName) => {
+    const likerUser = myContext.users.filter(
+      (user) => user.name === likerName
+    )[0];
+    console.log("showTheLiker = ", likerName);
+    onSelectUser(likerUser);
+  };
 
   return (
     <Container>
@@ -11,7 +26,7 @@ function SinglePostDetails({user, post, onSelectUser}) {
         onClose={() => setShowLikes(false)}
         open={showLikes}
         postOrComment={post}
-        onSelectUser={(user) => alert("selected", user.name)}
+        onSelectUser={(likerName) => showTheLiker(likerName)}
       />
       <NumberOfLikes onClick={() => setShowLikes(true)}>
         {post.likes.length} likes

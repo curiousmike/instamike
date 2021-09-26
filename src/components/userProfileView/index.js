@@ -66,37 +66,53 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 	}
 
 	return (
-		<Container>
-			{editingProfile && 
-				<EditProfile 
-					user={user} 
-					onSaveProfile={(updatedUser)=>updateUserProfile(updatedUser)} 
-					onClose={()=>setEditingProfile(false)} 
-				/> 
-				}
-			{!editingProfile && <div>
-				<UserProfileHeader
-					usersData={myContext.users} 
-					user={user}
-					onSelectPosts={onSelectPosts}
-					onSelectFollowers={onSelectFollowers}
-					onSelectFollowing={onSelectFollowing}
-					editProfile={()=>setEditingProfile(true)}
-				/>
-				{ viewingPostGrid && 
-					<UserPostGrid user={user} posts={singleUserPostData} onSelectImage={(image, index)=>onSelectImage(image, index)}/>
-				}
-				{ viewingPostList && <PostList usersData={myContext.users} isProfile={true} postData={singleUserPostData} theRef={contentContainer} jumpTo={jumpToImageIndex} selectUser={()=>alert('handle userProfileView select user')}/>}
-				{ (viewingFollowers || viewingFollowing) && 
-				<FollowView
-					usersData={myContext.users}
-					user={user}
-					onSelectUser={(user)=>onSelectUser(user)}
-					followers={viewingFollowers}
-				/>} 
-			</div>}
-		</Container>
-	)
+    <Container>
+      {editingProfile && (
+        <EditProfile
+          user={user}
+          onSaveProfile={(updatedUser) => updateUserProfile(updatedUser)}
+          onClose={() => setEditingProfile(false)}
+        />
+      )}
+      {!editingProfile && (
+        <div>
+          <UserProfileHeader
+            usersData={myContext.users}
+            user={user}
+            onSelectPosts={onSelectPosts}
+            onSelectFollowers={onSelectFollowers}
+            onSelectFollowing={onSelectFollowing}
+            editProfile={() => setEditingProfile(true)}
+          />
+          {viewingPostGrid && (
+            <UserPostGrid
+              user={user}
+              posts={singleUserPostData}
+              onSelectImage={(image, index) => onSelectImage(image, index)}
+            />
+          )}
+          {viewingPostList && (
+            <PostList
+              usersData={myContext.users}
+              isProfile={true}
+              postData={singleUserPostData}
+              theRef={contentContainer}
+              jumpTo={jumpToImageIndex}
+              selectUser={(user) => onSelectUser(user)}
+            />
+          )}
+          {(viewingFollowers || viewingFollowing) && (
+            <FollowView
+              usersData={myContext.users}
+              user={user}
+              onSelectUser={(user) => onSelectUser(user)}
+              followers={viewingFollowers}
+            />
+          )}
+        </div>
+      )}
+    </Container>
+  );
 }
 
 export default UserProfileView;

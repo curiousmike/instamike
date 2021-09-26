@@ -30,13 +30,22 @@ function Comment({
   ).length
     ? true
     : false;
+
+  const showTheCommenter = (commenterName) => {
+    const commenterUser = myContext.users.filter(
+      (user) => user.name === commenterName
+    )[0];
+    console.log("showTheCommenter = ", commenterName);
+    viewCommenter(commenterUser);
+  };
+
   return (
     <Container>
       <LikesDialog
         onClose={() => setShowCommentLikes(false)}
         open={showCommentLikes}
         postOrComment={comment}
-        onSelectUser={(userSelected) => alert("selected " + userSelected)}
+        onSelectUser={(commenterName) => showTheCommenter(commenterName)}
       />
 
       <InnerContainer>
@@ -65,7 +74,7 @@ function Comment({
       <ActionContainer>
         <CommentDetails>
           <CommentDetailItem>{timeToShow}</CommentDetailItem>
-          <CommentDetailItem onClick={()=>setShowCommentLikes(true)}>
+          <CommentDetailItem onClick={() => setShowCommentLikes(true)}>
             {comment.likes.length >= 1 ? `${comment.likes.length} likes` : ""}
           </CommentDetailItem>
         </CommentDetails>
