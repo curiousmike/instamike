@@ -10,7 +10,7 @@ function SinglePostDetails({user, post, onSelectUser}) {
       <LikesDialog
         onClose={() => setShowLikes(false)}
         open={showLikes}
-        post={post}
+        postOrComment={post}
         onSelectUser={(user) => alert("selected", user.name)}
       />
       <NumberOfLikes onClick={() => setShowLikes(true)}>

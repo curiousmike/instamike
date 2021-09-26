@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { StoreContext } from '../../../../store';
 import { Container, InnerContainer, CommentWrapper, CommentDetailsWrapper,
 	AvatarContainer, LikeIconContainer, CommentPosterName, CommentDetails, CommentDetailItem, ActionContainer } from './styles'
@@ -8,6 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Favorited from '@material-ui/icons/Favorite';
 import NotFavorited from "@material-ui/icons/FavoriteBorder";
+import LikesDialog from '../likesDialog';
 
 function Comment({
   comment,
@@ -18,6 +19,7 @@ function Comment({
 }) {
   const myContext = useContext(StoreContext);
   const timeToShow = getTimeToShow(comment.timeStamp);
+  const [showCommentLikes, setShowCommentLikes] = useState(false);
   // console.log ('day, hours, min = ', dateDiffDays, dateDiffHours, dateDiffMin);
   const commentPoster = myContext.users.filter(
     (user) => user.name === comment.poster
@@ -30,6 +32,13 @@ function Comment({
     : false;
   return (
     <Container>
+      <LikesDialog
+        onClose={() => setShowCommentLikes(false)}
+        open={showCommentLikes}
+        postOrComment={comment}
+        onSelectUser={(userSelected) => alert("selected " + userSelected)}
+      />
+
       <InnerContainer>
         <AvatarContainer onClick={() => viewCommenter(commentPoster)}>
           <Avatar alt={commentPoster.name} src={commentPoster.avatar} />
@@ -56,7 +65,7 @@ function Comment({
       <ActionContainer>
         <CommentDetails>
           <CommentDetailItem>{timeToShow}</CommentDetailItem>
-          <CommentDetailItem>
+          <CommentDetailItem onClick={()=>setShowCommentLikes(true)}>
             {comment.likes.length >= 1 ? `${comment.likes.length} likes` : ""}
           </CommentDetailItem>
         </CommentDetails>

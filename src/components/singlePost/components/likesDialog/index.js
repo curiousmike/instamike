@@ -8,12 +8,11 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import PersonIcon from '@material-ui/icons/Person';
 import { blue } from '@material-ui/core/colors';
 import {useContext} from 'react';
 import { StoreContext } from '../../../../store';
 
-function LikesDialog({ onClose, open, post, onSelectUser }) {
+function LikesDialog({ onClose, open, postOrComment, onSelectUser }) {
   const myContext = useContext(StoreContext);
 
   const handleClose = () => {
@@ -27,9 +26,9 @@ function LikesDialog({ onClose, open, post, onSelectUser }) {
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle style={{ minWidth: "50vw" }}>Likes</DialogTitle>
+      <DialogTitle style={{ minWidth: "30vw" }}>Likes</DialogTitle>
       <List sx={{ pt: 0 }}>
-        {post.likes.map((like) => (
+        {postOrComment.likes.map((like) => (
           <ListItem button onClick={() => onSelectUser(like)} key={like}>
             <ListItemAvatar>
               <Avatar
@@ -48,7 +47,7 @@ function LikesDialog({ onClose, open, post, onSelectUser }) {
   LikesDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
-    post: PropTypes.object,
+    postOrComment: PropTypes.object,
     onSelectUser: PropTypes.func,
   };
   export default LikesDialog;
