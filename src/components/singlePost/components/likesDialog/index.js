@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
@@ -9,14 +8,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { blue } from '@material-ui/core/colors';
-import {useContext} from 'react';
-import { StoreContext } from "../../../../store";
-import { withStyles } from "@material-ui/styles";
+import { useContext } from 'react';
+import { StoreContext } from '../../../../store';
+import { withStyles } from '@material-ui/styles';
 
 const styles = {
   dialogPaper: {
-    maxHeight: "25vh",
-    scrollbarWidth: "thin",
+    maxHeight: '25vh',
+    scrollbarWidth: 'thin',
   },
 };
 
@@ -31,7 +30,7 @@ function LikesDialog({ classes, onClose, open, postOrComment, onSelectUser }) {
     const user = myContext.users.filter((user) => user.name === like)[0];
     return user.avatar;
   };
-  const rootWindowWidth = document.getElementById("rootWindow").offsetWidth * 0.7 + "px";
+  const rootWindowWidth = document.getElementById('rootWindow').offsetWidth * 0.7 + 'px';
 
   return (
     <Dialog onClose={handleClose} open={open} classes={{ paper: classes.dialogPaper }}>
