@@ -10,9 +10,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { blue } from '@material-ui/core/colors';
 import {useContext} from 'react';
-import { StoreContext } from '../../../../store';
+import { StoreContext } from "../../../../store";
+import { withStyles } from "@material-ui/styles";
 
-function LikesDialog({ onClose, open, postOrComment, onSelectUser }) {
+const styles = {
+  dialogPaper: {
+    maxHeight: "25vh",
+    scrollbarWidth: "thin",
+  },
+};
+
+function LikesDialog({ classes, onClose, open, postOrComment, onSelectUser }) {
   const myContext = useContext(StoreContext);
 
   const handleClose = () => {
@@ -26,7 +34,7 @@ function LikesDialog({ onClose, open, postOrComment, onSelectUser }) {
   const rootWindowWidth = document.getElementById("rootWindow").offsetWidth * 0.7 + "px";
 
   return (
-    <Dialog onClose={handleClose} open={open}>
+    <Dialog onClose={handleClose} open={open} classes={{ paper: classes.dialogPaper }}>
       <DialogTitle style={{ width: `${rootWindowWidth}` }}>Likes</DialogTitle>
       <List sx={{ pt: 0 }}>
         {postOrComment.likes.map((like) => (
@@ -41,11 +49,11 @@ function LikesDialog({ onClose, open, postOrComment, onSelectUser }) {
     </Dialog>
   );
 }
-  
-  LikesDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-    postOrComment: PropTypes.object,
-    onSelectUser: PropTypes.func,
-  };
-  export default LikesDialog;
+
+LikesDialog.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  postOrComment: PropTypes.object,
+  onSelectUser: PropTypes.func,
+};
+export default withStyles(styles)(LikesDialog);
