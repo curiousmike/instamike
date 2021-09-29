@@ -181,7 +181,7 @@ function App() {
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
-      <div className="App">
+      <div className="App" id="rootWindow">
           <Header />
           {networkError && <ErrorContainer>{networkError}</ErrorContainer>}
           {!networkError && showUserStories && <UserStories onSelect={onSelectUser}/>}

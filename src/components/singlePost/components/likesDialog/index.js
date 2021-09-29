@@ -23,18 +23,16 @@ function LikesDialog({ onClose, open, postOrComment, onSelectUser }) {
     const user = myContext.users.filter((user) => user.name === like)[0];
     return user.avatar;
   };
+  const rootWindowWidth = document.getElementById("rootWindow").offsetWidth * 0.7 + "px";
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle style={{ minWidth: "30vw" }}>Likes</DialogTitle>
+      <DialogTitle style={{ width: `${rootWindowWidth}` }}>Likes</DialogTitle>
       <List sx={{ pt: 0 }}>
         {postOrComment.likes.map((like) => (
           <ListItem button onClick={() => onSelectUser(like)} key={like}>
             <ListItemAvatar>
-              <Avatar
-                sx={{ bgcolor: blue[100], color: blue[600] }}
-                src={getUserAvatar(like)}
-              />
+              <Avatar sx={{ bgcolor: blue[100], color: blue[600] }} src={getUserAvatar(like)} />
             </ListItemAvatar>
             <ListItemText primary={like} />
           </ListItem>
