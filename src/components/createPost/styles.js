@@ -8,11 +8,11 @@ export const Container = styled.div`
 `;
 
 export const UploadContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-bottom: 4px black;
-    background-color: white; /*#2d2d2d;*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 4px black;
+  background-color: white;
 `;
 
 export const UploadButton = styled.div`
