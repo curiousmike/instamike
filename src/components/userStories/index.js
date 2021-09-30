@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { StoreContext } from '../../store';
 
 import { Container, UserStoriesContainer, ItemContainer } from './styles'
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@mui/material/Avatar';
 
 function UserStories({onSelect}) {
 	const myContext = useContext(StoreContext);

@@ -1,5 +1,5 @@
 import { Container } from './styles'
-import { MenuItem } from '@material-ui/core';
+import { MenuItem } from '@mui/material';
 
 function UserQuickActionMenu({onFollow, onHide, onDelete}) {
 	return (

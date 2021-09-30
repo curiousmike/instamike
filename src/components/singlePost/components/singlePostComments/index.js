@@ -4,11 +4,9 @@ import { StoreContext } from '../../../../store';
 import { Container} from './styles'
 import Comment from '../comment';
 import ReplyComment from '../replyComment';
-import Snackbar from '@material-ui/core/Snackbar';
-import Dialog from '@material-ui/core/Dialog';
-import { DialogContent, DialogTitle, IconButton, Button, DialogActions } from '@material-ui/core';
-import IconExpandLess from '@material-ui/icons/ExpandLess';
-import IconExpandMore from '@material-ui/icons/ExpandMore';
+import { Dialog, DialogContent, DialogTitle, IconButton, Button, DialogActions, Snackbar } from '@mui/material';
+import IconExpandLess from '@mui/icons-material/ExpandLess';
+import IconExpandMore from '@mui/icons-material/ExpandMore';
 
 function SinglePostComments({user, post, viewCommenter}) {
     const myContext = useContext(StoreContext);

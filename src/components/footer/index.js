@@ -1,10 +1,9 @@
 import { Container, FooterContainer, ItemContainer } from './styles'
-import { IconButton, Tooltip } from '@material-ui/core';
-import IconHome from '@material-ui/icons/Home';
-import IconSearch from '@material-ui/icons/Search';
-import IconAdd from '@material-ui/icons/AddAPhoto';
-import IconFavorite from '@material-ui/icons/Favorite';
-import Avatar from '@material-ui/core/Avatar';
+import { IconButton, Tooltip, Avatar } from '@mui/material';
+import IconHome from '@mui/icons-material/Home';
+import IconSearch from '@mui/icons-material/Search';
+import IconAdd from '@mui/icons-material/AddAPhoto';
+import IconFavorite from '@mui/icons-material/Favorite';
 
 function Footer({goHome, doSearch, createPost, addFavorite, goYou, youUser}) {
 	return (

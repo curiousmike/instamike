@@ -4,13 +4,21 @@ import { StoreContext } from '../../../../store';
 import { updateUser } from '../../../../services/userservice';
 
 import { Container,UserInfoContainer, ItemContainer } from './styles'
-import Avatar from '@material-ui/core/Avatar';
-import { DialogContent, DialogTitle, Dialog, Button, DialogActions } from '@material-ui/core';
-import Snackbar from '@material-ui/core/Snackbar';
+import {
+  Avatar,
+  DialogContent,
+  DialogTitle,
+  Dialog,
+  Button,
+  DialogActions,
+  Snackbar,
+  IconButton,
+  Tooltip,
+  Menu,
+} from '@mui/material';
 
 import UserQuickActionMenu from '../userQuickActionMenu';
-import { IconButton, Tooltip, Menu } from '@material-ui/core';
-import IconHoriz from '@material-ui/icons/MoreHoriz';
+import IconHoriz from '@mui/icons-material/MoreHoriz';
 
 function SinglePostHeader({post, name, selectUser, onDelete }) {
     const myContext = useContext(StoreContext);

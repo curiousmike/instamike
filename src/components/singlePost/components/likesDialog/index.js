@@ -1,16 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core//List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
-import { blue } from '@material-ui/core/colors';
+import { Avatar, List, ListItem, ListItemAvatar, ListItemText, Dialog, DialogTitle } from '@mui/material';
+import { blue } from '@mui/material/colors';
 import { useContext } from 'react';
 import { StoreContext } from '../../../../store';
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from '@mui/styles';
 
 const styles = {
   dialogPaper: {

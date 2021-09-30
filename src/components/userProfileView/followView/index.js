@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import { Container, FollowTitle} from './styles'
-import {List, ListItem, ListItemText, ListItemAvatar, 
-    Avatar,  ListItemSecondaryAction, Button } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction, Button } from '@mui/material';
 import { updateUser } from '../../../services/userservice';
 
 

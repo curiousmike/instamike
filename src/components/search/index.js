@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import { useContext } from 'react';
 import { StoreContext } from './../../store';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField } from '@mui/material';
 
 import { Container,SearchContainer } from './styles'
 

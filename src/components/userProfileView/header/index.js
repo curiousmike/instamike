@@ -14,7 +14,7 @@ import {
   EditProfileButton,
 } from "./styles";
 import HeaderItem from "../headerItem";
-import { Avatar, Button } from "@material-ui/core";
+import { Avatar, Button } from '@mui/material';
 
 function UserProfileHeader({
   usersData,

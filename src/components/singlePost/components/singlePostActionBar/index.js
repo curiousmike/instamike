@@ -1,10 +1,10 @@
 import { Container, FooterActionContainer, ItemContainer } from './styles'
-import { IconButton, Tooltip } from '@material-ui/core';
-import Favorited from '@material-ui/icons/Favorite';
-import NotFavorited from '@material-ui/icons/FavoriteBorder';
-import IconChat from '@material-ui/icons/Chat';
-import IconShare from '@material-ui/icons/Share';
-import IconBookmark from '@material-ui/icons/Bookmark';
+import { IconButton, Tooltip } from '@mui/material';
+import Favorited from '@mui/icons-material/Favorite';
+import NotFavorited from '@mui/icons-material/FavoriteBorder';
+import IconChat from '@mui/icons-material/Chat';
+import IconShare from '@mui/icons-material/Share';
+import IconBookmark from '@mui/icons-material/Bookmark';
 function SinglePostActionBar({alreadyFavorited, addFavorite, addComment, doShare, doBookmark}) {
 	return (
 		<Container>

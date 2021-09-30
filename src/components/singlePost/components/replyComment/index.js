@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {Container} from './styles'
-import { TextField } from '@material-ui/core';
+import { TextField } from '@mui/material';
 
 
 function ReplyComment({ addComment }) {

@@ -13,7 +13,7 @@ import styled from 'styled-components'
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
-import {CircularProgress} from '@material-ui/core';
+import {CircularProgress} from '@mui/material';
 
 // import { formatDate } from './utils/utils';
 // console.log('monoinsert says =', formatDate(1632440515896));
@@ -60,7 +60,7 @@ function App() {
     users: usersData,
     posts: usersPosts,
     youUser: youUser,
-    updateUser: (user) => {updateUser(user)},
+    updateUser: (user) => {updateUser(user)}, //todo - fix updateUser overloaded here.
     updateSinglePost: (originalPost, updatedPost) => {updateSinglePost(originalPost, updatedPost)},
     deleteSinglePost: (post) => {deleteSinglePost(post)},
   };

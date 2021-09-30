@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { StoreContext } from '../../store';
-import { Button, TextField } from '@material-ui/core';
-import {useState} from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import { Button, TextField } from '@mui/material';
+import { useState } from 'react';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { doesUserExist, addNewUser } from '../../services/userservice';
 
 import { Container, UploadContainer, UploadButton, CenterItem, ButtonContainer} from './styles'

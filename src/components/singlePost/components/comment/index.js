@@ -3,11 +3,11 @@ import { StoreContext } from '../../../../store';
 import { Container, InnerContainer, CommentWrapper, CommentDetailsWrapper,
 	AvatarContainer, LikeIconContainer, CommentPosterName, CommentDetails, CommentDetailItem, ActionContainer } from './styles'
 import {getTimeToShow} from '../../../../utils/utils';
-import Avatar from '@material-ui/core/Avatar';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import Favorited from '@material-ui/icons/Favorite';
-import NotFavorited from "@material-ui/icons/FavoriteBorder";
+import Avatar from '@mui/material/Avatar';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Favorited from '@mui/icons-material/Favorite';
+import NotFavorited from '@mui/icons-material/FavoriteBorder';
 import LikesDialog from '../likesDialog';
 
 function Comment({

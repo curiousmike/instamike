@@ -8,8 +8,7 @@ import SinglePostActionBar from './components/singlePostActionBar';
 import SinglePostDetails from './components/singlePostDetails';
 import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
-import { Dialog, DialogTitle, DialogActions, Button } from '@material-ui/core';
-import Snackbar from '@material-ui/core/Snackbar';
+import { Dialog, DialogTitle, DialogActions, Button, Snackbar } from '@mui/material';
 
 function SinglePost({ post, selectUser, id, isProfile }) {
     const myContext = useContext(StoreContext);

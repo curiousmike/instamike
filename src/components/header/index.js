@@ -1,6 +1,6 @@
 import { Container, HeaderContainer, ActionContainer, 
     ItemContainer, CameraContainer, AppNameContainer } from './styles'
-import { Icon, Tooltip } from '@material-ui/core';
+import { Icon, Tooltip } from '@mui/material';
 function Header({ title, disabled, onSubmit }) {
 	return (
 		<Container>

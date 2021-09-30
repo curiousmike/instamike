@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { Container, ItemContainer, DescriptionContainer, ButtonContainer, UploadButton } from './styles'
-import { Avatar, TextField, Button } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import { Avatar, TextField, Button } from '@mui/material';
+import IconButton from '@mui/icons-material/SmartButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 function EditProfile({user, onSaveProfile, onClose}) {
 	const [firstName, setFirstName] = useState(user.firstName);
