@@ -1,30 +1,39 @@
 import { useContext } from 'react';
 import { StoreContext } from './../../store';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, CircularProgress } from '@mui/material';
 import { useState } from 'react';
-import SmartButtonIcon from '@mui/icons-material/SmartButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
-import { Container, UploadContainer, UploadButton, CenterItem, ButtonContainer } from './styles';
-
+import { Container, UploadContainer, UploadButton, CenterItem, ButtonContainer, ProgressContainer } from './styles';
+const ONE_MEGABYTE = 1014 * 1024;
+const MAX_IMAGE_SIZE = 5 * ONE_MEGABYTE;
 function CreatePost({ onClose, onSave }) {
   const myContext = useContext(StoreContext);
   const [imageData, setImageData] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
+  const [uploadInProgress, setUploadInProgress] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState('');
+    const [fileTooBig, setFileTooBig] = useState(0);
   const handleUploadClick = (e) => {
     const file = e.target.files[0];
-    // console.log('file = ', file);
+    if (file.size > MAX_IMAGE_SIZE) {
+      console.log('file size = ', file.size);
+      console.log('file size too big = ', file.size / ONE_MEGABYTE);
+    }
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    // reader.addEventListener('progress', (event) => {
-    //     if (event.loaded && event.total) {
-    //       const percent = (event.loaded / event.total) * 100;
-    //       console.log(`Progress: ${Math.round(percent)}`);
-    //     }
-    //   });
-    reader.onloadend = () => {
-      setImageData(reader.result);
+    setUploadInProgress(true);
+    reader.onprogress = (data) => {
+      if (data.loaded && data.total) {
+        console.log('uploadProgress = ', parseInt((data.loaded / data.total) * 100));
+        setUploadProgress(parseInt((data.loaded / data.total) * 100, 10));
+      }
     };
+    reader.onloadend = (data) => {
+      console.log('onloadend data = ', data);
+      setImageData(reader.result);
+      setUploadInProgress(false);
+    };
+    reader.readAsDataURL(file);
   };
 
   const doSave = () => {
@@ -40,7 +49,7 @@ function CreatePost({ onClose, onSave }) {
     <Container>
       Create Post
       <UploadContainer>
-        {!imageData && (
+        {!imageData && !uploadInProgress && (
           <div>
             <UploadButton>
               <input
@@ -51,22 +60,18 @@ function CreatePost({ onClose, onSave }) {
                 onChange={handleUploadClick}
               />
               <label htmlFor="icon-button-file">
-                <SmartButtonIcon
-                  color="primary"
-                  aria-label="upload picture"
-                  component="span"
-                  style={{ fontSize: '80px' }}
-                >
-                  {/* <Fab style={{color: 'blue', margin: '10px'}} size="large" variant="extended"> */}
-                  <PhotoCamera style={{ fontSize: '80px' }} />
-                  {/* </Fab> */}
-                </SmartButtonIcon>
+                <PhotoCamera style={{ fontSize: '80px' }} />
               </label>
             </UploadButton>
             <CenterItem>Upload Image</CenterItem>
           </div>
         )}
-        {imageData && <img alt="upload here" style={{ width: '20vh' }} src={imageData} />}
+        {uploadInProgress && (
+          <ProgressContainer>
+            <CircularProgress variant="determinate" value={uploadProgress} />
+          </ProgressContainer>
+        )}
+        {imageData && <img alt="upload here" style={{ width: '20vh', margin: '16px' }} src={imageData} />}
       </UploadContainer>
       <TextField
         fullWidth
