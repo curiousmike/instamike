@@ -4,32 +4,41 @@ import { Button, TextField, CircularProgress } from '@mui/material';
 import { useState } from 'react';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
-import { Container, UploadContainer, UploadButton, CenterItem, ButtonContainer, ProgressContainer } from './styles';
+import {
+  Container,
+  UploadContainer,
+  UploadButton,
+  CenterItem,
+  ButtonContainer,
+  ProgressContainer,
+  FileSizeTooBigContainer,
+} from './styles';
 const ONE_MEGABYTE = 1014 * 1024;
-const MAX_IMAGE_SIZE = 5 * ONE_MEGABYTE;
+const MAX_MB = 5;
+const MAX_IMAGE_SIZE = MAX_MB * ONE_MEGABYTE;
 function CreatePost({ onClose, onSave }) {
   const myContext = useContext(StoreContext);
   const [imageData, setImageData] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
   const [uploadInProgress, setUploadInProgress] = useState(false);
   const [uploadProgress, setUploadProgress] = useState('');
-    const [fileTooBig, setFileTooBig] = useState(0);
+  const [fileTooBig, setFileTooBig] = useState(0);
+
   const handleUploadClick = (e) => {
+    setFileTooBig(0);
     const file = e.target.files[0];
     if (file.size > MAX_IMAGE_SIZE) {
-      console.log('file size = ', file.size);
-      console.log('file size too big = ', file.size / ONE_MEGABYTE);
+      setFileTooBig(file.size / ONE_MEGABYTE);
+      return;
     }
     const reader = new FileReader();
     setUploadInProgress(true);
     reader.onprogress = (data) => {
       if (data.loaded && data.total) {
-        console.log('uploadProgress = ', parseInt((data.loaded / data.total) * 100));
         setUploadProgress(parseInt((data.loaded / data.total) * 100, 10));
       }
     };
     reader.onloadend = (data) => {
-      console.log('onloadend data = ', data);
       setImageData(reader.result);
       setUploadInProgress(false);
     };
@@ -45,6 +54,7 @@ function CreatePost({ onClose, onSave }) {
     };
     onSave(newPost);
   };
+
   return (
     <Container>
       Create Post
@@ -65,6 +75,11 @@ function CreatePost({ onClose, onSave }) {
             </UploadButton>
             <CenterItem>Upload Image</CenterItem>
           </div>
+        )}
+        {fileTooBig !== 0 && (
+          <FileSizeTooBigContainer>
+            File size {fileTooBig.toFixed(2)}MB too big (max size {MAX_MB}MB)
+          </FileSizeTooBigContainer>
         )}
         {uploadInProgress && (
           <ProgressContainer>

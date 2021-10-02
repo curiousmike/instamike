@@ -30,3 +30,10 @@ export const ButtonContainer = styled.div`
 display: flex;
 margin: 16px;
 `;
+
+export const FileSizeTooBigContainer = styled.div`
+  color: red;
+  margin: 8px;
+  font-weight: 600;
+  font-size: 12px;
+`;
