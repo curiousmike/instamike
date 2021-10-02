@@ -1,7 +1,16 @@
 import { useState, useContext } from 'react';
 import { StoreContext } from '../../../../store';
-import { Container, InnerContainer, CommentWrapper, CommentDetailsWrapper,
-	AvatarContainer, LikeIconContainer, CommentPosterName, CommentDetails, CommentDetailItem, ActionContainer } from './styles'
+import {
+  Container,
+  InnerContainer,
+  CommentWrapper,
+  AvatarContainer,
+  LikeIconContainer,
+  CommentPosterName,
+  CommentDetails,
+  CommentDetailItem,
+  ActionContainer,
+} from './styles';
 import {getTimeToShow} from '../../../../utils/utils';
 import Avatar from '@mui/material/Avatar';
 import DeleteIcon from '@mui/icons-material/Delete';

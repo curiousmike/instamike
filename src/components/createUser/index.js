@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import { StoreContext } from '../../store';
 import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
@@ -9,7 +7,6 @@ import { doesUserExist, addNewUser } from '../../services/userservice';
 import { Container, UploadContainer, UploadButton, CenterItem, ButtonContainer} from './styles'
 
 function CreateUser({onClose}) {
-	const myContext = useContext(StoreContext);
     const [avatar, setAvatar] = useState(null);
     const [name, setName] = useState('');
     const [firstName, setFirstName] = useState('');

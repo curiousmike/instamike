@@ -1,15 +1,9 @@
-import { Container} from './styles'
-import { formatDate } from '../../../../utils/utils';
-// import Icon from '@mui/core/Icon';
-import {getTimeToShow} from '../../../../utils/utils';
+import { Container } from './styles';
+import { getTimeToShow } from '../../../../utils/utils';
 
-function singlePostDateFooter({post}) {
-	const timeToShow = getTimeToShow(post.timeStamp);
+function singlePostDateFooter({ post }) {
+  const timeToShow = getTimeToShow(post.timeStamp);
 
-	return (
-		<Container>
-            {timeToShow}
-		</Container>
-	)
+  return <Container>{timeToShow}</Container>;
 }
 export default singlePostDateFooter;

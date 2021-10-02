@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import { StoreContext } from './../../store';
 import { Button, TextField, CircularProgress } from '@mui/material';
 import { useState } from 'react';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -17,7 +15,6 @@ const ONE_MEGABYTE = 1014 * 1024;
 const MAX_MB = 5;
 const MAX_IMAGE_SIZE = MAX_MB * ONE_MEGABYTE;
 function CreatePost({ onClose, onSave }) {
-  const myContext = useContext(StoreContext);
   const [imageData, setImageData] = useState(null);
   const [imageDescription, setImageDescription] = useState('');
   const [uploadInProgress, setUploadInProgress] = useState(false);

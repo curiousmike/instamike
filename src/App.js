@@ -19,29 +19,29 @@ import {CircularProgress} from '@mui/material';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
 // console.log('i said = ', formatDate(1632440515878));
-const YouUserName = 'Liamzing'; //// 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+const YouUserName = 'NightOwlHiker'; //// 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
   margin: 2px 0px 2px 0px;
-`
+`;
 const LoadingContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
 `;
 
 const ErrorContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 80vh;
-font-size: 24px;
-font-weight: 700;
-color: red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  font-size: 24px;
+  font-weight: 700;
+  color: red;
 `;
 
 function App() {
@@ -55,22 +55,33 @@ function App() {
   const [showCreateUser, setShowCreateUser] = useState(false);
   const [youUser, setYouUser] = useState(null);
   const [networkError, setNetworkError] = useState(null);
-  
+
   const globalStore = {
     users: usersData,
     posts: usersPosts,
     youUser: youUser,
-    updateUser: (user) => {updateUser(user)}, //todo - fix updateUser overloaded here.
-    updateSinglePost: (originalPost, updatedPost) => {updateSinglePost(originalPost, updatedPost)},
-    deleteSinglePost: (post) => {deleteSinglePost(post)},
+    updateUser: (user, updatedUser) => {
+      updateUser(user, updatedUser);
+      updateUserLocal(user, updatedUser);
+    }, //todo - fix updateUser overloaded here.
+    updateSinglePost: (originalPost, updatedPost) => {
+      updateSinglePost(originalPost, updatedPost);
+    },
+    deleteSinglePost: (post) => {
+      deleteSinglePost(post);
+    },
   };
 
-  const updateUser = (userToUpdate) => {
+  const updateUserLocal = (userToUpdate, updatedUser) => {
     const updatedUsers = [...usersData];
     const index = updatedUsers.findIndex((user) => user.name === userToUpdate.name);
-    updatedUsers[index] = userToUpdate;
+    updatedUsers[index] = updatedUser;
     setUsersData(updatedUsers);
-  }
+    if (updatedUser.name === youUser.name) {
+      setYouUser(updatedUser);
+      // setCurrentUser(updatedUser);
+    }
+  };
 
   const updateSinglePost = (originalPost, postToUpdate) => {
     const updatedPosts = [...usersPosts];
@@ -78,7 +89,7 @@ function App() {
     updatedPosts[index] = postToUpdate;
     updatePost(originalPost, postToUpdate);
     setUsersPosts(updatedPosts);
-  }
+  };
 
   const deleteSinglePost = (postToRemove) => {
     // console.log('deletePost = ', postToRemove);
@@ -86,24 +97,26 @@ function App() {
     // console.log('reaminigPosts = ', remainingPosts);
     setUsersPosts(remainingPosts);
     deletePost(postToRemove);
-  }
+  };
 
-  useEffect (() => {
-    async function loadUserData () {
+  useEffect(() => {
+    async function loadUserData() {
       const usersResult = await getUsers();
-      if (usersResult.data) { 
+      if (usersResult.data) {
         setUsersData(usersResult.data);
-        const defaultUser = usersResult.data.filter(user=> {return user.name === YouUserName})[0];
+        const defaultUser = usersResult.data.filter((user) => {
+          return user.name === YouUserName;
+        })[0];
         setCurrentUser(defaultUser);
         setYouUser(defaultUser);
-        } else {
+      } else {
         updateNetworkError(`Error: loadUserData.\n${usersResult.status}\n${usersResult.msg}`);
       }
     }
-    async function loadPostData () {
+    async function loadPostData() {
       const postsResult = await getPosts();
       if (postsResult?.data) {
-         setUsersPosts(postsResult.data);
+        setUsersPosts(postsResult.data);
       } else if (postsResult?.status) {
         updateNetworkError(`Error: loadPostData.\n${postsResult?.status}\n${postsResult?.msg}`);
       }
@@ -113,13 +126,13 @@ function App() {
   }, []);
 
   const updateNetworkError = (error) => {
-    setNetworkError (error);
-  }
+    setNetworkError(error);
+  };
 
   const onCreatePost = async (newPost) => {
     newPost.name = youUser.name;
     setShowCreatePost(false);
-    const result = await addNewPost(newPost);  // tell backend
+    const result = await addNewPost(newPost); // tell backend
     if (result.error === false) {
       // locally add
       const posts = [...usersPosts];
@@ -127,82 +140,92 @@ function App() {
       setUsersPosts(posts);
       goYou();
     } else {
-      updateNetworkError(`Error: CreatePostError ${result?.status}  ${result.msg}`)
+      updateNetworkError(`Error: CreatePostError ${result?.status}  ${result.msg}`);
     }
-  }
+  };
 
   const goHome = () => {
     setShowCreatePost(false);
     setUserProfileView(false);
     setSearchVisible(false);
-    if (contentContainer?.current)    contentContainer.current.scrollTo(0,0);
-  }
-  
+    if (contentContainer?.current) contentContainer.current.scrollTo(0, 0);
+  };
+
   const doSearch = () => {
     setShowCreatePost(false);
     setUserProfileView(false);
     setSearchVisible(true);
-  }
+  };
 
   const createPost = () => {
     setUserProfileView(false);
     setSearchVisible(false);
     setShowCreatePost(true);
-  }
+  };
 
   const addFavorite = () => {
     setUserProfileView(false);
     setSearchVisible(false);
     setShowCreatePost(false);
     setShowCreateUser(true);
-
-  }
+  };
 
   const goYou = () => {
     setCurrentUser(youUser);
     setUserProfileView(true);
     setSearchVisible(false);
-  }
+  };
 
   const onSelectUser = (user) => {
     setCurrentUser(user);
     setUserProfileView(true);
-  }
+  };
 
   const onUpdateUser = (updatedData) => {
     updateUser(currentUser, updatedData);
-  }
+  };
 
-  const showUserStories =
-    !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
-  const showPostList = !searchVisible  && !showCreatePost && !userProfileView && !showCreateUser;
+  const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
+  const showPostList = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showLoading = usersPosts.length === 0 || usersData.length === 0; //
 
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
       <div className="App" id="rootWindow">
-          <Header />
-          {networkError && <ErrorContainer>{networkError}</ErrorContainer>}
-          {!networkError && showUserStories && <UserStories onSelect={onSelectUser}/>}
-          {showLoading && networkError === null && <InnerContent><LoadingContainer><CircularProgress /></LoadingContainer></InnerContent>}
-          {showPostList && (  
-              <InnerContent>
-                <PostList isProfile={false} theRef={contentContainer} selectUser={onSelectUser} /> 
-              </InnerContent>
-          )}
-          {userProfileView && <UserProfileView user={currentUser} onSelectUser = {onSelectUser} onUpdateUser={onUpdateUser}/>}
-          {searchVisible && <Search selectUser={onSelectUser}/>}
-          {showCreatePost && <CreatePost onClose={()=>setShowCreatePost(false)} onSave={(newpost)=>onCreatePost(newpost)}/>}
-          {showCreateUser && <CreateUser onClose={()=>setShowCreateUser(false)} />}
-          {!networkError && <Footer 
-            goHome = {() => goHome()}
-            doSearch = {() => doSearch()}
-            createPost = {() => createPost()}
-            addFavorite= {() => addFavorite()}
-            goYou = {() => goYou()}
-            youUser = {youUser}
-          />}
+        <Header />
+        {networkError && <ErrorContainer>{networkError}</ErrorContainer>}
+        {!networkError && showUserStories && <UserStories onSelect={onSelectUser} />}
+        {showLoading && networkError === null && (
+          <InnerContent>
+            <LoadingContainer>
+              <CircularProgress />
+            </LoadingContainer>
+          </InnerContent>
+        )}
+        {showPostList && (
+          <InnerContent>
+            <PostList isProfile={false} theRef={contentContainer} selectUser={onSelectUser} />
+          </InnerContent>
+        )}
+        {userProfileView && (
+          <UserProfileView user={currentUser} onSelectUser={onSelectUser} onUpdateUser={onUpdateUser} />
+        )}
+        {searchVisible && <Search selectUser={onSelectUser} />}
+        {showCreatePost && (
+          <CreatePost onClose={() => setShowCreatePost(false)} onSave={(newpost) => onCreatePost(newpost)} />
+        )}
+        {showCreateUser && <CreateUser onClose={() => setShowCreateUser(false)} />}
+        {!networkError && (
+          <Footer
+            goHome={() => goHome()}
+            doSearch={() => doSearch()}
+            createPost={() => createPost()}
+            addFavorite={() => addFavorite()}
+            goYou={() => goYou()}
+            youUser={youUser}
+          />
+        )}
       </div>
     </StoreContext.Provider>
   );
