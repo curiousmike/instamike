@@ -25,10 +25,10 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
   });
 
   useEffect(() => {
-    // if (currentUser.name !== user.name) {
-    //   resetToGridView();
-    //   setCurrentUser(user);
-    // }
+    if (currentUser.name !== user.name) {
+      resetToGridView();
+      setCurrentUser(user);
+    }
   }, [currentUser, user]);
 
   const resetToGridView = () => {
@@ -66,7 +66,7 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
   };
 
   const updateUserProfile = (updatedProfile) => {
-    onUpdateUser(updatedProfile);
+    myContext.updateUser(myContext.youUser, updatedProfile);
     setEditingProfile(false);
   };
 
