@@ -17,55 +17,60 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
 	const [viewingFollowers, setViewingFollowers] = useState(false);
 	const [viewingFollowing, setViewingFollowing] = useState(false);
 	const [editingProfile, setEditingProfile] = useState(false);
-	const [jumpToImageIndex, setJumpToImageIndex] = useState(null);
-	const contentContainer = React.createRef();
-    const singleUserPostData = myContext.posts.filter(obj=>{ return obj.name === user.name});
+  const [jumpToImageIndex, setJumpToImageIndex] = useState(null);
+  const [currentUser, setCurrentUser] = useState(user);
+  const contentContainer = React.createRef();
+  const singleUserPostData = myContext.posts.filter((obj) => {
+    return obj.name === user.name;
+  });
 
-	useEffect(() => {
-		resetToGridView();
-	}, [user]);
+  useEffect(() => {
+    // if (currentUser.name !== user.name) {
+    //   resetToGridView();
+    //   setCurrentUser(user);
+    // }
+  }, [currentUser, user]);
 
-	const resetToGridView = () => {
-		setViewingPostList(false);
-		setViewingPostGrid(true);
-		setViewingFollowers(false);
-		setViewingFollowing(false);
-	}
+  const resetToGridView = () => {
+    setViewingPostList(false);
+    setViewingPostGrid(true);
+    setViewingFollowers(false);
+    setViewingFollowing(false);
+  };
 
-	const onSelectImage = (image, index) => {
-		console.log('<UserProfileView onSelectImage - ', index);
-		setViewingPostGrid(false);
-		setViewingPostList(true);
-		setJumpToImageIndex(index);
-	}
+  const onSelectImage = (image, index) => {
+    console.log('<UserProfileView onSelectImage - ', index);
+    setViewingPostGrid(false);
+    setViewingPostList(true);
+    setJumpToImageIndex(index);
+  };
 
-	const onSelectPosts = () => {
-		console.log ('<UserProfileView onSelectPosts');
-		setViewingPostGrid(false);
-		setViewingPostList(true);
-	}
+  const onSelectPosts = () => {
+    console.log('<UserProfileView onSelectPosts');
+    setViewingPostGrid(false);
+    setViewingPostList(true);
+  };
 
-	const onSelectFollowers = () => {
-		console.log('<UserProfileView onSelectFollowers');
-		setViewingPostGrid(false);
-		setViewingPostList(false);
-		setViewingFollowers(true);
-	}
+  const onSelectFollowers = () => {
+    console.log('<UserProfileView onSelectFollowers');
+    setViewingPostGrid(false);
+    setViewingPostList(false);
+    setViewingFollowers(true);
+  };
 
-	const onSelectFollowing = () => {
-		setViewingPostGrid(false);
-		setViewingPostList(false);
-		setViewingFollowers(false);
-		setViewingFollowing(true);
-		
-	}
+  const onSelectFollowing = () => {
+    setViewingPostGrid(false);
+    setViewingPostList(false);
+    setViewingFollowers(false);
+    setViewingFollowing(true);
+  };
 
-	const updateUserProfile = (updatedProfile) => {
-		onUpdateUser(updatedProfile);
-		setEditingProfile(false);
-	}
+  const updateUserProfile = (updatedProfile) => {
+    onUpdateUser(updatedProfile);
+    setEditingProfile(false);
+  };
 
-	return (
+  return (
     <Container>
       {editingProfile && (
         <EditProfile
@@ -102,12 +107,7 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
             />
           )}
           {(viewingFollowers || viewingFollowing) && (
-            <FollowView
-              usersData={myContext.users}
-              user={user}
-              onSelectUser={(user) => onSelectUser(user)}
-              followers={viewingFollowers}
-            />
+            <FollowView user={user} onSelectUser={(user) => onSelectUser(user)} followers={viewingFollowers} />
           )}
         </div>
       )}

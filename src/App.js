@@ -77,9 +77,13 @@ function App() {
     const index = updatedUsers.findIndex((user) => user.name === userToUpdate.name);
     updatedUsers[index] = updatedUser;
     setUsersData(updatedUsers);
+
+    // Below code is to ensure youUser and currentUser get updated userData to cause children to receive those updates
     if (updatedUser.name === youUser.name) {
       setYouUser(updatedUser);
-      // setCurrentUser(updatedUser);
+    }
+    if (youUser.name === currentUser.name && updatedUser.name === currentUser.name) {
+      setCurrentUser(updatedUser);
     }
   };
 

@@ -37,7 +37,7 @@ function FollowView({ user, onSelectUser, followers }) {
     await stopFollowing(user);
   };
   const stopFollowing = async (userToRemove) => {
-    // Remove following
+    // Remove following a user
     const updatedUser = { ...myContext.youUser };
     const followingToKeep = updatedUser.following.filter((followingUserName) => {
       return followingUserName !== userToRemove.name;
@@ -45,13 +45,13 @@ function FollowView({ user, onSelectUser, followers }) {
     updatedUser.following = followingToKeep;
     myContext.updateUser(myContext.youUser, updatedUser);
 
-    // Now, we need to remove you as a FOLLOWER
-    // const otherUser = { ...userToRemove };
-    // const followersToKeep = otherUser.following.filter((followersUserName) => {
-    //   return followersUserName !== user.name;
-    // });
-    // otherUser.followers = followersToKeep;
-    // myContext.updateUser(userToRemove, otherUser);
+    // Now, we need to the person you were following seeing you as a "follower"
+    const otherUser = { ...userToRemove };
+    const followersToKeep = otherUser.following.filter((followersUserName) => {
+      return followersUserName !== user.name;
+    });
+    otherUser.followers = followersToKeep;
+    myContext.updateUser(userToRemove, otherUser);
   };
 
   const blockFollowing = (userToBlock) => {
