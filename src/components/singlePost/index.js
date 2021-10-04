@@ -30,19 +30,70 @@ function SinglePost({ post, selectUser, id, isProfile }) {
     }
     const addFavorite = () => {
       const postCopy = { ...post };
+      console.log("Add favorite - ", postCopy.description);
       if (alreadyFavorited) {
         // remove favorite
         const updatedFavorites = postCopy.likes.filter(
           (likeUser) => likeUser !== myContext.youUser.name
         );
         postCopy.likes = updatedFavorites;
+        removeNotification("post", postCopy, "likepost");
         myContext.updateSinglePost(post, postCopy);
         setShowToast("Post - removed like");
       } else {
         // add favorite
+        addNotification("post", postCopy, "likepost");
         postCopy.likes.push(myContext.youUser.name);
         setShowToast("Post - Liked !");
         myContext.updateSinglePost(post, postCopy);
+      }
+    };
+
+    const addNotification = (category, post, type) => {
+      if (post.name !== myContext.youUser.name) {
+        const userToAddNotification = myContext.users.filter(
+          (user) => user.name === post.name
+        )[0];
+        if (!userToAddNotification.notifications) {
+          userToAddNotification.notifications = [];
+        }
+        userToAddNotification.notifications.push({
+          userCreatingNotification: myContext.youUser.name,
+          category: category,
+          postId: post._id,
+          type: type,
+        });
+        console.log(
+          "user to notification - ",
+          userToAddNotification.name,
+          type
+        );
+        myContext.updateUser(userToAddNotification, userToAddNotification);
+      }
+    };
+
+    const removeNotification = (category, post, type) => {
+      if (post.name !== myContext.youUser.name) {
+        const userToRemoveNotification = myContext.users.filter(
+          (user) => user.name === post.name
+        )[0];
+        if (!userToRemoveNotification.notifications) {
+          return;
+        }
+        const notificationsToKeep =
+          userToRemoveNotification.notifications.filter(
+            (note) =>
+              note.userCreatingNotification !== myContext.youUser.name &&
+              note.category !== category &&
+              note.type !== type &&
+              note.postId !== post._id
+          );
+        // console.log("remove notification - ", notificationToRemove, type);
+        userToRemoveNotification.notifications = notificationsToKeep;
+        myContext.updateUser(
+          userToRemoveNotification,
+          userToRemoveNotification
+        );
       }
     };
 
