@@ -7,13 +7,14 @@ import PostList from './components/postList';
 import UserProfileView from './components/userProfileView';
 import Footer from './components/footer'
 import Search from './components/search'
+import Notifications from './components/notifications';
 import CreatePost from './components/createPost';
 import CreateUser from './components/createUser';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
-import {CircularProgress} from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
 // import { formatDate } from './utils/utils';
 // console.log('monoinsert says =', formatDate(1632440515896));
@@ -53,6 +54,7 @@ function App() {
   const [searchVisible, setSearchVisible] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showCreateUser, setShowCreateUser] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const [youUser, setYouUser] = useState(null);
   const [networkError, setNetworkError] = useState(null);
 
@@ -129,6 +131,8 @@ function App() {
     loadPostData();
   }, []);
 
+  useEffect(() => {}, [userProfileView, searchVisible, showCreatePost, showCreateUser, showNotifications]);
+
   const updateNetworkError = (error) => {
     setNetworkError(error);
   };
@@ -149,29 +153,31 @@ function App() {
   };
 
   const goHome = () => {
-    setShowCreatePost(false);
-    setUserProfileView(false);
-    setSearchVisible(false);
+    hideEverything();
     if (contentContainer?.current) contentContainer.current.scrollTo(0, 0);
   };
 
   const doSearch = () => {
-    setShowCreatePost(false);
-    setUserProfileView(false);
+    hideEverything();
     setSearchVisible(true);
   };
 
   const createPost = () => {
-    setUserProfileView(false);
-    setSearchVisible(false);
+    hideEverything();
     setShowCreatePost(true);
   };
 
-  const addFavorite = () => {
+  const viewNotifications = () => {
+    hideEverything();
+    setShowNotifications(true);
+  };
+
+  const hideEverything = () => {
     setUserProfileView(false);
     setSearchVisible(false);
     setShowCreatePost(false);
-    setShowCreateUser(true);
+    setShowCreateUser(false);
+    setShowNotifications(false);
   };
 
   const goYou = () => {
@@ -189,10 +195,11 @@ function App() {
     updateUser(currentUser, updatedData);
   };
 
-  const showUserStories = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
-  const showPostList = !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
+  const showUserStories =
+    !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
+  const showPostList = !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showLoading = usersPosts.length === 0 || usersData.length === 0; //
-
+  console.log('showNotications = ', showNotifications);
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
@@ -220,14 +227,14 @@ function App() {
           <CreatePost onClose={() => setShowCreatePost(false)} onSave={(newpost) => onCreatePost(newpost)} />
         )}
         {showCreateUser && <CreateUser onClose={() => setShowCreateUser(false)} />}
+        {showNotifications && <Notifications />}
         {!networkError && (
           <Footer
             goHome={() => goHome()}
             doSearch={() => doSearch()}
             createPost={() => createPost()}
-            addFavorite={() => addFavorite()}
+            viewNotifications={() => viewNotifications()}
             goYou={() => goYou()}
-            youUser={youUser}
           />
         )}
       </div>
