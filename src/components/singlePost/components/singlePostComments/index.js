@@ -9,13 +9,12 @@ import IconExpandLess from '@mui/icons-material/ExpandLess';
 import IconExpandMore from '@mui/icons-material/ExpandMore';
 
 function SinglePostComments({user, post, viewCommenter}) {
-    const myContext = useContext(StoreContext);
-    const [commentsExpanded, setCommentsExpanded] = useState(false);
-	const [commentData, setCommentData] = useState(post.comments);
-	// const commentData = myContext.post
-	const [toastMessage, setShowToast] = useState(null);
-  const [deleteCommentDialogVisible, setDeleteCommentDialogVisible] =
-    useState(false);
+	const myContext = useContext(StoreContext);
+  const [commentsExpanded, setCommentsExpanded] = useState(false);
+  const [commentData, setCommentData] = useState(post.comments);
+  // const commentData = myContext.post
+  const [toastMessage, setShowToast] = useState(null);
+  const [deleteCommentDialogVisible, setDeleteCommentDialogVisible] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(false);
 
   useEffect(() => {
@@ -37,13 +36,31 @@ function SinglePostComments({user, post, viewCommenter}) {
     currentPost.comments.push(commentToAdd);
     myContext.updateSinglePost(post, currentPost);
     setCommentsExpanded(true);
+    addNotification(currentPost, 'comment');
   };
 
-	const deleteComment = (commentToDelete) => {
-		setCommentToDelete(commentToDelete);
-		setDeleteCommentDialogVisible(true);
+  const addNotification = (post, type) => {
+    if (post.name !== myContext.youUser.name) {
+      const userToAddNotification = myContext.users.filter((user) => user.name === post.name)[0];
+      if (!userToAddNotification.notifications) {
+        userToAddNotification.notifications = [];
+      }
+      userToAddNotification.notifications.push({
+        read: false,
+        userCreatingNotification: myContext.youUser.name,
+        postId: post._id,
+        type: type,
+        timestamp: Date.now(),
+      });
+      console.log('user to notification - ', userToAddNotification.name, type);
+      myContext.updateUser(userToAddNotification, userToAddNotification);
+    }
+  };
 
-	} 
+  const deleteComment = (commentToDelete) => {
+    setCommentToDelete(commentToDelete);
+    setDeleteCommentDialogVisible(true);
+  }; 
 
 	const doDeleteComment = () => {
 		setDeleteCommentDialogVisible(false);

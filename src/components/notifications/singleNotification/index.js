@@ -14,20 +14,21 @@ function SingleNotification({ notification }) {
   };
 
   const getPostDescription = (postId) => {
+    if (!postId) return '';
     return myContext.posts.find((element) => element._id === postId).description;
   };
 
   const getTypeDescription = (notification) => {
-    if (notification.category === 'post') {
-      switch (notification.type) {
-        case 'likepost':
-          return ' liked ';
-        default:
-          return ' post unknown ';
-      }
+    switch (notification.type) {
+      case 'likepost':
+        return ' liked ';
+      case 'comment':
+        return ' commented on ';
+      case 'follower':
+        return ' started following you ';
+      default:
+        return `type unknown - ${notification.type}`;
     }
-
-    return `category unknown - ${notification.category}`;
   };
 
   return (

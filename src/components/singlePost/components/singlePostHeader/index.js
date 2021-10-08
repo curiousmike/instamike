@@ -36,20 +36,39 @@ function SinglePostHeader({post, name, selectUser, onDelete }) {
     }
 
     const addFollowing = async (newFollowUser) => {
-        // myUser will FOLLOWING user
-        const updatedYouUser = {...myContext.youUser};
-        updatedYouUser.following.push(newFollowUser.name);
-        console.log('Update user FOLLOWING - ', myContext.youUser.name);
-        await updateUser(myContext.youUser, updatedYouUser);
-    }
+      // myUser will FOLLOWING user
+      const updatedYouUser = { ...myContext.youUser };
+      updatedYouUser.following.push(newFollowUser.name);
+      console.log('Update user FOLLOWING - ', myContext.youUser.name);
+      await updateUser(myContext.youUser, updatedYouUser);
+    };
+
+    const addNotification = (newFollowUser, type) => {
+      if (newFollowUser.name !== myContext.youUser.name) {
+        const userToAddNotification = myContext.users.filter((user) => user.name === newFollowUser.name)[0];
+        if (!userToAddNotification.notifications) {
+          userToAddNotification.notifications = [];
+        }
+        userToAddNotification.notifications.push({
+          read: false,
+          userCreatingNotification: myContext.youUser.name,
+          // postId: post._id,
+          type: type,
+          timestamp: Date.now(),
+        });
+        console.log('user to notification - ', userToAddNotification.name, type);
+        myContext.updateUser(userToAddNotification, userToAddNotification);
+      }
+    };
 
     const addFollower = async (newFollowUser) => {
-        // newFollowUser will now have myUser as a FOLLOWERS
-        const updatedNewFollowUser = {...newFollowUser};
-        updatedNewFollowUser.followers.push(myContext.youUser.name);
-        console.log('Update user FOLLOWERS - ', newFollowUser.name);
-        await updateUser(newFollowUser, updatedNewFollowUser);
-    }
+      // newFollowUser will now have myUser as a FOLLOWERS
+      const updatedNewFollowUser = { ...newFollowUser };
+      updatedNewFollowUser.followers.push(myContext.youUser.name);
+      console.log('Update user FOLLOWERS - ', newFollowUser.name);
+      await updateUser(newFollowUser, updatedNewFollowUser);
+      addNotification(newFollowUser, 'follower');
+    };
 
     const onFollow = async (newFollowUser) => {
         await addFollowing (newFollowUser);

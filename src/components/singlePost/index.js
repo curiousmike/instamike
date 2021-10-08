@@ -32,14 +32,14 @@ function SinglePost({ post, selectUser, id, isProfile }) {
       setShowToast('Post - removed like');
     } else {
       // add favorite
-      addNotification('post', postCopy, 'likepost');
+      addNotification(postCopy, 'likepost');
       postCopy.likes.push(myContext.youUser.name);
       setShowToast('Post - Liked !');
       myContext.updateSinglePost(post, postCopy);
     }
   };
 
-  const addNotification = (category, post, type) => {
+  const addNotification = (post, type) => {
     if (post.name !== myContext.youUser.name) {
       const userToAddNotification = myContext.users.filter((user) => user.name === post.name)[0];
       if (!userToAddNotification.notifications) {
@@ -48,7 +48,6 @@ function SinglePost({ post, selectUser, id, isProfile }) {
       userToAddNotification.notifications.push({
         read: false,
         userCreatingNotification: myContext.youUser.name,
-        category: category,
         postId: post._id,
         type: type,
         timestamp: Date.now(),
