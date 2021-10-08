@@ -8,6 +8,7 @@ import UserProfileView from './components/userProfileView';
 import Footer from './components/footer'
 import Search from './components/search'
 import Notifications from './components/notifications';
+import NotificationPopper from './components/notificationPopper';
 import CreatePost from './components/createPost';
 import CreateUser from './components/createUser';
 import styled from 'styled-components';
@@ -15,7 +16,6 @@ import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
 import { CircularProgress } from '@mui/material';
-
 // import { formatDate } from './utils/utils';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
@@ -54,6 +54,7 @@ function App() {
   const [searchVisible, setSearchVisible] = useState(false);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [showCreateUser, setShowCreateUser] = useState(false);
+  const [showNotificationPopper, setShowNotificationPopper] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [youUser, setYouUser] = useState(null);
   const [networkError, setNetworkError] = useState(null);
@@ -195,6 +196,32 @@ function App() {
     updateUser(currentUser, updatedData);
   };
 
+  const [notificationPopperAnchor, setNotificationPopperAnchor] = useState(null);
+  useEffect(() => {
+    if (notificationPopperAnchor) setShowNotificationPopper(true);
+  }, [notificationPopperAnchor]);
+
+  const viewNotificationPopper = (el) => {
+    if (notificationPopperAnchor) {
+      setNotificationPopperAnchor(null);
+      setShowNotificationPopper(false);
+    } else {
+      setNotificationPopperAnchor(el.target);
+    }
+  };
+
+  const handleClickNotificationPopper = () => {
+    console.log('show notifications');
+    setNotificationPopperAnchor(null);
+    setShowNotificationPopper(false);
+    setShowNotifications(true);
+  };
+
+  const clearNotificationPopper = () => {
+    setShowNotificationPopper(false);
+    setNotificationPopperAnchor(null);
+  };
+
   const showUserStories =
     !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
@@ -228,13 +255,20 @@ function App() {
         )}
         {showCreateUser && <CreateUser onClose={() => setShowCreateUser(false)} />}
         {showNotifications && <Notifications />}
+        {showNotificationPopper && (
+          <NotificationPopper
+            anchorEl={notificationPopperAnchor}
+            clickHandler={() => handleClickNotificationPopper()}
+          />
+        )}
         {!networkError && (
           <Footer
             goHome={() => goHome()}
             doSearch={() => doSearch()}
             createPost={() => createPost()}
-            viewNotifications={() => viewNotifications()}
+            viewNotifications={(e) => viewNotificationPopper(e)}
             goYou={() => goYou()}
+            doClickAway={() => clearNotificationPopper(false)}
           />
         )}
       </div>
