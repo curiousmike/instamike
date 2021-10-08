@@ -25,40 +25,42 @@ function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClic
       <ClickAwayListener onClickAway={() => doClickAway()}>
         <FooterContainer>
           <ItemContainer>
-            <Tooltip title="Home">
-              <IconButton aria-label="home" onClick={goHome}>
+            <IconButton aria-label="home" onClick={goHome}>
+              <Tooltip title="Home" placement="top" arrow>
                 <IconHome />
-              </IconButton>
-            </Tooltip>
+              </Tooltip>
+            </IconButton>
           </ItemContainer>
           <ItemContainer>
-            <Tooltip title="Search">
-              <IconButton aria-label="search" onClick={doSearch}>
+            <IconButton aria-label="search" onClick={doSearch}>
+              <Tooltip title="Search" arrow>
                 <IconSearch />
-              </IconButton>
-            </Tooltip>
+              </Tooltip>
+            </IconButton>
           </ItemContainer>
           <ItemContainer>
-            <Tooltip title="Add Image">
-              <IconButton aria-label="add image" onClick={createPost}>
+            <IconButton aria-label="add image" onClick={createPost}>
+              <Tooltip title="Add Image" arrow>
                 <IconAdd />
-              </IconButton>
-            </Tooltip>
+              </Tooltip>
+            </IconButton>
           </ItemContainer>
           <ItemContainer>
-            <Tooltip
-              open={notificationTooltipOpen}
-              onOpen={() => setNotificationTooltipOpen(true)}
-              onClose={() => setNotificationTooltipOpen(false)}
-              title="Notifications"
-            >
-              <IconButton aria-label="favorite" onClick={(e) => handleViewNotificaitons(e)}>
+            <IconButton aria-label="favorite" onClick={(e) => handleViewNotificaitons(e)}>
+              <Tooltip
+                open={notificationTooltipOpen}
+                onOpen={() => setNotificationTooltipOpen(true)}
+                onClose={() => setNotificationTooltipOpen(false)}
+                title="Notifications"
+                arrow
+                style={{ zIndex: '2' }}
+              >
                 <NotificationsIcon style={{ color: notificationColor }} />
-              </IconButton>
-            </Tooltip>
+              </Tooltip>
+            </IconButton>
           </ItemContainer>
           <ItemContainer>
-            <Tooltip title="You">
+            <Tooltip title="You" arrow>
               <Avatar
                 onClick={goYou}
                 alt={myContext.youUser?.name}
