@@ -20,7 +20,7 @@ import { CircularProgress } from '@mui/material';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
 // console.log('i said = ', formatDate(1632440515878));
-const YouUserName = 'NightOwlHiker'; //// 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+const YouUserName = 'Watering Can'; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -73,6 +73,8 @@ function App() {
     deleteSinglePost: (post) => {
       deleteSinglePost(post);
     },
+    addNotification: (a, b) => addNotification(a, b),
+    removeNotification: (a, b) => removeNotification(a, b),
   };
 
   const updateUserLocal = (userToUpdate, updatedUser) => {
@@ -104,6 +106,39 @@ function App() {
     // console.log('reaminigPosts = ', remainingPosts);
     setUsersPosts(remainingPosts);
     deletePost(postToRemove);
+  };
+
+  const addNotification = (post, type) => {
+    if (post.name !== youUser.name) {
+      const userToAddNotification = usersData.filter((user) => user.name === post.name)[0];
+      if (!userToAddNotification.notifications) {
+        userToAddNotification.notifications = [];
+      }
+      userToAddNotification.notifications.push({
+        read: false,
+        userCreatingNotification: youUser.name,
+        postId: post._id,
+        type: type,
+        timestamp: Date.now(),
+      });
+      console.log('user to notification - ', userToAddNotification.name, type);
+      updateUser(userToAddNotification, userToAddNotification);
+    }
+  };
+
+  const removeNotification = (post, type) => {
+    if (post.name !== youUser.name) {
+      const userToRemoveNotification = usersData.filter((user) => user.name === post.name)[0];
+      if (!userToRemoveNotification.notifications) {
+        return;
+      }
+      const notificationsToKeep = userToRemoveNotification.notifications.filter(
+        (notification) => notification.postId === post._id && notification.userCreatingNotification !== youUser.name
+      );
+      // console.log("remove notification - ", notificationToRemove, type);
+      userToRemoveNotification.notifications = notificationsToKeep;
+      updateUser(userToRemoveNotification, userToRemoveNotification);
+    }
   };
 
   useEffect(() => {

@@ -15,7 +15,9 @@ function SingleNotification({ notification }) {
 
   const getPostDescription = (postId) => {
     if (!postId) return '';
-    return myContext.posts.find((element) => element._id === postId).description;
+    const result = myContext.posts.find((element) => element._id === postId);
+    if (result) return result.description;
+    return 'unknown';
   };
 
   const getTypeDescription = (notification) => {
@@ -38,7 +40,7 @@ function SingleNotification({ notification }) {
           <img style={{ width: '64px', margin: '8px' }} src={getNotifiersAvatar(notification)} alt="post thumbnail" />
           {notification.userCreatingNotification}
           {getTypeDescription(notification)}
-          {getPostDescription(notification.postId)}
+          {notification.type !== 'follower' ? getPostDescription(notification.postId) : ''}
           {notification.category === 'post' ? (
             <img
               style={{ width: '64px', margin: '8px' }}

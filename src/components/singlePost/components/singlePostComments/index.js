@@ -36,26 +36,9 @@ function SinglePostComments({user, post, viewCommenter}) {
     currentPost.comments.push(commentToAdd);
     myContext.updateSinglePost(post, currentPost);
     setCommentsExpanded(true);
-    addNotification(currentPost, 'comment');
+    myContext.addNotification(currentPost, 'comment');
   };
 
-  const addNotification = (post, type) => {
-    if (post.name !== myContext.youUser.name) {
-      const userToAddNotification = myContext.users.filter((user) => user.name === post.name)[0];
-      if (!userToAddNotification.notifications) {
-        userToAddNotification.notifications = [];
-      }
-      userToAddNotification.notifications.push({
-        read: false,
-        userCreatingNotification: myContext.youUser.name,
-        postId: post._id,
-        type: type,
-        timestamp: Date.now(),
-      });
-      console.log('user to notification - ', userToAddNotification.name, type);
-      myContext.updateUser(userToAddNotification, userToAddNotification);
-    }
-  };
 
   const deleteComment = (commentToDelete) => {
     setCommentToDelete(commentToDelete);
