@@ -6,6 +6,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import { Container, NotificationItemContainer, CategoryContainer, CategoryCounter } from './styles';
+import { ClickAwayListener } from '@mui/material';
 
 function NotificationPopper(props) {
   const myContext = useContext(StoreContext);
@@ -20,34 +21,36 @@ function NotificationPopper(props) {
   const commentCount = getTypeCount('comment');
   return (
     <Container>
-      <Popper id={'notificationpopper'} open={true} anchorEl={props.anchorEl} onClick={props.clickHandler} arrow>
-        <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper', marginBottom: '8px' }}>
-          <NotificationItemContainer>
-            {postCount && (
-              <CategoryContainer>
-                <FavoriteIcon />
-                <CategoryCounter>{postCount}</CategoryCounter>
-              </CategoryContainer>
-            )}
-            {followerCount ? (
-              <CategoryContainer>
-                <PersonIcon />
-                <CategoryCounter>{followerCount}</CategoryCounter>
-              </CategoryContainer>
-            ) : (
-              ''
-            )}
-            {commentCount ? (
-              <CategoryContainer>
-                <ChatBubbleIcon />
-                <CategoryCounter>{commentCount}</CategoryCounter>
-              </CategoryContainer>
-            ) : (
-              ''
-            )}
-          </NotificationItemContainer>
-        </Box>
-      </Popper>
+      <ClickAwayListener onClickAway={() => props.doClickAway()}>
+        <Popper id={'notificationpopper'} open={true} anchorEl={props.anchorEl} onClick={props.clickHandler} arrow>
+          <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper', marginBottom: '8px' }}>
+            <NotificationItemContainer>
+              {postCount && (
+                <CategoryContainer>
+                  <FavoriteIcon />
+                  <CategoryCounter>{postCount}</CategoryCounter>
+                </CategoryContainer>
+              )}
+              {followerCount ? (
+                <CategoryContainer>
+                  <PersonIcon />
+                  <CategoryCounter>{followerCount}</CategoryCounter>
+                </CategoryContainer>
+              ) : (
+                ''
+              )}
+              {commentCount ? (
+                <CategoryContainer>
+                  <ChatBubbleIcon />
+                  <CategoryCounter>{commentCount}</CategoryCounter>
+                </CategoryContainer>
+              ) : (
+                ''
+              )}
+            </NotificationItemContainer>
+          </Box>
+        </Popper>
+      </ClickAwayListener>
     </Container>
   );
 }

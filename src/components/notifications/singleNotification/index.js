@@ -1,6 +1,7 @@
-import { Container } from './styles';
 import { useContext } from 'react';
 import { StoreContext } from '../../../store';
+import { Container, SingleNotificationContainer, TextItem } from './styles';
+import Avatar from '@mui/material/Avatar';
 
 function SingleNotification({ notification }) {
   const myContext = useContext(StoreContext);
@@ -23,9 +24,9 @@ function SingleNotification({ notification }) {
   const getTypeDescription = (notification) => {
     switch (notification.type) {
       case 'likepost':
-        return ' liked ';
+        return ' liked your post ';
       case 'comment':
-        return ' commented on ';
+        return ' commented on your post ';
       case 'follower':
         return ' started following you ';
       default:
@@ -37,19 +38,23 @@ function SingleNotification({ notification }) {
     <Container>
       {notification.read === false ? (
         <div>
-          <img style={{ width: '64px', margin: '8px' }} src={getNotifiersAvatar(notification)} alt="post thumbnail" />
-          {notification.userCreatingNotification}
-          {getTypeDescription(notification)}
-          {notification.type !== 'follower' ? getPostDescription(notification.postId) : ''}
-          {notification.category === 'post' ? (
-            <img
-              style={{ width: '64px', margin: '8px' }}
-              src={getPostThumbnail(notification.postId)}
-              alt="post thumbnail"
-            />
-          ) : (
-            <div />
-          )}
+          <SingleNotificationContainer>
+            <Avatar alt="{commentPoster.name}" src={getNotifiersAvatar(notification)} />
+            <TextItem>
+              {notification.userCreatingNotification}
+              {getTypeDescription(notification)}
+              {notification.type !== 'follower' ? getPostDescription(notification.postId) : ''}
+            </TextItem>
+            {notification.type === 'likepost' || notification.type === 'comment' ? (
+              <img
+                style={{ width: '64px', margin: '8px' }}
+                src={getPostThumbnail(notification.postId)}
+                alt="post thumbnail"
+              />
+            ) : (
+              <div />
+            )}
+          </SingleNotificationContainer>
         </div>
       ) : (
         <div> already read</div>

@@ -20,7 +20,7 @@ import { CircularProgress } from '@mui/material';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
 // console.log('i said = ', formatDate(1632440515878));
-const YouUserName = 'Watering Can'; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+const YouUserName = 'NightOwlHiker'; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 const InnerContent = styled.main`
   height: 80vh;
@@ -246,13 +246,14 @@ function App() {
   };
 
   const handleClickNotificationPopper = () => {
-    console.log('show notifications');
     setNotificationPopperAnchor(null);
     setShowNotificationPopper(false);
+    hideEverything();
     setShowNotifications(true);
   };
 
   const clearNotificationPopper = () => {
+    console.log('do click away');
     setShowNotificationPopper(false);
     setNotificationPopperAnchor(null);
   };
@@ -261,7 +262,7 @@ function App() {
     !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showLoading = usersPosts.length === 0 || usersData.length === 0; //
-  console.log('showNotications = ', showNotifications);
+
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
@@ -294,6 +295,7 @@ function App() {
           <NotificationPopper
             anchorEl={notificationPopperAnchor}
             clickHandler={() => handleClickNotificationPopper()}
+            doClickAway={() => clearNotificationPopper()}
           />
         )}
         {!networkError && (
@@ -303,7 +305,6 @@ function App() {
             createPost={() => createPost()}
             viewNotifications={(e) => viewNotificationPopper(e)}
             goYou={() => goYou()}
-            doClickAway={() => clearNotificationPopper(false)}
           />
         )}
       </div>
