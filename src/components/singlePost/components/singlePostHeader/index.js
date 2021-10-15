@@ -40,7 +40,6 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
     // myUser will FOLLOWING user
     const updatedYouUser = { ...myContext.youUser };
     updatedYouUser.following.push(newFollowUser.name);
-    console.log('Update user FOLLOWING - ', myContext.youUser.name);
     myContext.updateUser(myContext.youUser, updatedYouUser);
   };
 
@@ -48,7 +47,6 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
     // newFollowUser will now have myUser as a FOLLOWERS
     const updatedNewFollowUser = { ...newFollowUser };
     updatedNewFollowUser.followers.push(myContext.youUser.name);
-    console.log('Update user FOLLOWERS - ', newFollowUser.name);
     myContext.updateUser(newFollowUser, updatedNewFollowUser);
     myContext.addNotification(newFollowUser, 'follower');
   };

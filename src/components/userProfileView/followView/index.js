@@ -19,8 +19,6 @@ function FollowView({ user, onSelectUser, followers }) {
       setUsers(followers);
     } else {
       //
-      // the issue now is that USER isn't changing - <UserProfileView user doesn't get updated
-      // Example: Follow a user.  Then STOP following  Notice the COUNT in profile doesnt update
       const following = user.following.map((followingUserName) => {
         const user = myContext.users.filter((userData) => {
           return userData.name === followingUserName;
