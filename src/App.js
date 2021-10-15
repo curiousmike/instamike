@@ -38,7 +38,10 @@ function App() {
     youUser: youUser,
     updateUser: (user, updatedUser) => {
       updateUserLocal(user, updatedUser);
-    }, //todo - fix updateUser overloaded here.
+    },
+    updateMultipleUsers: (listOfUsers) => {
+      updateListOfUsersLocal(listOfUsers);
+    },
     updateSinglePost: (originalPost, updatedPost) => {
       updateSinglePost(originalPost, updatedPost);
     },
@@ -47,6 +50,22 @@ function App() {
     },
     addNotification: (a, b) => addNotification(a, b),
     removeNotification: (a, b) => removeNotification(a, b),
+  };
+
+  const updateListOfUsersLocal = (listOfUsers) => {
+    const updatedUsers = [...usersData];
+    listOfUsers.forEach((userToUpdate, i) => {
+      const index = updatedUsers.findIndex((user) => user.name === userToUpdate.name);
+      updatedUsers[index] = userToUpdate;
+      serviceUpdateUser(userToUpdate, userToUpdate);
+      if (userToUpdate.name === youUser.name) {
+        setYouUser(userToUpdate);
+      }
+      if (youUser.name === currentUser.name && userToUpdate.name === currentUser.name) {
+        setCurrentUser(userToUpdate);
+      }
+    });
+    setUsersData(updatedUsers);
   };
 
   const updateUserLocal = (userToUpdate, updatedUser) => {

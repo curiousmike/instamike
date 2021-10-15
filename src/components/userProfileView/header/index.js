@@ -16,16 +16,9 @@ import {
 import HeaderItem from "../headerItem";
 import { Avatar, Button } from '@mui/material';
 
-function UserProfileHeader({
-  usersData,
-  user,
-  onSelectPosts,
-  onSelectFollowers,
-  onSelectFollowing,
-  editProfile,
-}) {
+function UserProfileHeader({ user, onSelectPosts, onSelectFollowers, onSelectFollowing, editProfile }) {
   const myContext = useContext(StoreContext);
-  const userData = usersData.filter((obj) => {
+  const userData = myContext.users.filter((obj) => {
     return obj.name === user.name;
   })[0];
   const showEditProfileButton = user.name === myContext.youUser.name;

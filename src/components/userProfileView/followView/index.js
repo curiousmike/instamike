@@ -9,7 +9,6 @@ function FollowView({ user, onSelectUser, followers }) {
   const isFollowers = followers;
   const secondary = false;
   useEffect(() => {
-    console.log('user.following = ', user.following);
     if (isFollowers) {
       const followers = user.followers.map((followerName) => {
         const user = myContext.users.filter((userData) => {
@@ -32,17 +31,15 @@ function FollowView({ user, onSelectUser, followers }) {
     }
   }, [isFollowers, myContext, myContext.users, user]);
 
-  const handleStopFollowing = async (user) => {
-    await stopFollowing(user);
-  };
   const stopFollowing = async (userToRemove) => {
+    const listOfUsersToUpdate = [];
     // Remove following a user
-    const updatedUser = { ...myContext.youUser };
+    const updatedUser = { ...user };
     const followingToKeep = updatedUser.following.filter((followingUserName) => {
       return followingUserName !== userToRemove.name;
     });
     updatedUser.following = followingToKeep;
-    myContext.updateUser(myContext.youUser, updatedUser);
+    listOfUsersToUpdate.push(updatedUser);
 
     // Now, we need to the person you were following seeing you as a "follower"
     const otherUser = { ...userToRemove };
@@ -50,7 +47,9 @@ function FollowView({ user, onSelectUser, followers }) {
       return followersUserName !== user.name;
     });
     otherUser.followers = followersToKeep;
-    myContext.updateUser(userToRemove, otherUser);
+    listOfUsersToUpdate.push(otherUser);
+
+    myContext.updateMultipleUsers(listOfUsersToUpdate);
   };
 
   const blockFollowing = (userToBlock) => {
@@ -76,7 +75,7 @@ function FollowView({ user, onSelectUser, followers }) {
             <ListItemText primary={user?.name} secondary={secondary ? 'Secondary text' : null} />
             <ListItemSecondaryAction>
               {!isFollowers && (
-                <Button variant="outlined" size="small" onClick={() => handleStopFollowing(user)}>
+                <Button variant="outlined" size="small" onClick={() => stopFollowing(user)}>
                   Stop following
                 </Button>
               )}

@@ -82,7 +82,6 @@ function UserProfileView({user, onSelectUser, onUpdateUser}) {
       {!editingProfile && (
         <div>
           <UserProfileHeader
-            usersData={myContext.users}
             user={user}
             onSelectPosts={onSelectPosts}
             onSelectFollowers={onSelectFollowers}
