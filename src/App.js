@@ -11,39 +11,16 @@ import Notifications from './components/notifications';
 import NotificationPopper from './components/notificationPopper';
 import CreatePost from './components/createPost';
 import CreateUser from './components/createUser';
-import styled from 'styled-components';
 import { StoreContext } from './store';
 import { getUsers, updateUser } from './services/userservice';
 import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
 import { CircularProgress } from '@mui/material';
+import { InnerContent, LoadingContainer, ErrorContainer } from './styles.js';
 // import { formatDate } from './utils/utils';
 // console.log('monoinsert says =', formatDate(1632440515896));
 // console.log('db says = ', formatDate(1632440515896));
 // console.log('i said = ', formatDate(1632440515878));
 const YouUserName = 'NightOwlHiker'; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
-
-const InnerContent = styled.main`
-  height: 80vh;
-  margin: 2px 0px 2px 0px;
-`;
-const LoadingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
-`;
-
-const ErrorContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
-  font-size: 24px;
-  font-weight: 700;
-  color: red;
-`;
 
 function App() {
   const contentContainer = React.createRef();
@@ -201,11 +178,6 @@ function App() {
   const createPost = () => {
     hideEverything();
     setShowCreatePost(true);
-  };
-
-  const viewNotifications = () => {
-    hideEverything();
-    setShowNotifications(true);
   };
 
   const hideEverything = () => {
