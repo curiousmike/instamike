@@ -2,7 +2,6 @@ import { Container, FollowTitle } from './styles';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction, Button } from '@mui/material';
 import { useState, useEffect, useContext } from 'react';
 import { StoreContext } from '../../../store';
-import { updateUser } from '../../../services/userservice';
 
 function FollowView({ user, onSelectUser, followers }) {
   const myContext = useContext(StoreContext);
@@ -62,7 +61,7 @@ function FollowView({ user, onSelectUser, followers }) {
     // add block
     const updatedUser = { ...user };
     updatedUser.blocked.push(userToBlock.name);
-    updateUser(user, updatedUser);
+    myContext.updateUser(user, updatedUser);
   };
 
   return (

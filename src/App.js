@@ -12,14 +12,10 @@ import NotificationPopper from './components/notificationPopper';
 import CreatePost from './components/createPost';
 import CreateUser from './components/createUser';
 import { StoreContext } from './store';
-import { getUsers, updateUser } from './services/userservice';
+import { serviceGetUsers, serviceUpdateUser } from './services/userservice';
 import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
 import { CircularProgress } from '@mui/material';
 import { InnerContent, LoadingContainer, ErrorContainer } from './styles.js';
-// import { formatDate } from './utils/utils';
-// console.log('monoinsert says =', formatDate(1632440515896));
-// console.log('db says = ', formatDate(1632440515896));
-// console.log('i said = ', formatDate(1632440515878));
 const YouUserName = 'NightOwlHiker'; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 function App() {
@@ -41,7 +37,6 @@ function App() {
     posts: usersPosts,
     youUser: youUser,
     updateUser: (user, updatedUser) => {
-      updateUser(user, updatedUser);
       updateUserLocal(user, updatedUser);
     }, //todo - fix updateUser overloaded here.
     updateSinglePost: (originalPost, updatedPost) => {
@@ -59,6 +54,7 @@ function App() {
     const index = updatedUsers.findIndex((user) => user.name === userToUpdate.name);
     updatedUsers[index] = updatedUser;
     setUsersData(updatedUsers);
+    serviceUpdateUser(userToUpdate, updatedUser);
 
     // Below code is to ensure youUser and currentUser get updated userData to cause children to receive those updates
     if (updatedUser.name === youUser.name) {
@@ -99,7 +95,7 @@ function App() {
         timestamp: Date.now(),
       });
       console.log('user to notification - ', userToAddNotification.name, type);
-      updateUser(userToAddNotification, userToAddNotification);
+      serviceUpdateUser(userToAddNotification, userToAddNotification);
     }
   };
 
@@ -114,13 +110,13 @@ function App() {
       );
       // console.log("remove notification - ", notificationToRemove, type);
       userToRemoveNotification.notifications = notificationsToKeep;
-      updateUser(userToRemoveNotification, userToRemoveNotification);
+      serviceUpdateUser(userToRemoveNotification, userToRemoveNotification);
     }
   };
 
   useEffect(() => {
     async function loadUserData() {
-      const usersResult = await getUsers();
+      const usersResult = await serviceGetUsers();
       if (usersResult.data) {
         setUsersData(usersResult.data);
         const defaultUser = usersResult.data.filter((user) => {
@@ -200,7 +196,7 @@ function App() {
   };
 
   const onUpdateUser = (updatedData) => {
-    updateUser(currentUser, updatedData);
+    serviceUpdateUser(currentUser, updatedData);
   };
 
   const [notificationPopperAnchor, setNotificationPopperAnchor] = useState(null);
