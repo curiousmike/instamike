@@ -54,6 +54,7 @@ function CreatePost({ onClose, onSave }) {
     onSave(newPost);
   };
 
+  const saveDisabled = !imageData || !imageDescription;
   return (
     <Container>
       <Banner>
@@ -104,7 +105,7 @@ function CreatePost({ onClose, onSave }) {
           {' '}
           Cancel
         </Button>
-        <Button variant="outlined" size="small" onClick={() => doSave()}>
+        <Button disabled={saveDisabled} variant="outlined" size="small" onClick={() => doSave()}>
           {' '}
           Save
         </Button>
