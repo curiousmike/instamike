@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { StoreContext } from '../../store';
-import { Container } from './styles';
+import { Container, Banner, BannerText } from './styles';
 import SingleNotification from './singleNotification';
 
 function Notifications() {
@@ -8,9 +8,11 @@ function Notifications() {
   const notifications = myContext.youUser.notifications;
   return (
     <Container>
-      Notifications
+      <Banner>
+        <BannerText>Notifications</BannerText>
+      </Banner>
       {notifications.length &&
-        notifications.map((notification, index) => <SingleNotification notification={notification} key={index}/>)}
+        notifications.map((notification, index) => <SingleNotification notification={notification} key={index} />)}
     </Container>
   );
 }

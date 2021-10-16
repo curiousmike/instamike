@@ -4,9 +4,11 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 import {
   Container,
+  Banner,
+  BannerText,
   UploadContainer,
   UploadButton,
-  CenterItem,
+  UploadImageText,
   ButtonContainer,
   ProgressContainer,
   FileSizeTooBigContainer,
@@ -54,7 +56,9 @@ function CreatePost({ onClose, onSave }) {
 
   return (
     <Container>
-      Create Post
+      <Banner>
+        <BannerText>Create Post</BannerText>
+      </Banner>
       <UploadContainer>
         {!imageData && !uploadInProgress && (
           <div>
@@ -70,9 +74,9 @@ function CreatePost({ onClose, onSave }) {
                 <PhotoCamera style={{ fontSize: '80px' }} />
               </label>
             </UploadButton>
-            <CenterItem>Upload Image</CenterItem>
           </div>
         )}
+        <UploadImageText>Upload Image</UploadImageText>
         {fileTooBig !== 0 && (
           <FileSizeTooBigContainer>
             File size {fileTooBig.toFixed(2)}MB too big (max size {MAX_MB}MB)

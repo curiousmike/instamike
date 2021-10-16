@@ -16,8 +16,13 @@ export const UploadContainer = styled.div`
 `;
 
 export const UploadButton = styled.div`
+  display: flex;
+  align-items: center;
 `;
-export const CenterItem = styled.div`
+export const UploadImageText = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 8px;
 `;
 
 export const ProgressContainer = styled.div`
@@ -27,8 +32,8 @@ export const ProgressContainer = styled.div`
   min-height: 10vh;
 `;
 export const ButtonContainer = styled.div`
-display: flex;
-margin: 16px;
+  display: flex;
+  margin: 16px;
 `;
 
 export const FileSizeTooBigContainer = styled.div`
@@ -36,4 +41,17 @@ export const FileSizeTooBigContainer = styled.div`
   margin: 8px;
   font-weight: 600;
   font-size: 12px;
+`;
+
+export const Banner = styled.div`
+  display: flex;
+  height: 10vh;
+  background-color: #fae1dd;
+  align-items: center;
+`;
+
+export const BannerText = styled.div`
+  margin-left: 16px;
+  font-weight: 600;
+  font-size: 20px;
 `;
