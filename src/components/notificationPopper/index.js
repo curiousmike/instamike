@@ -13,23 +13,26 @@ function NotificationPopper(props) {
   const notifications = myContext.youUser.notifications;
 
   const getTypeCount = (type) => {
-    const result = notifications.filter((notification) => notification.type === type);
+    const result = notifications.filter((notification) => notification.type === type && notification.read === false);
     return result.length;
   };
   const postCount = getTypeCount('likepost');
   const followerCount = getTypeCount('follower');
   const commentCount = getTypeCount('comment');
+  const showNothing = !postCount && !followerCount && !commentCount;
   return (
     <Container>
       <ClickAwayListener onClickAway={() => props.doClickAway()}>
         <Popper id={'notificationpopper'} open={true} anchorEl={props.anchorEl} onClick={props.clickHandler} arrow>
           <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper', marginBottom: '8px' }}>
             <NotificationItemContainer>
-              {postCount && (
+              {postCount ? (
                 <CategoryContainer>
                   <FavoriteIcon />
                   <CategoryCounter>{postCount}</CategoryCounter>
                 </CategoryContainer>
+              ) : (
+                ''
               )}
               {followerCount ? (
                 <CategoryContainer>
@@ -43,6 +46,13 @@ function NotificationPopper(props) {
                 <CategoryContainer>
                   <ChatBubbleIcon />
                   <CategoryCounter>{commentCount}</CategoryCounter>
+                </CategoryContainer>
+              ) : (
+                ''
+              )}
+              {showNothing ? (
+                <CategoryContainer>
+                  <CategoryCounter>No new notifications</CategoryCounter>
                 </CategoryContainer>
               ) : (
                 ''

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { StoreContext } from '../../store';
 import { Container, FooterContainer, ItemContainer } from './styles';
 import { IconButton, Tooltip, Avatar } from '@mui/material';
@@ -10,8 +10,18 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClickAway }) {
   const myContext = useContext(StoreContext);
-  const notificationColor = myContext.youUser?.notifications.length ? 'red' : '';
+  const [notificationColor, setNotificationColor] = useState('');
   const [notificationTooltipOpen, setNotificationTooltipOpen] = useState(false);
+
+  useEffect(() => {
+    let hasUnread = false;
+    myContext.youUser?.notifications.forEach((n) => {
+      if (n.read === false) {
+        hasUnread = true;
+      }
+    });
+    setNotificationColor(hasUnread ? 'red' : '');
+  }, [myContext.youUser?.notifications]);
 
   const handleViewNotifications = (e) => {
     setNotificationTooltipOpen(false);

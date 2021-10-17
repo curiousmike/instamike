@@ -50,6 +50,7 @@ function App() {
     },
     addNotification: (a, b) => addNotification(a, b),
     removeNotification: (a, b) => removeNotification(a, b),
+    markNotificationRead: (n) => makeNotificationRead(n),
   };
 
   const updateListOfUsersLocal = (listOfUsers) => {
@@ -98,6 +99,22 @@ function App() {
     // console.log('reaminigPosts = ', remainingPosts);
     setUsersPosts(remainingPosts);
     deletePost(postToRemove);
+  };
+
+  const makeNotificationRead = (notification) => {
+    // console.log('mark as read = ', notification.type);
+    const updatedNotifications = [...youUser.notifications];
+    const notificationToUpdateIndex = updatedNotifications.findIndex((n) => n.timestamp === notification.timestamp); // is timeStamp good enough?
+    if (notificationToUpdateIndex >= 0) {
+      console.log('notifi to update = ', notificationToUpdateIndex);
+      updatedNotifications[notificationToUpdateIndex].read = true;
+      youUser.notifications = updatedNotifications;
+      // updateUserLocal(youUser, youUser);
+      serviceUpdateUser(youUser, youUser); // only update backend - we don't want front end updated yet.
+    } else {
+      // err
+      updateNetworkError('bad mike using network error - issue with makeNotificationRead');
+    }
   };
 
   const addNotification = (post, type) => {
@@ -220,6 +237,17 @@ function App() {
 
   const [notificationPopperAnchor, setNotificationPopperAnchor] = useState(null);
   useEffect(() => {
+    // const getTypeCount = (type) => {
+    //   const result = youUser?.notifications.filter(
+    //     (notification) => notification.type === type && notification.read === false
+    //   );
+    //   return result?.length;
+    // };
+    // const postCount = getTypeCount('likepost');
+    // const followerCount = getTypeCount('follower');
+    // const commentCount = getTypeCount('comment');
+    // const showNothing = !postCount && !followerCount && !commentCount;
+    // if (notificationPopperAnchor && !showNothing) setShowNotificationPopper(true);
     if (notificationPopperAnchor) setShowNotificationPopper(true);
   }, [notificationPopperAnchor]);
 

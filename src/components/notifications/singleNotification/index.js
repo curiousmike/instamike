@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { StoreContext } from '../../../store';
 import { Container, SingleNotificationContainer, TextItem } from './styles';
 import Avatar from '@mui/material/Avatar';
@@ -6,6 +6,11 @@ import Avatar from '@mui/material/Avatar';
 function SingleNotification({ notification }) {
   const myContext = useContext(StoreContext);
 
+  useEffect(() => {
+    if (notification.read === false) {
+      myContext.markNotificationRead(notification);
+    }
+  });
   const getNotifiersAvatar = (notification) => {
     return myContext.users.find((user) => user.name === notification.userCreatingNotification).avatar;
   };
