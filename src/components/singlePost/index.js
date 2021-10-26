@@ -10,8 +10,8 @@ import SinglePostComments from './components/singlePostComments';
 import SinglePostDateFooter from './components/singlePostDateFooter';
 import { Dialog, DialogTitle, DialogActions, Button, Snackbar } from '@mui/material';
 
-function SinglePost({ post, selectUser, id, isProfile }) {
-    const myContext = useContext(StoreContext);
+function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
+  const myContext = useContext(StoreContext);
   const [toastMessage, setShowToast] = useState(null);
   const alreadyFavorited = post.likes.filter((like) => like === myContext.youUser?.name).length ? true : false;
   const { name, image } = post;
@@ -39,7 +39,6 @@ function SinglePost({ post, selectUser, id, isProfile }) {
     }
   };
 
-
   const addComment = () => {
     setDialogTitle('add Comment');
   };
@@ -59,7 +58,7 @@ function SinglePost({ post, selectUser, id, isProfile }) {
   };
 
   return user ? (
-    <Container id={id}>
+    <Container id={id} style={{ visibility: isVisible ? 'visible' : 'hidden' }}>
       <div>
         <Snackbar
           open={toastMessage != null}
