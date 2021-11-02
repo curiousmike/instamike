@@ -166,10 +166,13 @@ function App() {
     }
     async function loadPostData() {
       const postsResult = await getPosts();
+      // console.log('postsResult= ', postsResult);
       if (postsResult?.data) {
         setUsersPosts(postsResult.data);
       } else if (postsResult?.status) {
         updateNetworkError(`Error: loadPostData.\n${postsResult?.status}\n${postsResult?.msg}`);
+      } else if (postsResult === null) {
+        setUsersPosts([]);
       }
     }
     loadUserData();
@@ -272,17 +275,20 @@ function App() {
     setShowNotificationPopper(false);
     setNotificationPopperAnchor(null);
   };
+  const addNewUser = () => {
+    setShowCreateUser(true);
+  };
 
   const showUserStories =
     !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
-  const showLoading = usersPosts.length === 0 || usersData.length === 0; //
+  const showLoading = usersPosts.length === 0 && usersData.length === 0; //
 
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
       <div className="App" id="rootWindow">
-        <Header />
+        <Header addNewUser={() => addNewUser()} />
         {networkError && <ErrorContainer>{networkError}</ErrorContainer>}
         {!networkError && showUserStories && <UserStories onSelect={onSelectUser} />}
         {showLoading && networkError === null && (

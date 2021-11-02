@@ -14,7 +14,10 @@ function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
   const myContext = useContext(StoreContext);
   const [toastMessage, setShowToast] = useState(null);
   const alreadyFavorited = post.likes.filter((like) => like === myContext.youUser?.name).length ? true : false;
-  const { name, image } = post;
+  const { name, fileNameSmall, fileName } = post;
+  const filePath = `http://www.coustier.com${fileNameSmall}`;
+  const filePathLarge = `http://www.coustier.com${fileName}`;
+  // console.log('post = ', post);
   const [dialogTitle, setDialogTitle] = useState(null);
   const [fullScreen, setFullScreen] = useState(false);
   const user = myContext.users.filter((userItem) => {
@@ -70,7 +73,7 @@ function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
       </div>
       {fullScreen && (
         <FullScreenImage onClick={() => setFullScreen(false)}>
-          <img alt="my alt" style={{ maxHeight: '100%', maxWidth: '100%' }} src={image} />
+          <img alt="my alt" style={{ maxHeight: '100%', maxWidth: '100%' }} src={filePathLarge} />
         </FullScreenImage>
       )}
       <Dialog open={dialogTitle !== null}>
@@ -87,7 +90,7 @@ function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
         selectUser={(user) => selectUser(user)}
         onDelete={() => handleDelete(post)}
       />
-      <SinglePostImage imgSrc={image} onImageClick={() => handleImageClick(post)} isProfile={isProfile} />
+      <SinglePostImage imgSrc={filePath} onImageClick={() => handleImageClick(post)} isProfile={isProfile} />
       <SinglePostActionBar
         alreadyFavorited={alreadyFavorited}
         addFavorite={() => addFavorite()}

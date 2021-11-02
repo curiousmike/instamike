@@ -1,14 +1,15 @@
 import { Container, HeaderContainer, ActionContainer, 
     ItemContainer, CameraContainer, AppNameContainer } from './styles'
 import { Icon, Tooltip } from '@mui/material';
-function Header({ title, disabled, onSubmit }) {
+import { addNewUser } from '../../services/userservice';
+function Header({ title, disabled, onSubmit, addNewUser }) {
 	return (
 		<Container>
             <HeaderContainer>
                 {/* <h3>Media</h3> */}
                 <CameraContainer>
-                    <Tooltip title="Camera">
-                        <Icon>camera</Icon>
+                    <Tooltip title="Add User">
+                        <Icon onClick={()=>addNewUser()}>camera</Icon>
                     </Tooltip>
                 </CameraContainer>
                 <AppNameContainer>InstaMike</AppNameContainer>
