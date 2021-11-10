@@ -7,7 +7,6 @@ function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
   const myContext = useContext(StoreContext);
   const [postsVisibility, setPostsVisibility] = useState([true]);
   const [jumpToIndex, setJumpToIndex] = useState(null);
-  const [lastScrollTop, setScrollTop] = useState(0);
   const postsToUser = postData ? postData : myContext.posts; // whether viewing your FEED or viewing a single users posts
   const [postsDimensions, setPostsDimensions] = useState([]);
   let viewHeight = null;

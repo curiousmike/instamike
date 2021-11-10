@@ -24,10 +24,11 @@ export const addNewPost = async (postdata) => {
         'Content-Type': 'application/json',
     }
     });
+    const jsonData = await result.json();
     if (result.status !== 200) {
         return ({error: true, status: result.status, msg: result.statusText, data: null});
     }
-    return ({error: false});
+    return ({error: false, ...jsonData});
 }
     
 export const deletePost = async (postdata) => {

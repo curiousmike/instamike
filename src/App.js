@@ -191,6 +191,8 @@ function App() {
     const result = await addNewPost(newPost); // tell backend
     if (result.error === false) {
       // locally add
+      newPost.fileName = result.fileNames.full;
+      newPost.fileNameSmall = result.fileNames.small;
       const posts = [...usersPosts];
       posts.unshift(newPost);
       setUsersPosts(posts);
