@@ -16,7 +16,7 @@ function SingleNotification({ notification }) {
   };
 
   const getPostThumbnail = (postId) => {
-    return myContext.posts.find((element) => element._id === postId).image;
+    return myContext.posts.find((element) => element._id === postId).fileNameSmall;
   };
 
   const getPostDescription = (postId) => {
@@ -53,7 +53,7 @@ function SingleNotification({ notification }) {
             {notification.type === 'likepost' || notification.type === 'comment' ? (
               <img
                 style={{ width: '64px', margin: '8px' }}
-                src={getPostThumbnail(notification.postId)}
+                src={`http://www.coustier.com${getPostThumbnail(notification.postId)}`}
                 alt="post thumbnail"
               />
             ) : (

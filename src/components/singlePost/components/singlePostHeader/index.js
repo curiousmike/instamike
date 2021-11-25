@@ -91,7 +91,7 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
         <DialogTitle>Delete Post</DialogTitle>
         <DialogContent dividers>
           <div style={{ textAlign: 'center' }}>
-            <img alt="the al" style={{ width: '20vw' }} src={post.image} />
+            <img alt="delete dialog" style={{ width: '20vw' }} src={`http://www.coustier.com${post.fileNameSmall}`} />
           </div>
         </DialogContent>
         <DialogActions>
