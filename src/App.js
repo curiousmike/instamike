@@ -31,6 +31,7 @@ function App() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [youUser, setYouUser] = useState(null);
   const [networkError, setNetworkError] = useState(null);
+  const [showLoading, setShowLoading] = useState(false);
 
   const globalStore = {
     users: usersData,
@@ -188,6 +189,7 @@ function App() {
   const onCreatePost = async (newPost) => {
     newPost.name = youUser.name;
     setShowCreatePost(false);
+    setShowLoading(true);
     const result = await addNewPost(newPost); // tell backend
     if (result.error === false) {
       // locally add
@@ -197,6 +199,7 @@ function App() {
       posts.unshift(newPost);
       setUsersPosts(posts);
       goYou();
+      setShowLoading(false);
     } else {
       updateNetworkError(`Error: CreatePostError ${result?.status}  ${result.msg}`);
     }
@@ -284,7 +287,7 @@ function App() {
   const showUserStories =
     !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
   const showPostList = !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
-  const showLoading = usersPosts.length === 0 && usersData.length === 0; //
+  const showSpinner = showLoading || (usersPosts.length === 0 && usersData.length === 0); //
 
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
@@ -293,7 +296,7 @@ function App() {
         <Header addNewUser={() => addNewUser()} />
         {networkError && <ErrorContainer>{networkError}</ErrorContainer>}
         {!networkError && showUserStories && <UserStories onSelect={onSelectUser} />}
-        {showLoading && networkError === null && (
+        {showSpinner && networkError === null && (
           <InnerContent>
             <LoadingContainer>
               <CircularProgress />
