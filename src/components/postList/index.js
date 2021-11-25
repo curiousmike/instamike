@@ -5,11 +5,12 @@ import SinglePost from '../singlePost';
 
 function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
   const myContext = useContext(StoreContext);
-  const [postsVisibility, setPostsVisibility] = useState([true]);
+  const [postsVisibility, setPostsVisibility] = useState([true, true, true]); //default first 3 as visible
   const [jumpToIndex, setJumpToIndex] = useState(null);
   const postsToUser = postData ? postData : myContext.posts; // whether viewing your FEED or viewing a single users posts
   const [postsDimensions, setPostsDimensions] = useState([]);
   let viewHeight = null;
+
   useEffect(() => {
     if (jumpTo && jumpTo !== jumpToIndex) {
       // When jumping to an element, we need to take into account the UserProfile Element + the main header height
@@ -22,24 +23,27 @@ function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
         setJumpToIndex(jumpTo);
       }
     }
-  });
+  },[jumpTo, jumpToIndex, theRef]);
 
   const doVisibilityCheck = () => {
     // figure out which elements we should actually render.
     // if there are 100 posts, we don't want to actually render them all.  we just want to render those within view
     if (!theRef?.current) return;
     let updatedPostsDimensions = postsDimensions;
-    if (postsDimensions.length !== postsToUser.length) {
+    if (postsDimensions.length !== postsToUser.length) { // if we add a new post, this will rebuild
       let totalHeight = 0;
       updatedPostsDimensions = [];
+      // Go thru all user posts, and build the dimensions of each element.
       for (let i = 0; i < postsToUser.length; i++) {
         const element = document.getElementById(`post_${i}`);
-        const yourHeight = element.getBoundingClientRect().height;
-        const yourStart = totalHeight;
-        const yourEnd = yourStart + yourHeight;
-        totalHeight += yourHeight;
-        const item = { index: i, element: element, height: yourHeight, start: yourStart, end: yourEnd };
-        updatedPostsDimensions.push(item);
+        if (element) {
+          const yourHeight = element.getBoundingClientRect().height;
+          const yourStart = totalHeight;
+          const yourEnd = yourStart + yourHeight;
+          totalHeight += yourHeight;
+          const item = { index: i, element: element, height: yourHeight, start: yourStart, end: yourEnd };
+          updatedPostsDimensions.push(item);
+        }
       }
       setPostsDimensions(updatedPostsDimensions);
     }
@@ -48,6 +52,8 @@ function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
       viewHeight = theRef.current.getBoundingClientRect().height;
     }
 
+    //
+    // based on current scroll position, look at the list of post dimensions and determine WHICH should be visible
     if (postsVisibility.length >= 1 && updatedPostsDimensions.length >= 1) {
       const scrollTop = theRef.current.scrollTop;
       let newVisibilityArray = [];
@@ -74,6 +80,10 @@ function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
       }
     }
   };
+
+    useEffect(() => {
+    doVisibilityCheck();
+  }, [postsToUser]);
 
   const handleScroll = (e) => {
     doVisibilityCheck();
