@@ -22,7 +22,8 @@ function LikesDialog({ classes, onClose, open, postOrComment, onSelectUser }) {
 
   const getUserAvatar = (like) => {
     const user = myContext.users.filter((user) => user.name === like)[0];
-    return user.avatar;
+    if (user) return user?.avatarFileNameSmall;
+    return null;
   };
   const rootWindowWidth = document.getElementById('rootWindow').offsetWidth * 0.7 + 'px';
 

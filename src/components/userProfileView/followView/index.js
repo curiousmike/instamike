@@ -68,7 +68,7 @@ function FollowView({ user, onSelectUser, followers }) {
         {users.map((user, index) => (
           <ListItem onClick={() => onSelectUser(user)} key={index}>
             <ListItemAvatar>
-              <Avatar alt={user.name} src={user.avatar} />
+              <Avatar alt={user.name} src={`http://www.coustier.com${user.avatarFileNameSmall}`} />
             </ListItemAvatar>
             <ListItemText primary={user?.name} secondary={secondary ? 'Secondary text' : null} />
             <ListItemSecondaryAction>

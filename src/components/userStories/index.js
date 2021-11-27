@@ -11,7 +11,7 @@ function UserStories({onSelect}) {
 			<UserStoriesContainer >
 				{ myContext.users.map( (poster, index)=>(
                     <ItemContainer key={index} onClick={()=>onSelect(poster)}>
-						<Avatar alt={poster.name} src={poster.avatar}/>
+						<Avatar alt={poster.name} src={`http://www.coustier.com${poster.avatarFileNameSmall}`}/>
 					</ItemContainer>
                 )) }
 			</UserStoriesContainer>

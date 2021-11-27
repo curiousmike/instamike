@@ -72,7 +72,7 @@ function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClic
             <Avatar
               onClick={goYou}
               alt={myContext.youUser?.name}
-              src={myContext.youUser?.avatar}
+              src={`http://www.coustier.com${myContext.youUser?.avatarFileNameSmall}`}
               style={{ width: '4vh', height: '4vh' }}
             />
           </Tooltip>

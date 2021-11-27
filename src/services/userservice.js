@@ -31,15 +31,16 @@ export const doesUserExist = async (username) => {
 };
 
 export const addNewUser = async (userdata) => {
-  await fetch('/api/create/user', {
+  const result = await fetch('/api/create/user', {
     method: 'POST',
     body: JSON.stringify(userdata),
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((t) => {
-    return t.status === 200;
   });
+  const jsonData = await result.json();
+  console.log('addNewUser = > ', jsonData);
+  return ({ ...jsonData });
 };
 
 export const serviceUpdateUser = async (oldUser, updatedUser) => {

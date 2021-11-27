@@ -59,7 +59,7 @@ function Comment({
 
       <InnerContainer>
         <AvatarContainer onClick={() => viewCommenter(commentPoster)}>
-          <Avatar alt={commentPoster.name} src={commentPoster.avatar} />
+          <Avatar alt={commentPoster.name} src={`http://www.coustier.com${commentPoster.avatarFileNameSmall}`} />
         </AvatarContainer>
         <CommentWrapper>
           <CommentPosterName>{commentPoster.name}</CommentPosterName>{" "}

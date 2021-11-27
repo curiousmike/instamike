@@ -104,7 +104,7 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
       {user && (
         <UserInfoContainer>
           <ItemContainer onClick={() => selectUser(user)}>
-            <Avatar alt={user.name} src={user.avatar} />
+            <Avatar alt={user.name} src={`http://www.coustier.com${user.avatarFileNameSmall}`} />
           </ItemContainer>
           <ItemContainer>{user.name}</ItemContainer>
         </UserInfoContainer>

@@ -71,7 +71,8 @@ function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
         if (element.start > viewTop && element.end <= viewBottom) {
           isVisible = true;
         }
-        newVisibilityArray.push(isVisible);
+        // newVisibilityArray.push(isVisible);
+        newVisibilityArray.push(true);
       }
       const currentVisibility = JSON.stringify(postsVisibility);
       const updatedVisibility = JSON.stringify(newVisibilityArray);

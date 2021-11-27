@@ -31,7 +31,7 @@ function UserProfileHeader({ user, onSelectPosts, onSelectFollowers, onSelectFol
         <NameAndAvatarContainer>
           <NameContainer>{userData.name}</NameContainer>
           <AvatarContainer>
-            <Avatar alt={userData.name} src={userData.avatar} style={{ width: '10vh', height: '10vh' }} />
+            <Avatar alt={userData.name} src={`http://www.coustier.com${userData.avatarFileNameSmall}`} style={{ width: '10vh', height: '10vh' }} />
           </AvatarContainer>
         </NameAndAvatarContainer>
         <RightContainer>

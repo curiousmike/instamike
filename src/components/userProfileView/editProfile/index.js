@@ -10,14 +10,16 @@ function EditProfile({ user, onSaveProfile, onClose }) {
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
   const [description, setDescription] = useState(user.description);
-  const [avatar, setAvatar] = useState(user.avatar);
+  // const [avatar, setAvatar] = useState(user.avatarFileNameSmall);
+  const [avatarRawImage, setAvatarRawImage] = useState(null);
 
   const handleUploadClick = (e) => {
+    console.log('handleUploadClick');
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setAvatar(reader.result);
+      setAvatarRawImage(reader.result);
     };
   };
 
@@ -29,7 +31,7 @@ function EditProfile({ user, onSaveProfile, onClose }) {
       phone: phone,
       //   password: user.password,
       description: description,
-      //   avatar: avatar,
+      // avatar: avatarRawImage,
     };
     const finalUpdate = { ...user, ...updatedUser };
     onSaveProfile(finalUpdate);
@@ -38,7 +40,7 @@ function EditProfile({ user, onSaveProfile, onClose }) {
     <Container>
       <form noValidate autoComplete="off">
         <ItemContainer>
-          <Avatar alt={user.name} src={avatar} style={{ width: '10vh', height: '10vh' }} />
+          <Avatar alt={user.name} src={`http://www.coustier.com${user.avatarFileNameSmall}`} style={{ width: '10vh', height: '10vh' }} />
           <UploadButton>
             <input
               style={{ display: 'none' }}

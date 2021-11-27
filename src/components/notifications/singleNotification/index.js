@@ -12,7 +12,7 @@ function SingleNotification({ notification }) {
     }
   });
   const getNotifiersAvatar = (notification) => {
-    return myContext.users.find((user) => user.name === notification.userCreatingNotification).avatar;
+    return myContext.users.find((user) => user.name === notification.userCreatingNotification).avatarFileNameSmall;
   };
 
   const getPostThumbnail = (postId) => {
@@ -44,7 +44,7 @@ function SingleNotification({ notification }) {
       {notification.read === false ? (
         <div>
           <SingleNotificationContainer>
-            <Avatar alt="{commentPoster.name}" src={getNotifiersAvatar(notification)} />
+            <Avatar alt="{commentPoster.name}" src={`http://www.coustier.com${getNotifiersAvatar(notification)}`} />
             <TextItem>
               {notification.userCreatingNotification}
               {getTypeDescription(notification)}

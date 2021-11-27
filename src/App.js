@@ -194,6 +194,7 @@ function App() {
     if (result.error === false) {
       // locally add
       newPost.fileName = result.fileNames.full;
+      newPost.fileNameMedium = result.fileNames.medium;
       newPost.fileNameSmall = result.fileNames.small;
       const posts = [...usersPosts];
       posts.unshift(newPost);
