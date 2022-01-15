@@ -22,3 +22,17 @@ export const ErrorContainer = styled.div`
   font-weight: 700;
   color: red;
 `;
+
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+export const CardItem = styled.div`
+background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

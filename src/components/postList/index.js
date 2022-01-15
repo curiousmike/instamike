@@ -69,6 +69,7 @@ function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
           isVisible = true;
         }
         if (element.start > viewTop && element.end <= viewBottom) {
+          // eslint-disable-next-line no-unused-vars
           isVisible = true;
         }
         // newVisibilityArray.push(isVisible);
@@ -78,12 +79,14 @@ function PostList({ theRef, selectUser, isProfile, postData, jumpTo }) {
       const updatedVisibility = JSON.stringify(newVisibilityArray);
       if (currentVisibility !== updatedVisibility) {
         setPostsVisibility(newVisibilityArray);
+        // console.log('updatedVisibility = ', newVisibilityArray);
       }
     }
   };
 
-    useEffect(() => {
+  useEffect(() => {
     doVisibilityCheck();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postsToUser]);
 
   const handleScroll = (e) => {

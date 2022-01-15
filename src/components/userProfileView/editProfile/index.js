@@ -11,7 +11,7 @@ function EditProfile({ user, onSaveProfile, onClose }) {
   const [phone, setPhone] = useState(user.phone);
   const [description, setDescription] = useState(user.description);
   // const [avatar, setAvatar] = useState(user.avatarFileNameSmall);
-  const [avatarRawImage, setAvatarRawImage] = useState(null);
+  // const [avatarRawImage, setAvatarRawImage] = useState(null);
 
   const handleUploadClick = (e) => {
     console.log('handleUploadClick');
@@ -19,7 +19,7 @@ function EditProfile({ user, onSaveProfile, onClose }) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setAvatarRawImage(reader.result);
+      // setAvatarRawImage(reader.result);
     };
   };
 

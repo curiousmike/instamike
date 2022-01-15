@@ -14,8 +14,10 @@ import CreateUser from './components/createUser';
 import { StoreContext } from './store';
 import { serviceGetUsers, serviceUpdateUser } from './services/userservice';
 import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
-import { CircularProgress } from '@mui/material';
-import { InnerContent, LoadingContainer, ErrorContainer } from './styles.js';
+import { CircularProgress, Card } from '@mui/material';
+import {
+  InnerContent, LoadingContainer, ErrorContainer, CardContainer, CardItem
+} from './styles.js';
 const YouUserName = 'NightOwlHiker'; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 function App() {
@@ -154,7 +156,7 @@ function App() {
   useEffect(() => {
     async function loadUserData() {
       const usersResult = await serviceGetUsers();
-      if (usersResult.data) {
+      if (usersResult?.data) {
         setUsersData(usersResult.data);
         const defaultUser = usersResult.data.filter((user) => {
           return user.name === YouUserName;
@@ -162,7 +164,8 @@ function App() {
         setCurrentUser(defaultUser);
         setYouUser(defaultUser);
       } else {
-        updateNetworkError(`Error: loadUserData.\n${usersResult.status}\n${usersResult.msg}`);
+        console.log('usersResult = ', usersResult);
+        updateNetworkError(`Error: loadUserData.\n${usersResult?.status}\n${usersResult?.msg}`);
       }
     }
     async function loadPostData() {
@@ -293,6 +296,13 @@ function App() {
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
+        <Card variant = "outlined" sx={{ml: 5, minWidth:150, maxWidth:250, minHeight: 100}} style={{position: 'absolute', zIndex:'100', marginLeft:'20px', marginTop:'10px', display:'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent:'center', backgroundColor:'lightgray'}}>
+        <CardContainer>
+            <CardItem>
+              <a href="https://youtu.be/ZXJtDl_X6eE>YouTube Demo/">Youtube Demo</a>
+            </CardItem>
+        </CardContainer>
+        </Card>
       <div className="App" id="rootWindow">
         <Header addNewUser={() => addNewUser()} />
         {networkError && <ErrorContainer>{networkError}</ErrorContainer>}

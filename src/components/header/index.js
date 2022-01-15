@@ -1,7 +1,6 @@
 import { Container, HeaderContainer, ActionContainer, 
     ItemContainer, CameraContainer, AppNameContainer } from './styles'
 import { Icon, Tooltip } from '@mui/material';
-import { addNewUser } from '../../services/userservice';
 function Header({ title, disabled, onSubmit, addNewUser }) {
 	return (
 		<Container>

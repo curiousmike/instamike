@@ -1,15 +1,14 @@
+// const rootBackend = 'http://98.35.114.6:4000';
+const rootBackend = '';
+
 export const serviceGetUsers = async (username) => {
-  try {
-    const result = await fetch('/api/get');
-    if (result.status !== 200) {
-      return { error: true, status: result.status, msg: result.statusText, data: null };
-    }
-    const jsonData = await result.json();
-    if (jsonData?.length) {
-      return { data: jsonData };
-    }
-  } catch (e) {
-    return null;
+  const result = await fetch(`${rootBackend}/api/get`);
+  if (result.status !== 200) {
+    return { error: true, status: result.status, msg: result.statusText, data: null };
+  }
+  const jsonData = await result.json();
+  if (jsonData?.length) {
+    return { data: jsonData };
   }
   return null;
 };
@@ -19,7 +18,7 @@ export const doesUserExist = async (username) => {
   // Valid User GET keys = name, firstName, lastName, description, email, phone, phone, posts, followers, following
   const keyParam = 'name';
   const valueParam = username;
-  const result = await fetch('/api/get/user?' + new URLSearchParams({ key: keyParam, value: valueParam }));
+  const result = await fetch(`${rootBackend}/api/get/user?` + new URLSearchParams({ key: keyParam, value: valueParam }));
 
   const jsonData = await result.json();
   if (jsonData?.length) {
@@ -31,7 +30,7 @@ export const doesUserExist = async (username) => {
 };
 
 export const addNewUser = async (userdata) => {
-  const result = await fetch('/api/create/user', {
+  const result = await fetch(`${rootBackend}/api/create/user`, {
     method: 'POST',
     body: JSON.stringify(userdata),
     headers: {
@@ -44,7 +43,7 @@ export const addNewUser = async (userdata) => {
 };
 
 export const serviceUpdateUser = async (oldUser, updatedUser) => {
-  await fetch('/api/modify/user', {
+  await fetch(`${rootBackend}/api/modify/user`, {
     method: 'POST',
     body: JSON.stringify({ oldData: oldUser, updatedData: updatedUser }),
     headers: {
