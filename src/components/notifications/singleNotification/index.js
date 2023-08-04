@@ -38,22 +38,28 @@ function SingleNotification({ notification }) {
         return `type unknown - ${notification.type}`;
     }
   };
-
+console.log("notif - ", notification);
   return (
     <Container>
       {notification.read === false ? (
         <div>
           <SingleNotificationContainer>
-            <Avatar alt="{commentPoster.name}" src={`http://www.coustier.com${getNotifiersAvatar(notification)}`} />
+            <Avatar
+              alt="{commentPoster.name}"
+              src={`${getNotifiersAvatar(notification)}`}
+            />
             <TextItem>
               {notification.userCreatingNotification}
               {getTypeDescription(notification)}
-              {notification.type !== 'follower' ? getPostDescription(notification.postId) : ''}
+              {notification.type !== "follower"
+                ? getPostDescription(notification.postId)
+                : ""}
             </TextItem>
-            {notification.type === 'likepost' || notification.type === 'comment' ? (
+            {notification.type === "likepost" ||
+            notification.type === "comment" ? (
               <img
-                style={{ width: '64px', margin: '8px' }}
-                src={`http://www.coustier.com${getPostThumbnail(notification.postId)}`}
+                style={{ width: "64px", margin: "8px" }}
+                src={`${getPostThumbnail(notification.postId)}`}
                 alt="post thumbnail"
               />
             ) : (

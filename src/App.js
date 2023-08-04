@@ -14,11 +14,9 @@ import CreateUser from './components/createUser';
 import { StoreContext } from './store';
 import { serviceGetUsers, serviceUpdateUser } from './services/userservice';
 import { getPosts, addNewPost, updatePost, deletePost } from './services/postservice';
-import { CircularProgress, Card } from '@mui/material';
-import {
-  InnerContent, LoadingContainer, ErrorContainer, CardContainer, CardItem
-} from './styles.js';
-const YouUserName = 'NightOwlHiker'; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
+import { CircularProgress } from "@mui/material";
+import { InnerContent, LoadingContainer, ErrorContainer } from "./styles.js";
+const YouUserName = "save"; // 'MegapixelsMike'; // 'NightOwlHiker'; // 'Watering Can'; // 'JustinYourFace'; // 'Liamzing'; // 'hopelinkvader';
 
 function App() {
   const contentContainer = React.createRef();
@@ -59,13 +57,18 @@ function App() {
   const updateListOfUsersLocal = (listOfUsers) => {
     const updatedUsers = [...usersData];
     listOfUsers.forEach((userToUpdate, i) => {
-      const index = updatedUsers.findIndex((user) => user.name === userToUpdate.name);
+      const index = updatedUsers.findIndex(
+        (user) => user.name === userToUpdate.name
+      );
       updatedUsers[index] = userToUpdate;
       serviceUpdateUser(userToUpdate, userToUpdate);
       if (userToUpdate.name === youUser.name) {
         setYouUser(userToUpdate);
       }
-      if (youUser.name === currentUser.name && userToUpdate.name === currentUser.name) {
+      if (
+        youUser.name === currentUser.name &&
+        userToUpdate.name === currentUser.name
+      ) {
         setCurrentUser(userToUpdate);
       }
     });
@@ -74,7 +77,9 @@ function App() {
 
   const updateUserLocal = (userToUpdate, updatedUser) => {
     const updatedUsers = [...usersData];
-    const index = updatedUsers.findIndex((user) => user.name === userToUpdate.name);
+    const index = updatedUsers.findIndex(
+      (user) => user.name === userToUpdate.name
+    );
     updatedUsers[index] = updatedUser;
     setUsersData(updatedUsers);
     serviceUpdateUser(userToUpdate, updatedUser);
@@ -83,14 +88,19 @@ function App() {
     if (updatedUser.name === youUser.name) {
       setYouUser(updatedUser);
     }
-    if (youUser.name === currentUser.name && updatedUser.name === currentUser.name) {
+    if (
+      youUser.name === currentUser.name &&
+      updatedUser.name === currentUser.name
+    ) {
       setCurrentUser(updatedUser);
     }
   };
 
   const updateSinglePost = (originalPost, postToUpdate) => {
     const updatedPosts = [...usersPosts];
-    const index = updatedPosts.findIndex((post) => post._id === postToUpdate._id);
+    const index = updatedPosts.findIndex(
+      (post) => post._id === postToUpdate._id
+    );
     updatedPosts[index] = postToUpdate;
     updatePost(originalPost, postToUpdate);
     setUsersPosts(updatedPosts);
@@ -98,7 +108,9 @@ function App() {
 
   const deleteSinglePost = (postToRemove) => {
     // console.log('deletePost = ', postToRemove);
-    const remainingPosts = usersPosts.filter((thePost) => thePost._id !== postToRemove._id);
+    const remainingPosts = usersPosts.filter(
+      (thePost) => thePost._id !== postToRemove._id
+    );
     // console.log('reaminigPosts = ', remainingPosts);
     setUsersPosts(remainingPosts);
     deletePost(postToRemove);
@@ -107,22 +119,28 @@ function App() {
   const makeNotificationRead = (notification) => {
     // console.log('mark as read = ', notification.type);
     const updatedNotifications = [...youUser.notifications];
-    const notificationToUpdateIndex = updatedNotifications.findIndex((n) => n.timestamp === notification.timestamp); // is timeStamp good enough?
+    const notificationToUpdateIndex = updatedNotifications.findIndex(
+      (n) => n.timestamp === notification.timestamp
+    ); // is timeStamp good enough?
     if (notificationToUpdateIndex >= 0) {
-      console.log('notifi to update = ', notificationToUpdateIndex);
+      console.log("notifi to update = ", notificationToUpdateIndex);
       updatedNotifications[notificationToUpdateIndex].read = true;
       youUser.notifications = updatedNotifications;
       // updateUserLocal(youUser, youUser);
       serviceUpdateUser(youUser, youUser); // only update backend - we don't want front end updated yet.
     } else {
       // err
-      updateNetworkError('bad mike using network error - issue with makeNotificationRead');
+      updateNetworkError(
+        "bad mike using network error - issue with makeNotificationRead"
+      );
     }
   };
 
   const addNotification = (post, type) => {
     if (post.name !== youUser.name) {
-      const userToAddNotification = usersData.filter((user) => user.name === post.name)[0];
+      const userToAddNotification = usersData.filter(
+        (user) => user.name === post.name
+      )[0];
       if (!userToAddNotification.notifications) {
         userToAddNotification.notifications = [];
       }
@@ -133,19 +151,23 @@ function App() {
         type: type,
         timestamp: Date.now(),
       });
-      console.log('user to notification - ', userToAddNotification.name, type);
+      console.log("user to notification - ", userToAddNotification.name, type);
       serviceUpdateUser(userToAddNotification, userToAddNotification);
     }
   };
 
   const removeNotification = (post, type) => {
     if (post.name !== youUser.name) {
-      const userToRemoveNotification = usersData.filter((user) => user.name === post.name)[0];
+      const userToRemoveNotification = usersData.filter(
+        (user) => user.name === post.name
+      )[0];
       if (!userToRemoveNotification.notifications) {
         return;
       }
       const notificationsToKeep = userToRemoveNotification.notifications.filter(
-        (notification) => notification.postId === post._id && notification.userCreatingNotification !== youUser.name
+        (notification) =>
+          notification.postId === post._id &&
+          notification.userCreatingNotification !== youUser.name
       );
       // console.log("remove notification - ", notificationToRemove, type);
       userToRemoveNotification.notifications = notificationsToKeep;
@@ -164,8 +186,10 @@ function App() {
         setCurrentUser(defaultUser);
         setYouUser(defaultUser);
       } else {
-        console.log('usersResult = ', usersResult);
-        updateNetworkError(`Error: loadUserData.\n${usersResult?.status}\n${usersResult?.msg}`);
+        console.log("usersResult = ", usersResult);
+        updateNetworkError(
+          `Error: loadUserData.\n${usersResult?.status}\n${usersResult?.msg}`
+        );
       }
     }
     async function loadPostData() {
@@ -174,7 +198,9 @@ function App() {
       if (postsResult?.data) {
         setUsersPosts(postsResult.data);
       } else if (postsResult?.status) {
-        updateNetworkError(`Error: loadPostData.\n${postsResult?.status}\n${postsResult?.msg}`);
+        updateNetworkError(
+          `Error: loadPostData.\n${postsResult?.status}\n${postsResult?.msg}`
+        );
       } else if (postsResult === null) {
         setUsersPosts([]);
       }
@@ -183,7 +209,13 @@ function App() {
     loadPostData();
   }, []);
 
-  useEffect(() => {}, [userProfileView, searchVisible, showCreatePost, showCreateUser, showNotifications]);
+  useEffect(() => {}, [
+    userProfileView,
+    searchVisible,
+    showCreatePost,
+    showCreateUser,
+    showNotifications,
+  ]);
 
   const updateNetworkError = (error) => {
     setNetworkError(error);
@@ -205,7 +237,9 @@ function App() {
       goYou();
       setShowLoading(false);
     } else {
-      updateNetworkError(`Error: CreatePostError ${result?.status}  ${result.msg}`);
+      updateNetworkError(
+        `Error: CreatePostError ${result?.status}  ${result.msg}`
+      );
     }
   };
 
@@ -247,7 +281,8 @@ function App() {
     serviceUpdateUser(currentUser, updatedData);
   };
 
-  const [notificationPopperAnchor, setNotificationPopperAnchor] = useState(null);
+  const [notificationPopperAnchor, setNotificationPopperAnchor] =
+    useState(null);
   useEffect(() => {
     // const getTypeCount = (type) => {
     //   const result = youUser?.notifications.filter(
@@ -280,7 +315,7 @@ function App() {
   };
 
   const clearNotificationPopper = () => {
-    console.log('do click away');
+    console.log("do click away");
     setShowNotificationPopper(false);
     setNotificationPopperAnchor(null);
   };
@@ -289,24 +324,36 @@ function App() {
   };
 
   const showUserStories =
-    !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
-  const showPostList = !showNotifications && !searchVisible && !showCreatePost && !userProfileView && !showCreateUser;
-  const showSpinner = showLoading || (usersPosts.length === 0 && usersData.length === 0); //
+    !showNotifications &&
+    !searchVisible &&
+    !showCreatePost &&
+    !userProfileView &&
+    !showCreateUser;
+  const showPostList =
+    !showNotifications &&
+    !searchVisible &&
+    !showCreatePost &&
+    !userProfileView &&
+    !showCreateUser;
+  const showSpinner =
+    showLoading || (usersPosts.length === 0 && usersData.length === 0); //
 
   return (
     // This storeContext.consumer and below is what allows the store to "pass store values down"
     <StoreContext.Provider value={globalStore}>
-        <Card variant = "outlined" sx={{ml: 5, minWidth:150, maxWidth:250, minHeight: 100}} style={{position: 'absolute', zIndex:'100', marginLeft:'20px', marginTop:'10px', display:'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent:'center', backgroundColor:'lightgray'}}>
+      {/* <Card variant = "outlined" sx={{ml: 5, minWidth:150, maxWidth:250, minHeight: 100}} style={{position: 'absolute', zIndex:'100', marginLeft:'20px', marginTop:'10px', display:'flex', flexDirection: 'column', justifyContent:'center', alignItems: 'center', alignContent:'center', backgroundColor:'lightgray'}}>
         <CardContainer>
             <CardItem>
               <a href="https://youtu.be/ZXJtDl_X6eE>YouTube Demo/">Youtube Demo</a>
             </CardItem>
         </CardContainer>
-        </Card>
+        </Card> */}
       <div className="App" id="rootWindow">
         <Header addNewUser={() => addNewUser()} />
         {networkError && <ErrorContainer>{networkError}</ErrorContainer>}
-        {!networkError && showUserStories && <UserStories onSelect={onSelectUser} />}
+        {!networkError && showUserStories && (
+          <UserStories onSelect={onSelectUser} />
+        )}
         {showSpinner && networkError === null && (
           <InnerContent>
             <LoadingContainer>
@@ -316,17 +363,30 @@ function App() {
         )}
         {showPostList && (
           <InnerContent>
-            <PostList isProfile={false} theRef={contentContainer} selectUser={onSelectUser} />
+            <PostList
+              isProfile={false}
+              theRef={contentContainer}
+              selectUser={onSelectUser}
+            />
           </InnerContent>
         )}
         {userProfileView && (
-          <UserProfileView user={currentUser} onSelectUser={onSelectUser} onUpdateUser={onUpdateUser} />
+          <UserProfileView
+            user={currentUser}
+            onSelectUser={onSelectUser}
+            onUpdateUser={onUpdateUser}
+          />
         )}
         {searchVisible && <Search selectUser={onSelectUser} />}
         {showCreatePost && (
-          <CreatePost onClose={() => setShowCreatePost(false)} onSave={(newpost) => onCreatePost(newpost)} />
+          <CreatePost
+            onClose={() => setShowCreatePost(false)}
+            onSave={(newpost) => onCreatePost(newpost)}
+          />
         )}
-        {showCreateUser && <CreateUser onClose={() => setShowCreateUser(false)} />}
+        {showCreateUser && (
+          <CreateUser onClose={() => setShowCreateUser(false)} />
+        )}
         {showNotifications && <Notifications />}
         {showNotificationPopper && (
           <NotificationPopper

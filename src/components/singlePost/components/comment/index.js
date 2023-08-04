@@ -47,7 +47,7 @@ function Comment({
     console.log("showTheCommenter = ", commenterName);
     viewCommenter(commenterUser);
   };
-
+console.log("comment = ", commentPoster.avatarFileNameSmall);
   return (
     <Container>
       <LikesDialog
@@ -59,7 +59,10 @@ function Comment({
 
       <InnerContainer>
         <AvatarContainer onClick={() => viewCommenter(commentPoster)}>
-          <Avatar alt={commentPoster.name} src={`http://www.coustier.com${commentPoster.avatarFileNameSmall}`} />
+          <Avatar
+            alt={commentPoster.name}
+            src={`${commentPoster.avatarFileNameSmall}`}
+          />
         </AvatarContainer>
         <CommentWrapper>
           <CommentPosterName>{commentPoster.name}</CommentPosterName>{" "}

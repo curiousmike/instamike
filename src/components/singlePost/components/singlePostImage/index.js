@@ -11,23 +11,23 @@ function SinglePostImage({ imgSrc, onImageClick, isProfile }) {
       setIsWide(false);
     }
   }
-
-  return (
-    <Container>
-      <ImageContainer>
-        <img
-          alt="my alt"
-          style={{
-            width: isWide ? '90%' : '',
-            height: isWide ? '' : maxHeight,
-          }}
-          src = {imgSrc}
-          onClick = {onImageClick}
-          onLoad = {(e)=>handleLoad(e)}
-        ></img>
-      </ImageContainer>
-    </Container>
-  );
+console.log("image SAUCE =", imgSrc);
+return (
+  <Container>
+    <ImageContainer>
+      <img
+        alt="my alt"
+        style={{
+          width: isWide ? "90%" : "",
+          height: isWide ? "" : maxHeight,
+        }}
+        src={imgSrc}
+        onClick={onImageClick}
+        onLoad={(e) => handleLoad(e)}
+      ></img>
+    </ImageContainer>
+  </Container>
+);
 }
 
 export default SinglePostImage;

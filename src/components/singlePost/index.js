@@ -13,10 +13,15 @@ import { Dialog, DialogTitle, DialogActions, Button, Snackbar } from '@mui/mater
 function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
   const myContext = useContext(StoreContext);
   const [toastMessage, setShowToast] = useState(null);
-  const alreadyFavorited = post.likes.filter((like) => like === myContext.youUser?.name).length ? true : false;
+  const alreadyFavorited = post.likes.filter(
+    (like) => like === myContext.youUser?.name
+  ).length
+    ? true
+    : false;
   const { name, fileNameSmall, fileName } = post;
-  const filePath = `http://www.coustier.com${fileNameSmall}`;
-  const filePathLarge = `http://www.coustier.com${fileName}`;
+  // console.log("singlePost = ", fileNameSmall, fileName);
+  const filePath = `${fileNameSmall}`;
+  const filePathLarge = `${fileName}`;
   // console.log('post = ', post);
   const [dialogTitle, setDialogTitle] = useState(null);
   const [fullScreen, setFullScreen] = useState(false);
@@ -25,31 +30,33 @@ function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
   })[0];
   const addFavorite = () => {
     const postCopy = { ...post };
-    console.log('Add favorite - ', postCopy.description);
+    console.log("Add favorite - ", postCopy.description);
     if (alreadyFavorited) {
       // remove favorite
-      const updatedFavorites = postCopy.likes.filter((likeUser) => likeUser !== myContext.youUser.name);
+      const updatedFavorites = postCopy.likes.filter(
+        (likeUser) => likeUser !== myContext.youUser.name
+      );
       postCopy.likes = updatedFavorites;
-      myContext.removeNotification(postCopy, 'likepost');
+      myContext.removeNotification(postCopy, "likepost");
       myContext.updateSinglePost(post, postCopy);
-      setShowToast('Post - removed like');
+      setShowToast("Post - removed like");
     } else {
       // add favorite
-      myContext.addNotification(postCopy, 'likepost');
+      myContext.addNotification(postCopy, "likepost");
       postCopy.likes.push(myContext.youUser.name);
-      setShowToast('Post - Liked !');
+      setShowToast("Post - Liked !");
       myContext.updateSinglePost(post, postCopy);
     }
   };
 
   const addComment = () => {
-    setDialogTitle('add Comment');
+    setDialogTitle("add Comment");
   };
   const doShare = () => {
-    setDialogTitle('doShare');
+    setDialogTitle("doShare");
   };
   const doBookmark = () => {
-    setDialogTitle('do bookmark');
+    setDialogTitle("do bookmark");
   };
 
   const handleDelete = (post) => {
@@ -61,19 +68,23 @@ function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
   };
 
   return user ? (
-    <Container id={id} style={{ visibility: isVisible ? 'visible' : 'hidden' }}>
+    <Container id={id} style={{ visibility: isVisible ? "visible" : "hidden" }}>
       <div>
         <Snackbar
           open={toastMessage != null}
           autoHideDuration={2500}
           onClose={() => setShowToast(null)}
           message={toastMessage}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
         />
       </div>
       {fullScreen && (
         <FullScreenImage onClick={() => setFullScreen(false)}>
-          <img alt="my alt" style={{ maxHeight: '100%', maxWidth: '100%' }} src={filePathLarge} />
+          <img
+            alt="my alt"
+            style={{ maxHeight: "100%", maxWidth: "100%" }}
+            src={filePathLarge}
+          />
         </FullScreenImage>
       )}
       <Dialog open={dialogTitle !== null}>
@@ -90,7 +101,11 @@ function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
         selectUser={(user) => selectUser(user)}
         onDelete={() => handleDelete(post)}
       />
-      <SinglePostImage imgSrc={filePath} onImageClick={() => handleImageClick(post)} isProfile={isProfile} />
+      <SinglePostImage
+        imgSrc={filePath}
+        onImageClick={() => handleImageClick(post)}
+        isProfile={isProfile}
+      />
       <SinglePostActionBar
         alreadyFavorited={alreadyFavorited}
         addFavorite={() => addFavorite()}

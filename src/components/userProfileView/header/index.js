@@ -25,31 +25,48 @@ function UserProfileHeader({ user, onSelectPosts, onSelectFollowers, onSelectFol
   const postCount = myContext.posts.filter((post) => {
     return post.name === user.name;
   }).length;
+  console.log("HE A D E R = ", userData.avatarFileNameSmall);
   return (
     <Container>
       <TopContainer>
         <NameAndAvatarContainer>
-          <NameContainer>{userData.name}</NameContainer>
+          <NameContainer data-test="NameContainer">
+            {userData.name}
+          </NameContainer>
           <AvatarContainer>
-            <Avatar alt={userData.name} src={`http://www.coustier.com${userData.avatarFileNameSmall}`} style={{ width: '10vh', height: '10vh' }} />
+            <Avatar
+              alt={userData.name}
+              src={userData.avatarFileNameSmall}
+              style={{ width: "10vh", height: "10vh" }}
+            />
           </AvatarContainer>
         </NameAndAvatarContainer>
         <RightContainer>
           <RowContainer>
             <ItemContainer onClick={onSelectPosts}>
-              <HeaderItem number={postCount} label={'Posts'} />
+              <HeaderItem number={postCount} label={"Posts"} />
             </ItemContainer>
             <ItemContainer onClick={onSelectFollowers}>
-              <HeaderItem number={userData.followers.length} label={'Followers'} />
+              <HeaderItem
+                number={userData.followers.length}
+                label={"Followers"}
+              />
             </ItemContainer>
             <ItemContainer onClick={onSelectFollowing}>
-              <HeaderItem number={userData.following.length} label={'Following'} />
+              <HeaderItem
+                number={userData.following.length}
+                label={"Following"}
+              />
             </ItemContainer>
           </RowContainer>
           {showEditProfileButton && (
             <EditProfileButton>
-              <Button variant="outlined" size="small" onClick={() => editProfile()}>
-                {' '}
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => editProfile()}
+              >
+                {" "}
                 Edit your profile
               </Button>
             </EditProfileButton>
@@ -58,7 +75,9 @@ function UserProfileHeader({ user, onSelectPosts, onSelectFollowers, onSelectFol
       </TopContainer>
       <BottomContainer>
         <RowContainer>
-          <DescriptionContainer>{userData.description ? userData.description : 'No description'}</DescriptionContainer>
+          <DescriptionContainer>
+            {userData.description ? userData.description : "No description"}
+          </DescriptionContainer>
         </RowContainer>
       </BottomContainer>
     </Container>

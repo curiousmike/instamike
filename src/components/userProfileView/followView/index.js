@@ -60,25 +60,36 @@ function FollowView({ user, onSelectUser, followers }) {
     updatedUser.blocked.push(userToBlock.name);
     myContext.updateUser(user, updatedUser);
   };
-
+console.log("followView = ", user);
   return (
     <Container>
-      <FollowTitle>{followers ? 'Followers' : 'Following'}</FollowTitle>
-      <List dense={false} style={{ width: '100%' }}>
+      <FollowTitle>{followers ? "Followers" : "Following"}</FollowTitle>
+      <List dense={false} style={{ width: "100%" }}>
         {users.map((user, index) => (
           <ListItem onClick={() => onSelectUser(user)} key={index}>
             <ListItemAvatar>
-              <Avatar alt={user.name} src={`http://www.coustier.com${user.avatarFileNameSmall}`} />
+              <Avatar alt={user.name} src={`${user.avatarFileNameSmall}`} />
             </ListItemAvatar>
-            <ListItemText primary={user?.name} secondary={secondary ? 'Secondary text' : null} />
+            <ListItemText
+              primary={user?.name}
+              secondary={secondary ? "Secondary text" : null}
+            />
             <ListItemSecondaryAction>
               {!isFollowers && (
-                <Button variant="outlined" size="small" onClick={() => stopFollowing(user)}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => stopFollowing(user)}
+                >
                   Stop following
                 </Button>
               )}
               {isFollowers && (
-                <Button variant="outlined" size="small" onClick={() => blockFollowing(user)}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => blockFollowing(user)}
+                >
                   Block following
                 </Button>
               )}

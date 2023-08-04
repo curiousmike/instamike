@@ -10,7 +10,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClickAway }) {
   const myContext = useContext(StoreContext);
-  const [notificationColor, setNotificationColor] = useState('');
+  const [notificationColor, setNotificationColor] = useState("");
   const [notificationTooltipOpen, setNotificationTooltipOpen] = useState(false);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClic
         hasUnread = true;
       }
     });
-    setNotificationColor(hasUnread ? 'red' : '');
+    setNotificationColor(hasUnread ? "red" : "");
   }, [myContext.youUser?.notifications]);
 
   const handleViewNotifications = (e) => {
@@ -28,7 +28,7 @@ function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClic
     // console.log('view = ', viewNotifications);
     viewNotifications(e);
   };
-
+  // console.log('footer = ',myContext.youUser?.avatarFileNameSmall)
   return (
     <Container>
       <FooterContainer>
@@ -54,14 +54,17 @@ function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClic
           </IconButton>
         </ItemContainer>
         <ItemContainer>
-          <IconButton aria-label="favorite" onClick={(e) => handleViewNotifications(e)}>
+          <IconButton
+            aria-label="favorite"
+            onClick={(e) => handleViewNotifications(e)}
+          >
             <Tooltip
               open={notificationTooltipOpen}
               onOpen={() => setNotificationTooltipOpen(true)}
               onClose={() => setNotificationTooltipOpen(false)}
               title="Notifications"
               arrow
-              style={{ zIndex: '2' }}
+              style={{ zIndex: "2" }}
             >
               <NotificationsIcon style={{ color: notificationColor }} />
             </Tooltip>
@@ -72,8 +75,8 @@ function Footer({ goHome, doSearch, createPost, viewNotifications, goYou, doClic
             <Avatar
               onClick={goYou}
               alt={myContext.youUser?.name}
-              src={`http://www.coustier.com${myContext.youUser?.avatarFileNameSmall}`}
-              style={{ width: '4vh', height: '4vh' }}
+              src={myContext.youUser?.avatarFileNameSmall}
+              style={{ width: "4vh", height: "4vh" }}
             />
           </Tooltip>
         </ItemContainer>

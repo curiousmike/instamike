@@ -48,7 +48,7 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
     const updatedNewFollowUser = { ...newFollowUser };
     updatedNewFollowUser.followers.push(myContext.youUser.name);
     myContext.updateUser(newFollowUser, updatedNewFollowUser);
-    myContext.addNotification(newFollowUser, 'follower');
+    myContext.addNotification(newFollowUser, "follower");
   };
 
   const onFollow = async (newFollowUser) => {
@@ -63,21 +63,25 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
 
   const doDeletePost = () => {
     onDelete();
-    setToastMessage('Post deleted');
+    setToastMessage("Post deleted");
     handleMenuClose();
     setDeletePostDialogVisible(false);
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
   const isThisYourPost = myContext?.youUser?.name === post.name;
   const showDeletePost = isThisYourPost;
-  const showFollowHideMenu = showDeletePost || user?.name !== myContext?.youUser?.name;
-  const showFollowOption = myContext?.youUser?.following.filter((followName) => {
-    return followName === user.name;
-  }).length
+  const showFollowHideMenu =
+    showDeletePost || user?.name !== myContext?.youUser?.name;
+  const showFollowOption = myContext?.youUser?.following.filter(
+    (followName) => {
+      return followName === user.name;
+    }
+  ).length
     ? false
     : true && !isThisYourPost;
+  // console.log('singlePost  ', post)
   return (
     <Container>
       <Snackbar
@@ -85,13 +89,17 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
         autoHideDuration={2500}
         onClose={() => setToastMessage(null)}
         message={toastMessage}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       />
-      <Dialog fullWidth={true} maxWidth={'sm'} open={deletePostDialogVisible}>
+      <Dialog fullWidth={true} maxWidth={"sm"} open={deletePostDialogVisible}>
         <DialogTitle>Delete Post</DialogTitle>
         <DialogContent dividers>
-          <div style={{ textAlign: 'center' }}>
-            <img alt="delete dialog" style={{ width: '20vw' }} src={`http://www.coustier.com${post.fileNameSmall}`} />
+          <div style={{ textAlign: "center" }}>
+            <img
+              alt="delete dialog"
+              style={{ width: "20vw" }}
+              src={`${post.fileNameSmall}`}
+            />
           </div>
         </DialogContent>
         <DialogActions>
@@ -104,7 +112,7 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
       {user && (
         <UserInfoContainer>
           <ItemContainer onClick={() => selectUser(user)}>
-            <Avatar alt={user.name} src={`http://www.coustier.com${user.avatarFileNameSmall}`} />
+            <Avatar alt={user.name} src={`${user.avatarFileNameSmall}`} />
           </ItemContainer>
           <ItemContainer>{user.name}</ItemContainer>
         </UserInfoContainer>
@@ -116,7 +124,12 @@ function SinglePostHeader({ post, name, selectUser, onDelete }) {
               <IconHoriz />
             </IconButton>
           </Tooltip>
-          <Menu id={id} open={open} anchorEl={anchorEl} onClose={handleMenuClose}>
+          <Menu
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleMenuClose}
+          >
             <div id="fix react ref error">
               <UserQuickActionMenu
                 onFollow={

@@ -4,9 +4,15 @@ const rootBackend = '';
 export const serviceGetUsers = async (username) => {
   const result = await fetch(`${rootBackend}/api/get`);
   if (result.status !== 200) {
-    return { error: true, status: result.status, msg: result.statusText, data: null };
+    return {
+      error: true,
+      status: result.status,
+      msg: result.statusText,
+      data: null,
+    };
   }
   const jsonData = await result.json();
+  // console.log("serviceGetUsers = ", jsonData);
   if (jsonData?.length) {
     return { data: jsonData };
   }

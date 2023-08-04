@@ -36,30 +36,44 @@ function EditProfile({ user, onSaveProfile, onClose }) {
     const finalUpdate = { ...user, ...updatedUser };
     onSaveProfile(finalUpdate);
   };
+  console.log("editPro  ", user);
   return (
     <Container>
       <form noValidate autoComplete="off">
         <ItemContainer>
-          <Avatar alt={user.name} src={`http://www.coustier.com${user.avatarFileNameSmall}`} style={{ width: '10vh', height: '10vh' }} />
+          <Avatar
+            alt={user.name}
+            src={`${user.avatarFileNameSmall}`}
+            style={{ width: "10vh", height: "10vh" }}
+          />
           <UploadButton>
             <input
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               accept="image/*"
               id="icon-button-file"
               type="file"
               onChange={handleUploadClick}
             />
             <label htmlFor="icon-button-file">
-              <IconButton color="primary" aria-label="upload picture" component="span">
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+              >
                 {/* <Fab style={{color: 'blue', margin: '10px'}} size="large" variant="extended"> */}
-                <PhotoCamera style={{ fontSize: '80px' }} />
+                <PhotoCamera style={{ fontSize: "80px" }} />
                 {/* </Fab> */}
               </IconButton>
             </label>
           </UploadButton>
         </ItemContainer>
         <ItemContainer>
-          <TextField required InputProps={{ readOnly: true }} label="User Name" defaultValue={user.name} />
+          <TextField
+            required
+            InputProps={{ readOnly: true }}
+            label="User Name"
+            defaultValue={user.name}
+          />
         </ItemContainer>
         <ItemContainer>
           <TextField
@@ -128,11 +142,15 @@ function EditProfile({ user, onSaveProfile, onClose }) {
         <ItemContainer>
           <ButtonContainer>
             <Button variant="outlined" size="small" onClick={() => onClose()}>
-              {' '}
+              {" "}
               Cancel
             </Button>
-            <Button variant="outlined" size="small" onClick={() => saveProfile()}>
-              {' '}
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={() => saveProfile()}
+            >
+              {" "}
               Save
             </Button>
           </ButtonContainer>
