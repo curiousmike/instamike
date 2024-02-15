@@ -1,4 +1,4 @@
-[<img src="https://github.com/curiousmike/instamike/blob/main/public/ig.png" width="350"/>] 
+[<img src="https://github.com/curiousmike/instamike/blob/main/public/ig.gif" width="350"/>] 
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
