@@ -2,7 +2,7 @@
 const rootBackend = '';
 
 export const serviceGetUsers = async (username) => {
-  const result = await fetch(`${rootBackend}/api/get`);
+  const result = await fetch(`${rootBackend}/user`);
   if (result.status !== 200) {
     return {
       error: true,
@@ -22,38 +22,39 @@ export const serviceGetUsers = async (username) => {
 export const doesUserExist = async (username) => {
   // READ USER
   // Valid User GET keys = name, firstName, lastName, description, email, phone, phone, posts, followers, following
-  const keyParam = 'name';
+  const keyParam = "name";
   const valueParam = username;
-  const result = await fetch(`${rootBackend}/api/get/user?` + new URLSearchParams({ key: keyParam, value: valueParam }));
+  const result = await fetch(
+    `${rootBackend}/user/exists?` +
+      new URLSearchParams({ key: keyParam, value: valueParam })
+  );
 
   const jsonData = await result.json();
   if (jsonData?.length) {
-    console.log(`doesUserExist = ${username} = TRUE`);
     return true;
   }
-  console.log(`doesUserExist = ${username} = FALSE`);
   return false;
 };
 
 export const addNewUser = async (userdata) => {
-  const result = await fetch(`${rootBackend}/api/create/user`, {
-    method: 'POST',
+  const result = await fetch(`${rootBackend}/user`, {
+    method: "POST",
     body: JSON.stringify(userdata),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
   const jsonData = await result.json();
-  console.log('addNewUser = > ', jsonData);
-  return ({ ...jsonData });
+  console.log("addNewUser = > ", jsonData);
+  return { ...jsonData };
 };
 
 export const serviceUpdateUser = async (oldUser, updatedUser) => {
-  await fetch(`${rootBackend}/api/modify/user`, {
-    method: 'POST',
+  await fetch(`${rootBackend}/user/modify`, {
+    method: "POST",
     body: JSON.stringify({ oldData: oldUser, updatedData: updatedUser }),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   }).then((t) => {
     return t.status === 200;
