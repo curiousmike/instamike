@@ -11,7 +11,6 @@ function SinglePostImage({ imgSrc, onImageClick, isProfile }) {
       setIsWide(false);
     }
   }
-console.log("image SAUCE =", imgSrc);
 return (
   <Container>
     <ImageContainer>

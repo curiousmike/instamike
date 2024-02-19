@@ -18,9 +18,9 @@ function SinglePost({ isVisible, post, selectUser, id, isProfile }) {
   ).length
     ? true
     : false;
-  const { name, fileNameSmall, fileName } = post;
+  const { name, fileNameMedium, fileName } = post;
   // console.log("singlePost = ", fileNameSmall, fileName);
-  const filePath = `${fileNameSmall}`;
+  const filePath = `${fileNameMedium}`;
   const filePathLarge = `${fileName}`;
   // console.log('post = ', post);
   const [dialogTitle, setDialogTitle] = useState(null);
